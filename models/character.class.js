@@ -4,6 +4,7 @@ class Character extends MovableObject {
     width = this.height * 0.815;
     speed = 3;
     speedY = 0;
+    maxSpeedY = -1;
     acceleration = 0.01;
     IMAGES_IDLE = [
         'img/1.sharkie/1.idle/1.png',
@@ -49,9 +50,13 @@ class Character extends MovableObject {
 
     applyGravity() {
         setInterval(() =>  {
+            this.y -= this.speedY;
             if (this.isAboveOceanFloor()) {
-                this.y -= this.speedY;
-                this.speedY -= this.acceleration;
+                if (this.speedY > this.maxSpeedY) {
+                    this.speedY -= this.acceleration;
+                }
+            } else {
+                this.speedY = 0;
             }
         }, 1000 / 60);
     }
@@ -60,18 +65,19 @@ class Character extends MovableObject {
 
         setInterval(() => {
             if (this.world.keyboard.LEFT && this.x > 0) {
-                this.x -= this.speed;
-                this.otherDirection = true;
+                this.swimLeft();
             }
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.x += this.speed;
-                this.otherDirection = false;
+               this.swimRight();
+            }
+            if (this.world.keyboard.UP) {
+                this.swimUp();
             }
             this.world.camera_x = -this.x + 64;
         }, 1000 / 60)
 
         setInterval(() => {
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP) {
                 this.playAnimation(this.IMAGES_SWIM);
             } else {
                 this.playAnimation(this.IMAGES_IDLE);
@@ -79,7 +85,19 @@ class Character extends MovableObject {
         }, 200);
     }
 
-    swimUp() {
+    swimLeft() {
+        this.x -= this.speed;
+        this.speedY = 0;
+        this.otherDirection = true;
+    }
 
+    swimRight() {
+        this.x += this.speed;
+        this.speedY = 0;
+        this.otherDirection = false;
+    }
+
+    swimUp() {
+        this.speedY = 1;
     }
 }
