@@ -3,6 +3,8 @@ class Character extends MovableObject {
     height = 300;
     width = this.height * 0.815;
     speed = 3;
+    speedY = 0;
+    acceleration = 0.01;
     IMAGES_IDLE = [
         'img/1.sharkie/1.idle/1.png',
         'img/1.sharkie/1.idle/2.png',
@@ -37,8 +39,21 @@ class Character extends MovableObject {
         super().loadImage('img/1.sharkie/1.idle/1.png');
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_SWIM);
-
+        this.applyGravity();
         this.animate();
+    }
+
+    isAboveOceanFloor() {
+        return this.y < 220;
+    }
+
+    applyGravity() {
+        setInterval(() =>  {
+            if (this.isAboveOceanFloor()) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+        }, 1000 / 60);
     }
 
     animate() {
