@@ -2,34 +2,9 @@ class World {
     canvas;
     ctx;
     keyboard;
-    backgroundObjects = [
-        new BackgroundObject('img/3.background/layers/5.water/d2.png', -720),
-        new BackgroundObject('img/3.background/layers/4.layer2/d2.png', -720),
-        new BackgroundObject('img/3.background/layers/3.layer1/d2.png', -720),
-        new BackgroundObject('img/3.background/layers/2.floor/d2.png', -720),
-        new BackgroundObject('img/3.background/layers/5.water/d1.png', 0),
-        new BackgroundObject('img/3.background/layers/4.layer2/d1.png', 0),
-        new BackgroundObject('img/3.background/layers/3.layer1/d1.png', 0),
-        new BackgroundObject('img/3.background/layers/2.floor/d1.png', 0),
-        new BackgroundObject('img/3.background/layers/5.water/d2.png', 720),
-        new BackgroundObject('img/3.background/layers/4.layer2/d2.png', 720),
-        new BackgroundObject('img/3.background/layers/3.layer1/d2.png', 720),
-        new BackgroundObject('img/3.background/layers/2.floor/d2.png', 720),
-        new BackgroundObject('img/3.background/layers/5.water/d1.png', 720*2),
-        new BackgroundObject('img/3.background/layers/4.layer2/d1.png', 720*2),
-        new BackgroundObject('img/3.background/layers/3.layer1/d1.png', 720*2),
-        new BackgroundObject('img/3.background/layers/2.floor/d1.png', 720*2),
-        new BackgroundObject('img/3.background/layers/5.water/d2.png', 720*3),
-        new BackgroundObject('img/3.background/layers/4.layer2/d2.png', 720*3),
-        new BackgroundObject('img/3.background/layers/3.layer1/d2.png', 720*3),
-        new BackgroundObject('img/3.background/layers/2.floor/d2.png', 720*3),
-    ];
+    backgroundObjects = level1.backgroundObjects;
     character = new Character();
-    enemies = [
-        new PufferFish(),
-        new PufferFish(),
-        new PufferFish()
-    ];
+    enemies = level1.enemies;
     lights = [
         new Light('img/3.background/layers/1.light/1.png', 0),
         new Light('img/3.background/layers/1.light/2.png', 720),
