@@ -31,7 +31,8 @@ class World {
         new PufferFish()
     ];
     lights = [
-        new Light()
+        new Light('img/3.background/layers/1.light/1.png', 0),
+        new Light('img/3.background/layers/1.light/2.png', 720),
     ];
     camera_x = 0;
 
@@ -53,7 +54,11 @@ class World {
         this.addObjectsToMap(this.backgroundObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
+
+        this.ctx.translate(this.camera_x / 12, 0);
         this.addObjectsToMap(this.lights);
+        this.ctx.translate(-this.camera_x / 12, 0);
+        
         this.ctx.translate(-this.camera_x, 0);
         
         let self = this;
