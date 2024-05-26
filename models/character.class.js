@@ -89,13 +89,13 @@ class Character extends MovableObject {
     }
 
     swimLeft() {
-        this.x -= this.speed;
+        this.moveLeft();
         this.speedY = 0;
         this.otherDirection = true;
     }
 
     swimRight() {
-        this.x += this.speed;
+        this.moveRight();
         this.speedY = 0;
         this.otherDirection = false;
     }

@@ -24,12 +24,14 @@ class FinalBoss extends MovableObject {
         super().loadImage('img/2.enemies/3.final-boss/2.floating/1.png');
         this.loadImages(this.IMAGES_FLOATING);
         this.x = 720 * 3;
-        this.y = Math.random() * 420;
+        this.y = -100 + Math.random() * 220;;
         this.animate();
     }
 
     animate() {
-        this.moveLeft();
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60)
 
         setInterval(() => {
             this.playAnimation(this.IMAGES_FLOATING);
