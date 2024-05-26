@@ -73,6 +73,9 @@ class Character extends MovableObject {
             if (this.world.keyboard.UP) {
                 this.swimUp();
             }
+            if (this.world.keyboard.DOWN && this.isAboveOceanFloor()) {
+                this.swimDown();
+            }
             this.world.camera_x = -this.x + 64;
         }, 1000 / 60)
 
@@ -99,5 +102,9 @@ class Character extends MovableObject {
 
     swimUp() {
         this.speedY = 1;
+    }
+
+    swimDown() {
+        this.speedY = -1;
     }
 }
