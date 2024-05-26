@@ -52,6 +52,7 @@ class Character extends MovableObject {
                 this.x += this.speed;
                 this.otherDirection = false;
             }
+            this.world.camera_x = -this.x;
         }, 1000 / 60)
 
         setInterval(() => {
