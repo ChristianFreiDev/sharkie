@@ -57,15 +57,9 @@ class Character extends MovableObject {
 
         setInterval(() => {
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                let imageIndex = this.currentImage % this.IMAGES_SWIM.length;
-                let imagePath = this.IMAGES_SWIM[imageIndex];
-                this.img = this.imageCache[imagePath];
-                this.currentImage++;
+                this.playAnimation(this.IMAGES_SWIM);
             } else {
-                let imageIndex = this.currentImage % this.IMAGES_IDLE.length;
-                let imagePath = this.IMAGES_IDLE[imageIndex];
-                this.img = this.imageCache[imagePath];
-                this.currentImage++;
+                this.playAnimation(this.IMAGES_IDLE);
             }
         }, 200);
     }

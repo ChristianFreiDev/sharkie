@@ -26,5 +26,6 @@ level1.backgroundObjects = [
 level1.enemies = [
     new PufferFish(),
     new PufferFish(),
-    new PufferFish()
+    new PufferFish(),
+    new FinalBoss()
 ];
