@@ -2,6 +2,10 @@ class FinalBoss extends MovableObject {
 
     height = 300;
     width = this.height * 0.8560855263157895;
+    hitboxHeight = 120;
+    hitboxWidth = this.width - 40;
+    offsetX = 20;
+    offsetY = 120;
     speed = 3;
 
     IMAGES_FLOATING = [

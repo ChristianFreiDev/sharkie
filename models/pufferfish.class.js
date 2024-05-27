@@ -2,6 +2,9 @@ class PufferFish extends MovableObject {
 
     height = 99;
     width = this.height * 1.217171717171717;
+    hitboxHeight = 60;
+    hitboxWidth = this.width - 10;
+    offsetY = 10;
     IMAGES_SWIM = [
         'img/2.enemies/1.puffer-fish/1.swim/1.swim1.png',
         'img/2.enemies/1.puffer-fish/1.swim/1.swim2.png',
