@@ -38,12 +38,34 @@ class Character extends MovableObject {
         'img/1.sharkie/3.swim/5.png',
         'img/1.sharkie/3.swim/6.png',
     ];
+    IMAGES_DEAD_POISONED = [
+        'img/1.sharkie/6.dead/1.poisoned/1.png',
+        'img/1.sharkie/6.dead/1.poisoned/2.png',
+        'img/1.sharkie/6.dead/1.poisoned/3.png',
+        'img/1.sharkie/6.dead/1.poisoned/4.png',
+        'img/1.sharkie/6.dead/1.poisoned/5.png',
+        'img/1.sharkie/6.dead/1.poisoned/6.png',
+        'img/1.sharkie/6.dead/1.poisoned/7.png',
+        'img/1.sharkie/6.dead/1.poisoned/8.png',
+        'img/1.sharkie/6.dead/1.poisoned/9.png',
+        'img/1.sharkie/6.dead/1.poisoned/10.png',
+        'img/1.sharkie/6.dead/1.poisoned/11.png',
+        'img/1.sharkie/6.dead/1.poisoned/12.png'
+    ];
+    IMAGES_HURT_POISONED = [
+        'img/1.sharkie/5.hurt/1.poisoned/1.png',
+        'img/1.sharkie/5.hurt/1.poisoned/2.png',
+        'img/1.sharkie/5.hurt/1.poisoned/3.png',
+        'img/1.sharkie/5.hurt/1.poisoned/4.png'
+    ];
     world;
 
     constructor() {
         super().loadImage('img/1.sharkie/1.idle/1.png');
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_SWIM);
+        this.loadImages(this.IMAGES_DEAD_POISONED);
+        this.loadImages(this.IMAGES_HURT_POISONED);
         this.applyGravity();
         this.animate();
     }
@@ -84,7 +106,13 @@ class Character extends MovableObject {
         }, 1000 / 60)
 
         setInterval(() => {
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP) {
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD_POISONED);
+            }
+            else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT_POISONED);
+            }
+            else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP) {
                 this.playAnimation(this.IMAGES_SWIM);
             } else {
                 this.playAnimation(this.IMAGES_IDLE);

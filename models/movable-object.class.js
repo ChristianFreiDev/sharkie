@@ -12,6 +12,8 @@ class MovableObject {
     imageCache = {};
     currentImage = 0;
     otherDirection = false;
+    energy = 100;
+    lastHit;
 
     loadImage(path) {
         this.img = new Image();
@@ -41,9 +43,26 @@ class MovableObject {
     }
 
     isCollidingWith(obj) {
-        return  (this.x + this.hitboxWidth + this.offsetX) >= obj.x && this.x <= (obj.x + obj.hitboxWidth + this.offsetX) && 
-                (this.y + this.offsetY + this.hitboxHeight) >= obj.y &&
-                (this.y + this.offsetY) <= (obj.y + obj.hitboxHeight);
+        return  (this.x + this.offsetX + this.hitboxWidth) >= obj.x + obj.offsetX && this.x + this.offsetX <= (obj.x + obj.offsetX + obj.hitboxWidth) && 
+                (this.y + this.offsetY + this.hitboxHeight) >= obj.y + obj.offsetY && this.y + this.offsetY <= (obj.y + obj.offsetY + obj.hitboxHeight);
+    }
+
+    hit() {
+        this.energy -= 5;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+    isHurt() {
+        let timePassed = new Date().getTime() - this.lastHit;
+        return timePassed < 1000;
+    }
+
+    isDead() {
+        return this.energy == 0;
     }
 
     playAnimation(imagePaths) {

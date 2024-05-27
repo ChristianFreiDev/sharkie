@@ -29,7 +29,7 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isCollidingWith(enemy)) {
-                    console.log('collision with ', enemy)
+                    this.character.hit(enemy);
                 }
             })
         }, 200);
