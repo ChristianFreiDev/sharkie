@@ -6,6 +6,7 @@ class World {
     backgroundObjects = level1.backgroundObjects;
     character = new Character();
     enemies = level1.enemies;
+    bubbles = [];
     lights = [
         new Light('img/3.background/layers/1.light/1.png', 0),
         new Light('img/3.background/layers/1.light/2.png', 720),
@@ -19,22 +20,31 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.detectCollisions();
+        this.run();
     }
 
     setWorld() {
         this.character.world = this;
     }
 
-    detectCollisions() {
+    run() {
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isCollidingWith(enemy)) {
-                    this.character.hit(enemy);
-                    this.statusBar.setHealthPercentage(this.character.energy);
+            this.detectCollisions();
+        }, 200);
+    }
+
+    detectCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isCollidingWith(enemy)) {
+                this.character.hit(enemy);
+                this.statusBar.setHealthPercentage(this.character.energy);
+            }
+            this.bubbles.forEach((bubble) => {
+                if (bubble.isCollidingWith(enemy)) {
+                    enemy.hit(bubble);
                 }
             })
-        }, 200);
+        });
     }
 
     draw() {
@@ -44,6 +54,7 @@ class World {
 
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.bubbles);
 
         this.ctx.translate(this.camera_x / 12, 0);
         this.addObjectsToMap(this.lights);

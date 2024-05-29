@@ -1,6 +1,8 @@
 class DrawableObject {
     x = 0;
     y = 0;
+    offsetX = 0;
+    offsetY = 0;
     img;
     height;
     width;
@@ -11,7 +13,7 @@ class DrawableObject {
     }
 
     drawHitbox(ctx) {
-        if (this instanceof Character || this instanceof PufferFish || this instanceof FinalBoss) {
+        if (this instanceof Character || this instanceof PufferFish || this instanceof FinalBoss || this instanceof Bubble) {
             ctx.beginPath();
             ctx.lineWidth = "10";
             ctx.strokeStyle = "blue";

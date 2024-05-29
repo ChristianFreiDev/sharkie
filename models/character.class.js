@@ -10,6 +10,7 @@ class Character extends MovableObject {
     speedY = 0;
     maxSpeedY = -1;
     acceleration = 0.01;
+    lastBubble = 0;
     IMAGES_IDLE = [
         'img/1.sharkie/1.idle/1.png',
         'img/1.sharkie/1.idle/2.png',
@@ -58,6 +59,16 @@ class Character extends MovableObject {
         'img/1.sharkie/5.hurt/1.poisoned/3.png',
         'img/1.sharkie/5.hurt/1.poisoned/4.png'
     ];
+    IMAGES_BUBBLE_TRAP = [
+        'img/1.sharkie/4.attack/bubble-trap/op1/1.png',
+        'img/1.sharkie/4.attack/bubble-trap/op1/2.png',
+        'img/1.sharkie/4.attack/bubble-trap/op1/3.png',
+        'img/1.sharkie/4.attack/bubble-trap/op1/4.png',
+        'img/1.sharkie/4.attack/bubble-trap/op1/5.png',
+        'img/1.sharkie/4.attack/bubble-trap/op1/6.png',
+        'img/1.sharkie/4.attack/bubble-trap/op1/7.png',
+        'img/1.sharkie/4.attack/bubble-trap/op1/8.png'
+    ];
     world;
 
     constructor() {
@@ -66,6 +77,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_SWIM);
         this.loadImages(this.IMAGES_DEAD_POISONED);
         this.loadImages(this.IMAGES_HURT_POISONED);
+        this.loadImages(this.IMAGES_BUBBLE_TRAP);
         this.applyGravity();
         this.animate();
     }
@@ -102,6 +114,9 @@ class Character extends MovableObject {
             if (this.world.keyboard.DOWN && this.isAboveOceanFloor()) {
                 this.swimDown();
             }
+            if (this.world.keyboard.D && !this.isHurt() && !this.isDead()) {
+                this.bubbleTrap();
+            }
             this.world.camera_x = -this.x + 64;
         }, 1000 / 60)
 
@@ -111,6 +126,9 @@ class Character extends MovableObject {
             }
             else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT_POISONED);
+            }
+            else if (this.isBlowingBubble()) {
+                this.playAnimation(this.IMAGES_BUBBLE_TRAP);
             }
             else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP) {
                 this.playAnimation(this.IMAGES_SWIM);
@@ -138,5 +156,20 @@ class Character extends MovableObject {
 
     swimDown() {
         this.speedY = -1;
+    }
+
+    isBlowingBubble() {
+        let timePassed = new Date().getTime() - this.lastBubble;
+        return timePassed < 1600;
+    }
+
+    bubbleTrap() {
+        if (!this.isBlowingBubble()) {
+            this.currentImage = 0;
+            this.lastBubble = new Date().getTime();
+            setTimeout(() => {
+                this.world.bubbles.push(new Bubble(this.x + this.offsetX + this.hitboxWidth + 5, this.y + + this.offsetY + this.hitboxHeight / 2 - 20));
+            }, 1600)
+        }
     }
 }
