@@ -7,6 +7,7 @@ class FinalBoss extends MovableObject {
     offsetX = 20;
     offsetY = 120;
     speed = 3;
+    hadFirstContact = false;
 
     IMAGES_FLOATING = [
         'img/2.enemies/3.final-boss/2.floating/1.png',
@@ -40,29 +41,54 @@ class FinalBoss extends MovableObject {
         'img/2.enemies/3.final-boss/4.dead/6.png',
     ];
 
+    IMAGES_SPAWNING = [
+        'img/2.enemies/3.final-boss/1.spawning/1.png',
+        'img/2.enemies/3.final-boss/1.spawning/2.png',
+        'img/2.enemies/3.final-boss/1.spawning/3.png',
+        'img/2.enemies/3.final-boss/1.spawning/4.png',
+        'img/2.enemies/3.final-boss/1.spawning/5.png',
+        'img/2.enemies/3.final-boss/1.spawning/6.png',
+        'img/2.enemies/3.final-boss/1.spawning/7.png',
+        'img/2.enemies/3.final-boss/1.spawning/8.png',
+        'img/2.enemies/3.final-boss/1.spawning/9.png',
+        'img/2.enemies/3.final-boss/1.spawning/10.png',
+    ];
+
     constructor() {
-        super().loadImage('img/2.enemies/3.final-boss/2.floating/1.png');
+        super().loadImage('img/2.enemies/3.final-boss/1.spawning/1.png');
         this.loadImages(this.IMAGES_FLOATING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_SPAWNING);
         this.x = 720 * 3;
-        this.y = -100 + Math.random() * 220;;
+        this.y = 0;
         this.animate();
     }
 
     animate() {
+        let i = 10;
         setStoppableInterval(() => {
             // this.moveLeft();
         }, 1000 / 60)
 
         setStoppableInterval(() => {
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
+            if (i < 10) {
+                this.playAnimation(this.IMAGES_SPAWNING);
             }
-            else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            } else {
-                this.playAnimation(this.IMAGES_FLOATING);
+            else if (this.hadFirstContact) {
+                if (this.isDead()) {
+                    this.playAnimation(this.IMAGES_DEAD);
+                }
+                else if (this.isHurt()) {
+                    this.playAnimation(this.IMAGES_HURT);
+                } else {
+                    this.playAnimation(this.IMAGES_FLOATING);
+                }
+            }
+            i++;
+            if (world.character.x > 1700 && !this.hadFirstContact) {
+                i = 0;
+                this.hadFirstContact = true;
             }
         }, 200)
     }
