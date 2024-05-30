@@ -24,9 +24,27 @@ class FinalBoss extends MovableObject {
         'img/2.enemies/3.final-boss/2.floating/13.png',
     ];
 
+    IMAGES_HURT = [
+        'img/2.enemies/3.final-boss/5.hurt/1.png',
+        'img/2.enemies/3.final-boss/5.hurt/2.png',
+        'img/2.enemies/3.final-boss/5.hurt/3.png',
+        'img/2.enemies/3.final-boss/5.hurt/4.png',
+    ];
+
+    IMAGES_DEAD = [
+        'img/2.enemies/3.final-boss/4.dead/1.png',
+        'img/2.enemies/3.final-boss/4.dead/2.png',
+        'img/2.enemies/3.final-boss/4.dead/3.png',
+        'img/2.enemies/3.final-boss/4.dead/4.png',
+        'img/2.enemies/3.final-boss/4.dead/5.png',
+        'img/2.enemies/3.final-boss/4.dead/6.png',
+    ];
+
     constructor() {
         super().loadImage('img/2.enemies/3.final-boss/2.floating/1.png');
         this.loadImages(this.IMAGES_FLOATING);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
         this.x = 720 * 3;
         this.y = -100 + Math.random() * 220;;
         this.animate();
@@ -34,12 +52,18 @@ class FinalBoss extends MovableObject {
 
     animate() {
         setStoppableInterval(() => {
-            this.moveLeft();
+            // this.moveLeft();
         }, 1000 / 60)
 
         setStoppableInterval(() => {
-            this.playAnimation(this.IMAGES_FLOATING);
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+            }
+            else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            } else {
+                this.playAnimation(this.IMAGES_FLOATING);
+            }
         }, 200)
     }
-
 }
