@@ -87,7 +87,7 @@ class Character extends MovableObject {
     }
 
     applyGravity() {
-        setInterval(() =>  {
+        setStoppableInterval(() =>  {
             this.y -= this.speedY;
             if (this.isAboveOceanFloor()) {
                 if (this.speedY > this.maxSpeedY) {
@@ -101,7 +101,7 @@ class Character extends MovableObject {
 
     animate() {
 
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.swimLeft();
             }
@@ -120,7 +120,7 @@ class Character extends MovableObject {
             this.world.camera_x = -this.x + 64;
         }, 1000 / 60)
 
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_POISONED);
             }

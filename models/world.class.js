@@ -28,7 +28,7 @@ class World {
     }
 
     run() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.detectCollisions();
         }, 200);
     }

@@ -9,6 +9,10 @@ function init() {
     console.log('my character is', world.character);
 }
 
+function stopGame() {
+    stopAllIntervals();
+}
+
 document.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowLeft') {
         keyboard.LEFT = true;
