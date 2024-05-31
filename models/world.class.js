@@ -36,8 +36,12 @@ class World {
     detectCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isCollidingWith(enemy)) {
-                this.character.hit(enemy);
-                this.statusBar.setHealthPercentage(this.character.energy);
+                if (this.character.isSlapping()) {
+                    enemy.hit(this.character);
+                } else {
+                    this.character.hit(enemy);
+                    this.statusBar.setHealthPercentage(this.character.energy);
+                }
             }
             this.bubbles.forEach((bubble) => {
                 if (bubble.isCollidingWith(enemy)) {

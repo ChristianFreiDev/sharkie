@@ -11,6 +11,7 @@ class Character extends MovableObject {
     maxSpeedY = -1;
     acceleration = 0.01;
     lastBubble = 0;
+    lastSlap = 0;
     IMAGES_IDLE = [
         'img/1.sharkie/1.idle/1.png',
         'img/1.sharkie/1.idle/2.png',
@@ -69,6 +70,14 @@ class Character extends MovableObject {
         'img/1.sharkie/4.attack/bubble-trap/op1/7.png',
         'img/1.sharkie/4.attack/bubble-trap/op1/8.png'
     ];
+    IMAGES_FIN_SLAP = [
+        'img/1.sharkie/4.attack/fin-slap/1.png',
+        'img/1.sharkie/4.attack/fin-slap/2.png',
+        'img/1.sharkie/4.attack/fin-slap/3.png',
+        'img/1.sharkie/4.attack/fin-slap/4.png',
+        'img/1.sharkie/4.attack/fin-slap/5.png',
+        'img/1.sharkie/4.attack/fin-slap/6.png',
+    ];
     world;
 
     constructor() {
@@ -78,6 +87,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_DEAD_POISONED);
         this.loadImages(this.IMAGES_HURT_POISONED);
         this.loadImages(this.IMAGES_BUBBLE_TRAP);
+        this.loadImages(this.IMAGES_FIN_SLAP);
         this.applyGravity();
         this.animate();
     }
@@ -117,6 +127,9 @@ class Character extends MovableObject {
             if (this.world.keyboard.D && !this.isHurt() && !this.isDead()) {
                 this.bubbleTrap();
             }
+            if (this.world.keyboard.SPACE && !this.isHurt() && !this.isDead()) {
+                this.finSlap();
+            }
             this.world.camera_x = -this.x + 64;
         }, 1000 / 60)
 
@@ -129,6 +142,8 @@ class Character extends MovableObject {
             }
             else if (this.isBlowingBubble()) {
                 this.playAnimation(this.IMAGES_BUBBLE_TRAP);
+            } else if (this.isSlapping()) {
+                this.playAnimation(this.IMAGES_FIN_SLAP);
             }
             else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP) {
                 this.playAnimation(this.IMAGES_SWIM);
@@ -163,6 +178,11 @@ class Character extends MovableObject {
         return timePassed < 1600;
     }
 
+    isSlapping() {
+        let timePassed = new Date().getTime() - this.lastSlap;
+        return timePassed < 1200;
+    }
+
     bubbleTrap() {
         if (!this.isBlowingBubble()) {
             this.currentImage = 0;
@@ -171,5 +191,10 @@ class Character extends MovableObject {
                 this.world.bubbles.push(new Bubble(this.x + this.offsetX + this.hitboxWidth + 5, this.y + + this.offsetY + this.hitboxHeight / 2 - 20));
             }, 1600)
         }
+    }
+
+    finSlap() {
+        this.currentImage = 0;
+        this.lastSlap = new Date().getTime();
     }
 }
