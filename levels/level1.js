@@ -24,8 +24,13 @@ level1.backgroundObjects = [
 ];
 
 level1.enemies = [
-    new PufferFish(),
-    new PufferFish(),
-    new PufferFish(),
+    new PufferFish(1, 500, 350),
+    new PufferFish(2, 900, 300),
+    new PufferFish(3, 1000, 100),
+    new PufferFish(2, 1900, 100),
+    new Jellyfish('super-dangerous', 'green', 400, 200),
+    new Jellyfish('super-dangerous', 'pink', 800, 100),
+    new Jellyfish('regular-damage', 'purple', 1200, 300),
+    new Jellyfish('regular-damage', 'yellow', 1700, 200),
     new FinalBoss()
 ];

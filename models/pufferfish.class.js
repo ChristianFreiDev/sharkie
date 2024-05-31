@@ -5,19 +5,19 @@ class PufferFish extends MovableObject {
     hitboxHeight = 60;
     hitboxWidth = this.width - 10;
     offsetY = 10;
-    IMAGES_SWIM = [
-        'img/2.enemies/1.puffer-fish/1.swim/1.swim1.png',
-        'img/2.enemies/1.puffer-fish/1.swim/1.swim2.png',
-        'img/2.enemies/1.puffer-fish/1.swim/1.swim3.png',
-        'img/2.enemies/1.puffer-fish/1.swim/1.swim4.png',
-        'img/2.enemies/1.puffer-fish/1.swim/1.swim5.png'
-    ];
 
-    constructor() {
+    constructor(type, x, y) {
         super().loadImage('img/2.enemies/1.puffer-fish/1.swim/1.swim1.png');
+        this.IMAGES_SWIM = [
+            `img/2.enemies/1.puffer-fish/1.swim/${type}.swim1.png`,
+            `img/2.enemies/1.puffer-fish/1.swim/${type}.swim2.png`,
+            `img/2.enemies/1.puffer-fish/1.swim/${type}.swim3.png`,
+            `img/2.enemies/1.puffer-fish/1.swim/${type}.swim4.png`,
+            `img/2.enemies/1.puffer-fish/1.swim/${type}.swim5.png`,
+        ];
         this.loadImages(this.IMAGES_SWIM);
-        this.x = 320 + Math.random() * 400;
-        this.y = Math.random() * 320;
+        this.x = x
+        this.y = y;
         this.speed = 0.15 + Math.random() * 0.5;
         this.animate();
     }

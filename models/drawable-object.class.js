@@ -13,7 +13,7 @@ class DrawableObject {
     }
 
     drawHitbox(ctx) {
-        if (this instanceof Character || this instanceof PufferFish || this instanceof FinalBoss || this instanceof Bubble) {
+        if (this instanceof Character || this instanceof PufferFish || this instanceof FinalBoss || this instanceof Bubble || this instanceof Jellyfish) {
             ctx.beginPath();
             ctx.lineWidth = "10";
             ctx.strokeStyle = "blue";
