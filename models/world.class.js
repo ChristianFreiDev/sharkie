@@ -13,6 +13,7 @@ class World {
     ];
     camera_x = 0;
     statusBar = new StatusBar();
+    debugMode = true;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');

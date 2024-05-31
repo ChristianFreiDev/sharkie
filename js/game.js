@@ -1,6 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+debugMode = true;
 
 function init() {
     canvas = document.getElementById('canvas');

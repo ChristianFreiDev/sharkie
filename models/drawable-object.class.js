@@ -13,12 +13,14 @@ class DrawableObject {
     }
 
     drawHitbox(ctx) {
-        if (this instanceof Character || this instanceof PufferFish || this instanceof FinalBoss || this instanceof Bubble || this instanceof Jellyfish) {
-            ctx.beginPath();
-            ctx.lineWidth = "10";
-            ctx.strokeStyle = "blue";
-            ctx.rect(this.x + this.offsetX, this.y + this.offsetY, this.hitboxWidth, this.hitboxHeight);
-            ctx.stroke();
+        if (debugMode) {
+            if (this instanceof Character || this instanceof PufferFish || this instanceof FinalBoss || this instanceof Bubble || this instanceof Jellyfish) {
+                ctx.beginPath();
+                ctx.lineWidth = "10";
+                ctx.strokeStyle = "blue";
+                ctx.rect(this.x + this.offsetX, this.y + this.offsetY, this.hitboxWidth, this.hitboxHeight);
+                ctx.stroke();
+            }
         }
     }
 
