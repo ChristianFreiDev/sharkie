@@ -46,7 +46,10 @@ class World {
             }
             this.bubbles.forEach((bubble) => {
                 if (bubble.isCollidingWith(enemy)) {
-                    enemy.hit(bubble);
+                    if (enemy.energy > 0) {
+                        enemy.hit(bubble);
+                        this.bubbles.splice(this.bubbles.indexOf(bubble), 1);
+                    }
                 }
             })
         });

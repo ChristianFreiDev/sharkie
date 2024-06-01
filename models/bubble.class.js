@@ -5,6 +5,7 @@ class Bubble extends MovableObject {
     width = 40;
     hitboxHeight = 40;
     hitboxWidth = 40;
+    energy = 10;
 
     constructor(x, y) {
         super().loadImage('img/1.sharkie/4.attack/bubble-trap/bubble.png');

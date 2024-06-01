@@ -29,13 +29,15 @@ class MovableObject extends DrawableObject {
         }
     }
 
-    hit() {
-        this.energy -= 5;
-        if (this.energy <= 0) {
-            this.die()
-        } else {
-            this.lastHit = new Date().getTime();
-        }
+    hit(obj) {
+        if (obj.energy != 0) {
+            this.energy -= 5;
+            if (this.energy <= 0) {
+                this.die()
+            } else {
+                this.lastHit = new Date().getTime();
+            }  
+        } 
     }
 
     isHurt() {
