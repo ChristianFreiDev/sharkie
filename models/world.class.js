@@ -7,6 +7,10 @@ class World {
     character = new Character();
     enemies = level1.enemies;
     bubbles = [];
+    coins = level1.coins;
+    collectedCoins = 0;
+    poisonBottles = level1.poisonBottles;
+    collectedPoisonBottles = 0;
     lights = [
         new Light('img/3.background/layers/1.light/1.png', 0),
         new Light('img/3.background/layers/1.light/2.png', 720),
@@ -34,7 +38,7 @@ class World {
         }, 200);
     }
 
-    detectCollisions() {
+    checkEnemyCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isCollidingWith(enemy)) {
                 if (this.character.isSlapping()) {
@@ -55,11 +59,37 @@ class World {
         });
     }
 
+    checkCoinCollisions() {
+        this.level.coins.forEach((coin) => {
+            if (coin.isCollidingWith(this.character)) {
+                this.coins.splice(this.coins.indexOf(coin), 1);
+                this.collectedCoins++;
+            }
+        });
+    }
+
+    checkPoisonBottleCollisions() {
+        this.level.poisonBottles.forEach((poisonBottle) => {
+            if (poisonBottle.isCollidingWith(this.character)) {
+                this.poisonBottles.splice(this.poisonBottles.indexOf(poisonBottle), 1);
+                this.collectedPoisonBottles++;
+            }
+        });
+    }
+
+    detectCollisions() {
+        this.checkEnemyCollisions();
+        this.checkCoinCollisions();
+        this.checkPoisonBottleCollisions();
+    }
+
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
 
+        this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.poisonBottles);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.bubbles);

@@ -34,3 +34,11 @@ level1.enemies = [
     new Jellyfish('regular-damage', 'yellow', 1700, 200),
     new FinalBoss()
 ];
+
+level1.coins = [
+    new Coin(500, 300)
+];
+
+level1.poisonBottles = [
+    new PoisonBottle(700, 250)
+];

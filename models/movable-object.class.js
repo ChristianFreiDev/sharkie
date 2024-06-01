@@ -7,19 +7,10 @@ class MovableObject extends DrawableObject {
     hitboxHeight;
     hitboxWidth;
     speed;
-    imageCache = {};
-    currentImage = 0;
     otherDirection = false;
     energy = 100;
     lastHit;
     hasJustDied;
-
-    isCollidingWith(obj) {
-        return  (this.x + this.offsetX + this.hitboxWidth) >= obj.x + obj.offsetX &&
-                 this.x + this.offsetX <= (obj.x + obj.offsetX + obj.hitboxWidth) && 
-                (this.y + this.offsetY + this.hitboxHeight) >= obj.y + obj.offsetY &&
-                this.y + this.offsetY <= (obj.y + obj.offsetY + obj.hitboxHeight);
-    }
 
     die() {
         this.energy = 0;
@@ -47,13 +38,6 @@ class MovableObject extends DrawableObject {
 
     isDead() {
         return this.energy == 0;
-    }
-
-    playAnimation(imagePaths) {
-        let imageIndex = this.currentImage % imagePaths.length;
-        let imagePath = imagePaths[imageIndex];
-        this.img = this.imageCache[imagePath];
-        this.currentImage++;
     }
 
     moveLeft() {
