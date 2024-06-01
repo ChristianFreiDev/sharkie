@@ -25,7 +25,7 @@ class MovableObject extends DrawableObject {
                 this.die()
             } else {
                 this.lastHit = new Date().getTime();
-            }  
+            }
         } 
     }
 
