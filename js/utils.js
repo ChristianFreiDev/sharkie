@@ -1,10 +1,22 @@
-let intervalIds = [];
+let intervals = [];
 
 function setStoppableInterval(fn, time) {
     let id = setInterval(fn, time);
-    intervalIds.push(id);
+    intervals.push({
+        id: id,
+        fn: fn,
+        time: time
+    })
 }
 
 function stopAllIntervals() {
-    intervalIds.forEach(clearInterval);
+    intervals.forEach(interval => {
+        clearInterval(interval.id);
+    });
+}
+
+function resumeAllIntervals() {
+    intervals.forEach(interval => {
+        setStoppableInterval(interval.fn, interval.time);
+    })
 }

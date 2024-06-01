@@ -6,9 +6,10 @@ debugMode = true;
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    // pauseGame();
 }
 
-function stopGame() {
+function pauseGame() {
     stopAllIntervals();
 }
 
