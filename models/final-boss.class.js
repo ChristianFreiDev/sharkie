@@ -9,6 +9,7 @@ class FinalBoss extends MovableObject {
     speed = 3;
     speedY = 0;
     hadFirstContact = false;
+    energy = 15;
 
     IMAGES_FLOATING = [
         'img/2.enemies/3.final-boss/2.floating/1.png',
