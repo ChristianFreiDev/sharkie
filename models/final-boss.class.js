@@ -65,6 +65,10 @@ class FinalBoss extends MovableObject {
         this.animate();
     }
 
+    isDeathAnimationPlaying() {
+        return this.isDead() && this.currentImage != 6;
+    }
+
     animate() {
         let i = 10;
         setStoppableInterval(() => {
@@ -76,13 +80,15 @@ class FinalBoss extends MovableObject {
                 this.playAnimation(this.IMAGES_SPAWNING);
             }
             else if (this.hadFirstContact) {
-                if (this.isDead()) {
+                if (this.isDeathAnimationPlaying()) {
                     this.playAnimation(this.IMAGES_DEAD);
                 }
-                else if (this.isHurt()) {
-                    this.playAnimation(this.IMAGES_HURT);
-                } else {
-                    this.playAnimation(this.IMAGES_FLOATING);
+                else if (!this.isDead()) {
+                    if (this.isHurt()) {
+                        this.playAnimation(this.IMAGES_HURT);
+                    } else {
+                        this.playAnimation(this.IMAGES_FLOATING);
+                    }
                 }
             }
             i++;

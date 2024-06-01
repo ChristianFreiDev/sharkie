@@ -12,6 +12,7 @@ class MovableObject extends DrawableObject {
     otherDirection = false;
     energy = 100;
     lastHit;
+    hasJustDied;
 
     isCollidingWith(obj) {
         return  (this.x + this.offsetX + this.hitboxWidth) >= obj.x + obj.offsetX &&
@@ -24,6 +25,10 @@ class MovableObject extends DrawableObject {
         this.energy -= 5;
         if (this.energy < 0) {
             this.energy = 0;
+            if (!this.hasJustDied) {
+                this.hasJustDied = true;
+                this.currentImage = 0;
+            }
         } else {
             this.lastHit = new Date().getTime();
         }
