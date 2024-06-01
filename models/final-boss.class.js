@@ -7,6 +7,7 @@ class FinalBoss extends MovableObject {
     offsetX = 20;
     offsetY = 120;
     speed = 3;
+    speedY = 0;
     hadFirstContact = false;
 
     IMAGES_FLOATING = [
@@ -62,11 +63,23 @@ class FinalBoss extends MovableObject {
         this.loadImages(this.IMAGES_SPAWNING);
         this.x = 720 * 3;
         this.y = 0;
+        this.applyGravity();
         this.animate();
+    }
+
+    die() {
+        super.die();
+        setTimeout(() => this.speedY = 0.3, 1200);
     }
 
     isDeathAnimationPlaying() {
         return this.isDead() && this.currentImage != 6;
+    }
+
+    applyGravity() {
+        setStoppableInterval(() =>  {
+            this.y -= this.speedY;
+        }, 1000 / 60);
     }
 
     animate() {
