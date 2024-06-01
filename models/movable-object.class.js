@@ -21,14 +21,18 @@ class MovableObject extends DrawableObject {
                 this.y + this.offsetY <= (obj.y + obj.offsetY + obj.hitboxHeight);
     }
 
+    die() {
+        this.energy = 0;
+        if (!this.hasJustDied) {
+            this.hasJustDied = true;
+            this.currentImage = 0;
+        }
+    }
+
     hit() {
         this.energy -= 5;
         if (this.energy <= 0) {
-            this.energy = 0;
-            if (!this.hasJustDied) {
-                this.hasJustDied = true;
-                this.currentImage = 0;
-            }
+            this.die()
         } else {
             this.lastHit = new Date().getTime();
         }
