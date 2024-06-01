@@ -4,8 +4,6 @@ class MovableObject extends DrawableObject {
     img;
     height;
     width;
-    hitboxHeight;
-    hitboxWidth;
     speed;
     otherDirection = false;
     energy = 100;
