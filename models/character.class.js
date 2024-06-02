@@ -11,6 +11,7 @@ class Character extends MovableObject {
     maxSpeedY = -1;
     acceleration = 0.01;
     lastBubble = 0;
+    lastBubbleIsPoisoned = false;
     lastSlap = 0;
     IMAGES_IDLE = [
         'img/1.sharkie/1.idle/1.png',
@@ -70,6 +71,16 @@ class Character extends MovableObject {
         'img/1.sharkie/4.attack/bubble-trap/op1/7.png',
         'img/1.sharkie/4.attack/bubble-trap/op1/8.png'
     ];
+    IMAGES_BUBBLE_TRAP_POISONED = [
+        'img/1.sharkie/4.attack/bubble-trap/poisoned/1.png',
+        'img/1.sharkie/4.attack/bubble-trap/poisoned/2.png',
+        'img/1.sharkie/4.attack/bubble-trap/poisoned/3.png',
+        'img/1.sharkie/4.attack/bubble-trap/poisoned/4.png',
+        'img/1.sharkie/4.attack/bubble-trap/poisoned/5.png',
+        'img/1.sharkie/4.attack/bubble-trap/poisoned/6.png',
+        'img/1.sharkie/4.attack/bubble-trap/poisoned/7.png',
+        'img/1.sharkie/4.attack/bubble-trap/poisoned/8.png'
+    ];
     IMAGES_FIN_SLAP = [
         'img/1.sharkie/4.attack/fin-slap/1.png',
         'img/1.sharkie/4.attack/fin-slap/2.png',
@@ -87,6 +98,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_DEAD_POISONED);
         this.loadImages(this.IMAGES_HURT_POISONED);
         this.loadImages(this.IMAGES_BUBBLE_TRAP);
+        this.loadImages(this.IMAGES_BUBBLE_TRAP_POISONED);
         this.loadImages(this.IMAGES_FIN_SLAP);
         this.applyGravity();
         this.animate();
@@ -154,12 +166,21 @@ class Character extends MovableObject {
         return timePassed < 1200;
     }
 
+    hasSeenFinalBoss() {
+        return this.world.enemies[this.world.enemies.length - 1].hadFirstContact;
+    }
+
     bubbleTrap() {
         if (!this.isBlowingBubble()) {
             this.currentImage = 0;
             this.lastBubble = new Date().getTime();
+            this.lastBubbleIsPoisoned = false;
+            if (this.hasSeenFinalBoss() && this.world.collectedPoisonBottles > 0) {
+                this.lastBubbleIsPoisoned = true;
+                this.world.collectedPoisonBottles--;
+            }
             setTimeout(() => {
-                this.world.bubbles.push(new Bubble(this.x + this.offsetX + this.hitboxWidth + 5, this.y + + this.offsetY + this.hitboxHeight / 2 - 20));
+                this.world.bubbles.push(new Bubble(this.x + this.offsetX + this.hitboxWidth + 5, this.y + + this.offsetY + this.hitboxHeight / 2 - 20, this.lastBubbleIsPoisoned));
             }, 1600)
         }
     }
@@ -210,7 +231,11 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_HURT_POISONED);
         }
         else if (this.isBlowingBubble()) {
-            this.playAnimation(this.IMAGES_BUBBLE_TRAP);
+            if (this.lastBubbleIsPoisoned) {
+                this.playAnimation(this.IMAGES_BUBBLE_TRAP_POISONED);
+            } else {
+                this.playAnimation(this.IMAGES_BUBBLE_TRAP);
+            }
         } else if (this.isSlapping()) {
             this.playAnimation(this.IMAGES_FIN_SLAP);
         }
