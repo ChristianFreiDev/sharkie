@@ -166,8 +166,18 @@ class Character extends MovableObject {
         return timePassed < 1200;
     }
 
-    hasSeenFinalBoss() {
-        return this.world.enemies[this.world.enemies.length - 1].hadFirstContact;
+    canSeeFinalBoss() {
+        return this.x > 1530;
+    }
+
+    isFightingFinalBoss() {
+        return this.world.enemies[this.world.enemies.length - 1].hadFirstContact && this.canSeeFinalBoss();
+    }
+
+    shootBubble(isPoisoned) {
+        setTimeout(() => {
+            this.world.bubbles.push(new Bubble(this.x + this.offsetX + this.hitboxWidth + 5, this.y + + this.offsetY + this.hitboxHeight / 2 - 20, isPoisoned));
+        }, 1600)
     }
 
     bubbleTrap() {
@@ -175,13 +185,11 @@ class Character extends MovableObject {
             this.currentImage = 0;
             this.lastBubble = new Date().getTime();
             this.lastBubbleIsPoisoned = false;
-            if (this.hasSeenFinalBoss() && this.world.collectedPoisonBottles > 0) {
+            if (this.isFightingFinalBoss() && this.world.collectedPoisonBottles > 0) {
                 this.lastBubbleIsPoisoned = true;
                 this.world.collectedPoisonBottles--;
             }
-            setTimeout(() => {
-                this.world.bubbles.push(new Bubble(this.x + this.offsetX + this.hitboxWidth + 5, this.y + + this.offsetY + this.hitboxHeight / 2 - 20, this.lastBubbleIsPoisoned));
-            }, 1600)
+            this.shootBubble(this.lastBubbleIsPoisoned);
         }
     }
 
