@@ -6,9 +6,11 @@ class Jellyfish extends MovableObject {
     offsetY = 10;
     energy = 5;
     speedY = 0;
+    type;
 
     constructor(type, color, x, y) {
         super().loadImage(`img/2.enemies/2.jelly-fish/${type}/swim/${color}/1.png`);
+        this.type = type;
         this.IMAGES_SWIM = [
             `img/2.enemies/2.jelly-fish/${type}/swim/${color}/1.png`,
             `img/2.enemies/2.jelly-fish/${type}/swim/${color}/2.png`,

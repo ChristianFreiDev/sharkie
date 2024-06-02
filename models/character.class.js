@@ -13,6 +13,7 @@ class Character extends MovableObject {
     lastBubble = 0;
     lastBubbleIsPoisoned = false;
     lastSlap = 0;
+    wasLastHitElectricShock = false;
     IMAGES_IDLE = [
         'img/1.sharkie/1.idle/1.png',
         'img/1.sharkie/1.idle/2.png',
@@ -61,6 +62,10 @@ class Character extends MovableObject {
         'img/1.sharkie/5.hurt/1.poisoned/3.png',
         'img/1.sharkie/5.hurt/1.poisoned/4.png'
     ];
+    IMAGES_HURT_ELECTRIC_SHOCK = [
+        'img/1.sharkie/5.hurt/2.electric-shock/1.png',
+        'img/1.sharkie/5.hurt/2.electric-shock/2.png'
+    ];
     IMAGES_BUBBLE_TRAP = [
         'img/1.sharkie/4.attack/bubble-trap/op1/1.png',
         'img/1.sharkie/4.attack/bubble-trap/op1/2.png',
@@ -97,6 +102,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_SWIM);
         this.loadImages(this.IMAGES_DEAD_POISONED);
         this.loadImages(this.IMAGES_HURT_POISONED);
+        this.loadImages(this.IMAGES_HURT_ELECTRIC_SHOCK);
         this.loadImages(this.IMAGES_BUBBLE_TRAP);
         this.loadImages(this.IMAGES_BUBBLE_TRAP_POISONED);
         this.loadImages(this.IMAGES_FIN_SLAP);
@@ -125,6 +131,15 @@ class Character extends MovableObject {
                 this.speedY = 0;
             }
         }, 1000 / 60);
+    }
+
+    hit(obj) {
+        super.hit(obj);
+        if (obj instanceof Jellyfish && obj.type === 'super-dangerous') {
+            this.wasLastHitElectricShock = true;
+        } else {
+            this.wasLastHitElectricShock = false;
+        }
     }
 
     animate() {
@@ -236,7 +251,11 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_DEAD_POISONED);
         }
         else if (this.isHurt()) {
-            this.playAnimation(this.IMAGES_HURT_POISONED);
+            if (this.wasLastHitElectricShock) {
+                this.playAnimation(this.IMAGES_HURT_ELECTRIC_SHOCK);
+            } else {
+                this.playAnimation(this.IMAGES_HURT_POISONED);
+            }
         }
         else if (this.isBlowingBubble()) {
             if (this.lastBubbleIsPoisoned) {
