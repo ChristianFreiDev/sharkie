@@ -83,6 +83,12 @@ class FinalBoss extends MovableObject {
         }, 1000 / 60);
     }
 
+    hit(obj) {
+        if (obj.isPoisoned) {
+            super.hit(obj);
+        } 
+    }
+
     animate() {
         let i = 10;
         setStoppableInterval(() => {

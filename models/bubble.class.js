@@ -6,10 +6,12 @@ class Bubble extends MovableObject {
     hitboxHeight = 40;
     hitboxWidth = 40;
     energy = 10;
+    isPoisoned = false;
 
-    constructor(x, y, poisoned) {
-        if (poisoned) {
+    constructor(x, y, isPoisoned) {
+        if (isPoisoned) {
             super().loadImage('img/1.sharkie/4.attack/bubble-trap/poisoned-bubble.png');
+            this.isPoisoned = true;
         } else {
             super().loadImage('img/1.sharkie/4.attack/bubble-trap/bubble.png');
         }
