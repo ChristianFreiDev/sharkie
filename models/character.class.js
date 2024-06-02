@@ -226,6 +226,11 @@ class Character extends MovableObject {
     }
 
     moveCharacter() {
+        if (this.isHurt()) {
+            this.speed = 1.5;
+        } else {
+            this.speed = 3;
+        }
         if (this.canMoveLeft()) {
             this.swimLeft();
         }
