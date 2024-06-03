@@ -34,6 +34,28 @@ class Character extends MovableObject {
         'img/1.sharkie/1.idle/17.png',
         'img/1.sharkie/1.idle/18.png'
     ];
+    IMAGES_LONG_IDLE = [
+        'img/1.sharkie/2.long-idle/1.png',
+        'img/1.sharkie/2.long-idle/2.png',
+        'img/1.sharkie/2.long-idle/3.png',
+        'img/1.sharkie/2.long-idle/4.png',
+        'img/1.sharkie/2.long-idle/5.png',
+        'img/1.sharkie/2.long-idle/6.png',
+        'img/1.sharkie/2.long-idle/7.png',
+        'img/1.sharkie/2.long-idle/8.png',
+        'img/1.sharkie/2.long-idle/9.png',
+        'img/1.sharkie/2.long-idle/10.png',
+        'img/1.sharkie/2.long-idle/11.png',
+        'img/1.sharkie/2.long-idle/12.png',
+        'img/1.sharkie/2.long-idle/13.png',
+        'img/1.sharkie/2.long-idle/14.png'
+    ];
+    IMAGES_SLEEPING = [
+        'img/1.sharkie/2.long-idle/11.png',
+        'img/1.sharkie/2.long-idle/12.png',
+        'img/1.sharkie/2.long-idle/13.png',
+        'img/1.sharkie/2.long-idle/14.png'
+    ];
     IMAGES_SWIM = [
         'img/1.sharkie/3.swim/1.png',
         'img/1.sharkie/3.swim/2.png',
@@ -99,6 +121,8 @@ class Character extends MovableObject {
     constructor() {
         super().loadImage('img/1.sharkie/1.idle/1.png');
         this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_LONG_IDLE);
+        this.loadImages(this.IMAGES_SLEEPING);
         this.loadImages(this.IMAGES_SWIM);
         this.loadImages(this.IMAGES_DEAD_POISONED);
         this.loadImages(this.IMAGES_HURT_POISONED);
@@ -142,8 +166,15 @@ class Character extends MovableObject {
         }
     }
 
+    checkLongIdle() {
+        if (new Date().getTime() - lastInput > 15000 && new Date().getTime() - lastInput < 15017) {
+            this.currentImage = 0;
+        }
+    }
+
     animate() {
         setStoppableInterval(() => {
+            this.checkLongIdle();
             this.moveCharacter();
             this.world.camera_x = -this.x + 64;
         }, 1000 / 60)
@@ -273,6 +304,10 @@ class Character extends MovableObject {
         }
         else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP) {
             this.playAnimation(this.IMAGES_SWIM);
+        } else if (new Date().getTime() - lastInput > 15000 && new Date().getTime() - lastInput < 17000) {
+            this.playAnimation(this.IMAGES_LONG_IDLE);
+        } else if (new Date().getTime() - lastInput >= 17000) {
+            this.playAnimation(this.IMAGES_SLEEPING);
         } else {
             this.playAnimation(this.IMAGES_IDLE);
         }
