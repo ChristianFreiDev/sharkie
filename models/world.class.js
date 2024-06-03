@@ -23,13 +23,14 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.draw();
         this.setWorld();
+        this.draw();
         this.run();
     }
 
     setWorld() {
         this.character.world = this;
+        this.statusBar.world = this;
     }
 
     run() {
