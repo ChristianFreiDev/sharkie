@@ -167,7 +167,8 @@ class Character extends MovableObject {
     }
 
     checkLongIdle() {
-        if (new Date().getTime() - lastInput > 15000 && new Date().getTime() - lastInput < 15017) {
+        let now = new Date().getTime();
+        if (now - lastInput > 15000 && now - lastInput < 15017) {
             this.currentImage = 0;
         }
     }
