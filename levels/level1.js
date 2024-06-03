@@ -36,9 +36,22 @@ level1.enemies = [
 ];
 
 level1.coins = [
-    new Coin(500, 300)
+    new Coin(300, 100),
+    new Coin(500, 300),
+    new Coin(650, 150),
+    new Coin(850, 50),
+    new Coin(950, 250),
+    new Coin(1100, 350),
+    new Coin(1300, 100),
+    new Coin(1500, 350),
+    new Coin(1600, 50),
+    new Coin(1800, 250)
 ];
 
 level1.poisonBottles = [
-    new PoisonBottle(700, 250)
+    new PoisonBottle(500, 100),
+    new PoisonBottle(800, 150),
+    new PoisonBottle(1150, 250),
+    new PoisonBottle(1350, 350),
+    new PoisonBottle(1550, 50)
 ];
