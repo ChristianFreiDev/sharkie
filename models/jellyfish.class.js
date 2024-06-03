@@ -1,9 +1,10 @@
 class Jellyfish extends MovableObject {
     height = 150;
     width = 105.5;
-    hitboxHeight = 130;
-    hitboxWidth = this.width;
-    offsetY = 10;
+    hitboxHeight = 110;
+    hitboxWidth = this.width - 20;
+    offsetY = 15;
+    offsetX = 10;
     energy = 5;
     speedY = 0;
     type;
