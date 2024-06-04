@@ -7,11 +7,15 @@ debugMode = false;
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    // pauseGame();
+    pauseGame();
 }
 
 function pauseGame() {
     stopAllIntervals();
+}
+
+function startGame() {
+    resumeAllIntervals();
 }
 
 document.addEventListener('keydown', (event) => {

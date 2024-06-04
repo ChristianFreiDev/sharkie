@@ -16,6 +16,14 @@ canvas {
     display: block;
 }
 
+button {
+    padding: 8px 16px;
+    color: white;
+    background-color: rgb(83, 26, 130);
+    font-family: 'luckiestguy', 'sans-serif';
+    border-radius: 16px;
+}
+
 h1 {
     font-size: 64px;
     letter-spacing: 2px;
