@@ -10,12 +10,31 @@ function init() {
     pauseGame();
 }
 
+function openInstructions2() {
+    let instructionsImage = document.getElementById('instructions-image');
+    instructionsImage.src = 'img/6.buttons/instructions2.png';
+    let instructionsButton = document.getElementById('instructions-button');
+    instructionsButton.innerText = 'OK';
+    instructionsButton.setAttribute('onclick', 'showStartButton()');
+}
+
+function showStartButton() {
+    let instructionsImage = document.getElementById('instructions-image');
+    instructionsImage.style.display = 'none';
+    let instructionsButton = document.getElementById('instructions-button');
+    instructionsButton.style.display = 'none';
+    let startButton = document.getElementById('start-button');
+    startButton.style.display = 'block';
+}
+
 function pauseGame() {
     stopAllIntervals();
 }
 
 function startGame() {
     resumeAllIntervals();
+    let startButton = document.getElementById('start-button');
+    startButton.style.display = 'none';
 }
 
 document.addEventListener('keydown', (event) => {
