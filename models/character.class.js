@@ -213,6 +213,11 @@ class Character extends MovableObject {
         return timePassed < 1200;
     }
 
+    isSlapCooldown() {
+        let timePassed = new Date().getTime() - this.lastSlap;
+        return timePassed < 2000;
+    }
+
     canSeeFinalBoss() {
         return this.x > 1530;
     }
@@ -278,7 +283,7 @@ class Character extends MovableObject {
         if (this.world.keyboard.D && !this.isHurt() && !this.isDead()) {
             this.bubbleTrap();
         }
-        if (this.world.keyboard.SPACE && !this.isHurt() && !this.isDead()) {
+        if (this.world.keyboard.SPACE && !this.isHurt() && !this.isDead() && !this.isSlapCooldown()) {
             this.finSlap();
         }
     }

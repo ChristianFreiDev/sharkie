@@ -42,7 +42,7 @@ class World {
     checkEnemyCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isCollidingWith(enemy)) {
-                if (this.character.isSlapping()) {
+                if (this.character.isSlapping() && enemy instanceof PufferFish) {
                     enemy.hit(this.character);
                 } else {
                     this.character.hit(enemy);
