@@ -30,4 +30,13 @@ function openFullScreen(elementId) {
     } else if (element.msRequestFullscreen) {
       element.msRequestFullscreen();
     }
+    let fullscreenButton = document.getElementById('fullscreen-button');
+    fullscreenButton.style.display = 'none';
 }
+
+document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement) {
+        let fullscreenButton = document.getElementById('fullscreen-button');
+        fullscreenButton.style.display = 'block';
+    }
+});

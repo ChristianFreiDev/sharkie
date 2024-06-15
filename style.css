@@ -4,9 +4,11 @@
 }
 
 body {
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     font-family: 'luckiestguy', 'sans-serif';
     margin: 0;
     color: white;
@@ -16,6 +18,9 @@ body {
 canvas {
     background-color: black;
     display: block;
+    object-fit: contain;
+    max-height: 100%;
+    width: 100%;
 }
 
 #canvas-container {
@@ -76,9 +81,17 @@ h1 {
     font-size: 64px;
     letter-spacing: 2px;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    margin-top: 0;
+    margin-bottom: 42px;
 }
 
 @media (max-width: 720px) {
+    body {
+        justify-content: flex-start;
+    }
+    h1 {
+        margin-top: 42px;
+    }
     canvas {
         width: 100%;
     }
