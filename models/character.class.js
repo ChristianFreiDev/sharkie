@@ -219,7 +219,7 @@ class Character extends MovableObject {
     }
 
     canSeeFinalBoss() {
-        return this.x > 1530;
+        return Math.abs(this.x - this.world.enemies[this.world.enemies.length - 1].x) < 720;
     }
 
     isFightingFinalBoss() {

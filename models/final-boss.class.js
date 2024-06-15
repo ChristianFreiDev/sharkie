@@ -6,10 +6,14 @@ class FinalBoss extends MovableObject {
     hitboxWidth = this.width - 40;
     offsetX = 20;
     offsetY = 120;
-    speed = 3;
+    speed = 1.5;
     speedY = 0;
     hadFirstContact = false;
     energy = 15;
+    shouldSwimLeft = false;
+    shouldSwimRight = false;
+    shouldSwimUp = false;
+    shouldSwimDown = false;
 
     IMAGES_FLOATING = [
         'img/2.enemies/3.final-boss/2.floating/1.png',
@@ -89,10 +93,66 @@ class FinalBoss extends MovableObject {
         } 
     }
 
+    swimLeft() {
+        this.moveLeft();
+        this.otherDirection = false;
+    }
+
+    swimRight() {
+        this.moveRight();
+        this.otherDirection = true;
+    }
+
+    swimUp() {
+        this.speedY = -0.3;
+    }
+
+    swimDown() {
+        this.speedY = 0.3;
+    }
+
+    updateMovementTargets() {
+        if (this.x > world.character.x) {
+            this.shouldSwimLeft = true;
+            this.shouldSwimRight = false;
+        } else {
+            this.shouldSwimLeft = false;
+            this.shouldSwimRight = true;
+        }
+        if (this.y > world.character.y) {
+            this.shouldSwimUp = false;
+            this.shouldSwimDown = true;
+        } else {
+            this.shouldSwimUp = true;
+            this.shouldSwimDown = false;
+        }
+    }
+
+    moveFinalBoss(i) {
+        if (i > 15 && this.hadFirstContact) {
+            if (this.shouldSwimLeft) {
+                this.swimLeft();
+            } else if (this.shouldSwimRight) {
+                this.swimRight();
+            }
+            if (this.shouldSwimUp) {
+                this.swimUp();
+            } else if (this.shouldSwimDown) {
+                this.swimDown();
+            }
+        }
+    }
+
     animate() {
         let i = 10;
         setStoppableInterval(() => {
-            // this.moveLeft();
+            this.updateMovementTargets();
+        }, 800)
+
+        setStoppableInterval(() => {
+            if (!this.isDead()) {
+                this.moveFinalBoss(i);
+            }
         }, 1000 / 60)
 
         setStoppableInterval(() => {
