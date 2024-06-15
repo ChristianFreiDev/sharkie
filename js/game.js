@@ -1,7 +1,7 @@
 let canvas;
 let world;
+let lastInput;
 let keyboard = new Keyboard();
-let lastInput = new Date().getTime();
 debugMode = false;
 
 function init() {
@@ -32,6 +32,7 @@ function pauseGame() {
 }
 
 function startGame() {
+    lastInput = new Date().getTime();
     resumeAllIntervals();
     let startButton = document.getElementById('start-button');
     startButton.style.display = 'none';
