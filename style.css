@@ -46,6 +46,10 @@ button:hover {
     border-radius: 12px;
 }
 
+.very-small-button {
+    padding: 6px 15px;
+}
+
 #instructions-button {
     position: absolute;
     bottom: 12px;
@@ -55,6 +59,12 @@ button:hover {
 #instructions-image {
     position: absolute;
     width: 100%;
+}
+
+#fullscreen-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
 }
 
 #start-button {
