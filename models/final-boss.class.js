@@ -112,14 +112,14 @@ class FinalBoss extends MovableObject {
     }
 
     updateMovementTargets() {
-        if (this.x > world.character.x) {
+        if (world && this.x > world.character.x) {
             this.shouldSwimLeft = true;
             this.shouldSwimRight = false;
         } else {
             this.shouldSwimLeft = false;
             this.shouldSwimRight = true;
         }
-        if (this.y > world.character.y) {
+        if (world && this.y > world.character.y) {
             this.shouldSwimUp = false;
             this.shouldSwimDown = true;
         } else {
