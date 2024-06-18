@@ -21,6 +21,18 @@ function resumeAllIntervals() {
     })
 }
 
+function isTouchscreen() {
+    return window.matchMedia("(pointer: coarse)").matches;
+}
+
+function showTouchscreenButtons() {
+    let ids = ['left-and-right-arrow-buttons', 'up-and-down-arrow-and-attack-buttons'];
+    ids.forEach(id => {
+        let element = document.getElementById(id);
+        element.style.display = 'flex';
+    })
+}
+
 function openFullScreen(elementId) {
     let element = document.getElementById(elementId);
     if (element.requestFullscreen) {

@@ -3,6 +3,11 @@
     src: url('img/5.font/luckiest-guy/LuckiestGuy-Regular.ttf');
 }
 
+:root {
+    --button-canvas-spacing: 8px;
+    --spacing-between-buttons: 12px;
+}
+
 body {
     height: 100vh;
     display: flex;
@@ -57,8 +62,8 @@ button:hover {
 
 #instructions-button {
     position: absolute;
-    bottom: 12px;
-    right: 12px;
+    bottom: var(--button-canvas-spacing);
+    right: var(--button-canvas-spacing);
 }
 
 #instructions-image {
@@ -68,13 +73,34 @@ button:hover {
 
 #fullscreen-button {
     position: absolute;
-    top: 12px;
-    right: 12px;
+    top: var(--button-canvas-spacing);
+    right: var(--button-canvas-spacing);
 }
 
 #start-button {
     position: absolute;
     display: none;
+}
+
+#left-and-right-arrow-buttons {
+    position: absolute;
+    bottom: var(--button-canvas-spacing);
+    left: var(--button-canvas-spacing);
+    display: none;
+    gap: var(--spacing-between-buttons);
+}
+
+#up-and-down-arrow-and-attack-buttons {
+    position: absolute;
+    bottom: var(--button-canvas-spacing);
+    right: var(--button-canvas-spacing);
+    display: none;
+    gap: var(--spacing-between-buttons);
+}
+
+#fin-slap-button {
+    color: transparent;  
+    text-shadow: 0 0 0 white;
 }
 
 h1 {

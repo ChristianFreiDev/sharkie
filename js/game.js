@@ -8,6 +8,7 @@ function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     pauseGame();
+    bindButtonEvents();
 }
 
 function openInstructions2() {
@@ -36,6 +37,9 @@ function startGame() {
     resumeAllIntervals();
     let startButton = document.getElementById('start-button');
     startButton.style.display = 'none';
+    if (isTouchscreen()) {
+        showTouchscreenButtons();
+    };
 }
 
 document.addEventListener('keydown', (event) => {
@@ -81,3 +85,72 @@ document.addEventListener('keyup', (event) => {
         keyboard.D = false;
     }
 })
+
+function onTouch(event) {
+    if (event.cancelable) {
+        event.preventDefault();
+    }
+    lastInput = new Date().getTime();
+}
+
+function bindButtonEvents() {
+    document.getElementById('left-button').addEventListener('touchstart', (event) => {
+        onTouch(event);
+        keyboard.LEFT = true;
+    });
+    
+    document.getElementById('left-button').addEventListener('touchend', (event) => {
+        onTouch(event);
+        keyboard.LEFT = false;
+    });
+    
+    document.getElementById('right-button').addEventListener('touchstart', (event) => {
+        onTouch(event);
+        keyboard.RIGHT = true;
+    });
+    
+    document.getElementById('right-button').addEventListener('touchend', (event) => {
+        onTouch(event);
+        keyboard.RIGHT = false;
+    });
+
+    document.getElementById('bubble-trap-button').addEventListener('touchstart', (event) => {
+        onTouch(event);
+        keyboard.D = true;
+    });
+
+    document.getElementById('bubble-trap-button').addEventListener('touchend', (event) => {
+        onTouch(event);
+        keyboard.D = false;
+    });
+
+    document.getElementById('fin-slap-button').addEventListener('touchstart', (event) => {
+        onTouch(event);
+        keyboard.SPACE = true;
+    });
+
+    document.getElementById('fin-slap-button').addEventListener('touchend', (event) => {
+        onTouch(event);
+        keyboard.SPACE = false;
+    });
+
+    document.getElementById('up-button').addEventListener('touchstart', (event) => {
+        onTouch(event);
+        keyboard.UP = true;
+    });
+
+    document.getElementById('up-button').addEventListener('touchend', (event) => {
+        onTouch(event);
+        keyboard.UP = false;
+    });
+
+    document.getElementById('down-button').addEventListener('touchstart', (event) => {
+        onTouch(event);
+        keyboard.DOWN = true;
+    });
+
+    document.getElementById('down-button').addEventListener('touchend', (event) => {
+        onTouch(event);
+        keyboard.DOWN = false;
+    });
+}
