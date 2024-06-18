@@ -13,7 +13,7 @@ class World {
     collectedPoisonBottles = 0;
     lights = [
         new Light('img/3.background/layers/1.light/1.png', 0),
-        new Light('img/3.background/layers/1.light/2.png', 720),
+        new Light('img/3.background/layers/1.light/2.png', 719),
     ];
     camera_x = 0;
     statusBar = new StatusBar();

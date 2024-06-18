@@ -88,6 +88,7 @@ button:hover {
     left: var(--button-canvas-spacing);
     display: none;
     gap: var(--spacing-between-buttons);
+    height: 40px;
 }
 
 #up-and-down-arrow-and-attack-buttons {
@@ -101,6 +102,38 @@ button:hover {
 #fin-slap-button {
     color: transparent;  
     text-shadow: 0 0 0 white;
+}
+
+.left-arrow {
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom:  6px solid transparent;
+    border-right: 10px solid white;
+}
+
+.right-arrow {
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom:  6px solid transparent;
+    border-left: 10px solid white;
+}
+
+.up-arrow {
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right:  6px solid transparent;
+    border-bottom: 10px solid white;
+}
+
+.down-arrow {
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right:  6px solid transparent;
+    border-top: 10px solid white;
 }
 
 h1 {
