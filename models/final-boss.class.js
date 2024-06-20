@@ -14,7 +14,11 @@ class FinalBoss extends MovableObject {
     shouldSwimRight = false;
     shouldSwimUp = false;
     shouldSwimDown = false;
-
+    isBiting = false;
+    AUDIO_SPLASH = new Audio('audio/splash/splash.wav');
+    AUDIO_HURT = new Audio('audio/hurt/final-boss-hurt.ogg');
+    AUDIO_BOSS_FIGHT = new Audio('audio/boss-fight/boss-fight.mp3');
+    AUDIO_BITE = new Audio('audio/bite/bite.wav');
     IMAGES_FLOATING = [
         'img/2.enemies/3.final-boss/2.floating/1.png',
         'img/2.enemies/3.final-boss/2.floating/2.png',
@@ -60,16 +64,27 @@ class FinalBoss extends MovableObject {
         'img/2.enemies/3.final-boss/1.spawning/10.png',
     ];
 
+    IMAGES_BITE = [
+        'img/2.enemies/3.final-boss/3.attack/1.png',
+        'img/2.enemies/3.final-boss/3.attack/2.png',
+        'img/2.enemies/3.final-boss/3.attack/3.png',
+        'img/2.enemies/3.final-boss/3.attack/4.png',
+        'img/2.enemies/3.final-boss/3.attack/5.png',
+        'img/2.enemies/3.final-boss/3.attack/6.png'
+    ];
+
     constructor() {
         super().loadImage('img/2.enemies/3.final-boss/1.spawning/1.png');
         this.loadImages(this.IMAGES_FLOATING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_SPAWNING);
+        this.loadImages(this.IMAGES_BITE);
         this.x = 720 * 3;
         this.y = 0;
         this.applyGravity();
         this.animate();
+        this.AUDIO_BOSS_FIGHT.volume = 0.2;
     }
 
     die() {
@@ -162,10 +177,15 @@ class FinalBoss extends MovableObject {
             else if (this.hadFirstContact) {
                 if (this.isDeathAnimationPlaying()) {
                     this.playAnimation(this.IMAGES_DEAD);
+                    this.AUDIO_HURT.play();
                 }
                 else if (!this.isDead()) {
                     if (this.isHurt()) {
                         this.playAnimation(this.IMAGES_HURT);
+                        this.AUDIO_HURT.play();
+                    } else if (this.isBiting) {
+                        this.playAnimation(this.IMAGES_BITE);
+                        this.AUDIO_BITE.play();
                     } else {
                         this.playAnimation(this.IMAGES_FLOATING);
                     }
@@ -175,6 +195,9 @@ class FinalBoss extends MovableObject {
             if (world && world.character.x > 1700 && !this.hadFirstContact) {
                 i = 0;
                 this.hadFirstContact = true;
+                this.AUDIO_SPLASH.play();
+                this.AUDIO_BOSS_FIGHT.play();
+                this.AUDIO_BOSS_FIGHT.loop = true;
             }
         }, 200)
     }

@@ -7,6 +7,7 @@ class Bubble extends MovableObject {
     hitboxWidth = 40;
     energy = 10;
     isPoisoned = false;
+    AUDIO_BUBBLE_POP = new Audio('audio/bubble-pop/bubble-pop.wav');
 
     constructor(x, y, isPoisoned) {
         if (isPoisoned) {
@@ -18,6 +19,7 @@ class Bubble extends MovableObject {
         this.x = x;
         this.y = y;
         this.blow();
+        this.AUDIO_BUBBLE_POP.volume = 0.9;
     }
 
     blow() {

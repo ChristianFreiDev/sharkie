@@ -2,7 +2,8 @@ let canvas;
 let world;
 let lastInput;
 let keyboard = new Keyboard();
-debugMode = false;
+let debugMode = false;
+let muted = false;
 
 function init() {
     canvas = document.getElementById('canvas');
@@ -29,6 +30,7 @@ function showStartButton() {
 }
 
 function pauseGame() {
+    world.AUDIO_AMBIENCE.pause();
     stopAllIntervals();
 }
 
@@ -37,9 +39,21 @@ function startGame() {
     resumeAllIntervals();
     let startButton = document.getElementById('start-button');
     startButton.style.display = 'none';
+    let creditsButton = document.getElementById('credits-button');
+    creditsButton.style.display = 'none';
+    let infoButton = document.getElementById('info-button');
+    infoButton.style.display = 'inline-block';
     if (isTouchscreen()) {
         showTouchscreenButtons();
     };
+    world.AUDIO_AMBIENCE.play();
+    world.AUDIO_AMBIENCE.loop = true;
+}
+
+function resumeGame() {
+    lastInput = new Date().getTime();
+    world.AUDIO_AMBIENCE.play();
+    resumeAllIntervals();
 }
 
 document.addEventListener('keydown', (event) => {

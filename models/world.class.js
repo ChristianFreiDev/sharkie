@@ -15,6 +15,9 @@ class World {
         new Light('img/3.background/layers/1.light/1.png', 0),
         new Light('img/3.background/layers/1.light/2.png', 719),
     ];
+    AUDIO_AMBIENCE = new Audio('audio/ambience/ambience.mp3');
+    AUDIO_COLLECT = new Audio('audio/collect/collect.wav');
+    AUDIO_ENEMY_HURT = new Audio('audio/hurt/enemy-hurt.wav');
     camera_x = 0;
     statusBar = new StatusBar();
     debugMode = true;
@@ -23,6 +26,7 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.AUDIO_ENEMY_HURT.volume = 0.3;
         this.setWorld();
         this.draw();
         this.run();
@@ -39,8 +43,19 @@ class World {
         }, 200);
     }
 
+    playCollectSound() {
+        if (!muted) {
+            let sound = this.AUDIO_COLLECT.cloneNode();
+            sound.volume = 0.15;
+            sound.play();
+        }
+    }
+
     checkEnemyCollisions() {
         this.level.enemies.forEach((enemy) => {
+            if (enemy instanceof FinalBoss) {
+                enemy.isBiting = false;
+            }
             if (this.character.isCollidingWith(enemy)) {
                 if (this.character.isSlapping() && enemy instanceof PufferFish) {
                     enemy.hit(this.character);
@@ -48,12 +63,21 @@ class World {
                     this.character.hit(enemy);
                     this.statusBar.setHealthPercentage(this.character.energy);
                 }
+                if (enemy instanceof FinalBoss) {
+                    enemy.isBiting = true;
+                }
             }
             this.bubbles.forEach((bubble) => {
                 if (bubble.isCollidingWith(enemy)) {
                     if (enemy.energy > 0) {
                         enemy.hit(bubble);
+                        if (enemy instanceof PufferFish) {
+                            this.AUDIO_ENEMY_HURT.play();
+                        }
                         this.bubbles.splice(this.bubbles.indexOf(bubble), 1);
+                        if (!muted) {
+                            bubble.AUDIO_BUBBLE_POP.play();
+                        }
                     }
                 }
             })
@@ -65,6 +89,7 @@ class World {
             if (coin.isCollidingWith(this.character)) {
                 this.coins.splice(this.coins.indexOf(coin), 1);
                 this.collectedCoins++;
+                this.playCollectSound();
             }
         });
     }
@@ -74,6 +99,7 @@ class World {
             if (poisonBottle.isCollidingWith(this.character)) {
                 this.poisonBottles.splice(this.poisonBottles.indexOf(poisonBottle), 1);
                 this.collectedPoisonBottles++;
+                this.playCollectSound();
             }
         });
     }

@@ -14,6 +14,11 @@ class Character extends MovableObject {
     lastBubbleIsPoisoned = false;
     lastSlap = 0;
     wasLastHitElectricShock = false;
+    AUDIO_SWIM = new Audio('audio/swim/swim.ogg');
+    AUDIO_BUBBLE_TRAP = new Audio('audio/blow/blow.ogg');
+    AUDIO_FIN_SLAP = new Audio('audio/slap/slap.wav');
+    AUDIO_HURT = new Audio('audio/hurt/character-hurt.wav');
+    AUDIO_ELECTRIC_SHOCK = new Audio('audio/hurt/electric-shock.wav');
     IMAGES_IDLE = [
         'img/1.sharkie/1.idle/1.png',
         'img/1.sharkie/1.idle/2.png',
@@ -132,6 +137,10 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_FIN_SLAP);
         this.applyGravity();
         this.animate();
+        this.AUDIO_SWIM.volume = 0.3;
+        this.AUDIO_HURT.volume = 0.3;
+        this.AUDIO_ELECTRIC_SHOCK.volume = 0.7;
+        this.AUDIO_FIN_SLAP.volume = 0.5;
     }
 
     isAboveOceanFloor() {
@@ -242,12 +251,18 @@ class Character extends MovableObject {
                 this.world.collectedPoisonBottles--;
             }
             this.shootBubble(this.lastBubbleIsPoisoned);
+            if (!muted) {
+                let sound = this.AUDIO_BUBBLE_TRAP.cloneNode();
+                sound.volume = 0.55;
+                sound.play();
+            }
         }
     }
 
     finSlap() {
         this.currentImage = 0;
         this.lastSlap = new Date().getTime();
+        setTimeout(() => this.AUDIO_FIN_SLAP.play(), 400);
     }
 
     canMoveLeft() {
@@ -289,15 +304,18 @@ class Character extends MovableObject {
     }
 
     playCharacterAnimations() {
+        this.AUDIO_SWIM.pause();
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD_POISONED);
         }
         else if (this.isHurt()) {
             if (this.wasLastHitElectricShock) {
                 this.playAnimation(this.IMAGES_HURT_ELECTRIC_SHOCK);
+                this.AUDIO_ELECTRIC_SHOCK.play();
             } else {
                 this.playAnimation(this.IMAGES_HURT_POISONED);
             }
+            this.AUDIO_HURT.play();
         }
         else if (this.isBlowingBubble()) {
             if (this.lastBubbleIsPoisoned) {
@@ -310,6 +328,7 @@ class Character extends MovableObject {
         }
         else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP) {
             this.playAnimation(this.IMAGES_SWIM);
+            this.AUDIO_SWIM.play();
         } else if (new Date().getTime() - lastInput > 15000 && new Date().getTime() - lastInput < 17000) {
             this.playAnimation(this.IMAGES_LONG_IDLE);
         } else if (new Date().getTime() - lastInput >= 17000) {
