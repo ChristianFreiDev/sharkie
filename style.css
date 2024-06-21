@@ -20,6 +20,7 @@ body {
     color: white;
     background-color: hsl(239, 50%, 27%);
     /* background-image: url('img/3.background/layers/5.water/l.png'); */
+    user-select: none;
 }
 
 canvas {

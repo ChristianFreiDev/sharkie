@@ -23,6 +23,8 @@
     <script src="models/keyboard.class.js"></script>
     <script src="models/level.class.js"></script>
     <script src="levels/level1.js"></script>
+    <script src="levels/level2.js"></script>
+    <script src="levels/level3.js"></script>
     <script src="js/game.js"></script>
 </head>
 <body onload="init()">
@@ -33,17 +35,17 @@
         <button id="start-button" class="button" onclick="startGame()">Start</button>
         <div id="game-over-screen">
             <h2>Game Over</h2>
-            <button class="button" onclick="tryAgain()">Try again</button>
+            <button class="button" onclick="playAgain()">Try again</button>
         </div>
         <div id="you-win-screen">
             <h2>You win!</h2>
-            <button class="button" onclick="tryAgain()">Play again</button>
+            <button id="keep-playing-button" class="button" onclick="nextLevel()">Next level</button>
         </div>
         <img id="instructions-image" src="img/6.buttons/instructions1.png" alt="instructions1">
         <button id="instructions-button" class="button small-button" onclick="openInstructions2()">Next</button>
         <div id="top-right-buttons">
             <button id="info-button" onclick="showInfos()">i</button>
-            <button id="mute-button" class="button small-button very-small-button" onclick="onMuteButtonClick()">
+            <button id="mute-button" class="button small-button very-small-button" onclick="onMuteButtonClick(event)">
                 <span id="mute-button-span">&#x1F56A</span>
             </button>
             <button id="fullscreen-button" class="button small-button very-small-button" onclick="openFullScreen('canvas-container')">&#x26F6</button>

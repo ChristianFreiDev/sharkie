@@ -5,11 +5,14 @@ let keyboard = new Keyboard();
 let debugMode = false;
 let muted = false;
 let gameHasEnded = false;
+let levels = [level1, level2, level3];
+let currentLevelIndex = 0;
+let currentLevel = level1;
 
 function init() {
     canvas = document.getElementById('canvas');
-    loadLevel1();
-    world = new World(canvas, keyboard);
+    loadCurrentLevel();
+    world = new World(canvas, keyboard, currentLevel);
     pauseGame();
     bindButtonEvents();
 }
@@ -48,15 +51,20 @@ function startGame() {
     if (isTouchscreen()) {
         showTouchscreenButtons();
     };
-    muteOrUnmuteGameAudio(false);
-    world.AUDIO_AMBIENCE.play();
-    world.AUDIO_AMBIENCE.loop = true;
+    if (!muted) {
+        muteOrUnmuteGameAudio(false);
+    }
+    resumeAmbienceSound();
 }
 
 function resumeGame() {
     lastInput = new Date().getTime();
-    muteOrUnmuteGameAudio(false);
-    world.AUDIO_AMBIENCE.play();
+    if (!muted) {
+        muteOrUnmuteGameAudio(false);
+        if (!gameHasEnded) {
+            resumeAmbienceSound();
+        }
+    }
     resumeAllIntervals();
 }
 
@@ -68,34 +76,65 @@ function gameOver() {
         pauseGame();
         let gameOverScreen = document.getElementById('game-over-screen');
         gameOverScreen.style.display = 'block';
-    }, 1800);
+    }, 1600);
+}
+
+function playWinSounds() {
+    world.AUDIO_YAY.play();
+    world.AUDIO_POP.play();
 }
 
 function youWin() {
     setTimeout(() => {
-        world.AUDIO_YAY.play();
-        world.AUDIO_POP.play();
+        playWinSounds();
         pauseGame();
         world.fillConfetti();
         let youWinScreen = document.getElementById('you-win-screen');
         youWinScreen.style.display = 'block';
-    }, 2000);
+        let keepPlayingButton = document.getElementById('keep-playing-button');
+        if (currentLevelIndex === levels.length - 1) {
+            keepPlayingButton.innerText = 'Play again';
+        } else {
+            keepPlayingButton.innerText = 'Next level';
+        }
+    }, 1800);
 }
 
-function tryAgain() {
-    gameHasEnded = false;
-    lastInput = new Date().getTime();
-    intervals = [];
-    loadLevel1();
-    world = new World(canvas, keyboard);
-    muteOrUnmuteGameAudio(false);
-    world.AUDIO_AMBIENCE.play();
-    world.AUDIO_AMBIENCE.loop = true;
+
+function hideEndOfGameScreen() {
     let gameOverScreen = document.getElementById('game-over-screen');
     gameOverScreen.style.display = 'none';
     let youWinScreen = document.getElementById('you-win-screen');
     youWinScreen.style.display = 'none';
 }
+
+
+function playAgain() {
+    gameHasEnded = false;
+    lastInput = new Date().getTime();
+    intervals = [];
+    loadCurrentLevel();
+    world = new World(canvas, keyboard, currentLevel);
+    resumeAmbienceSound();
+    if (!muted) {
+        muteOrUnmuteGameAudio(false);
+    } else {
+        muteOrUnmuteAllAudio(true);
+    }
+    hideEndOfGameScreen();
+}
+
+
+function nextLevel() {
+    if (currentLevelIndex === levels.length - 1) {
+        currentLevelIndex = 0;
+    } else {
+        currentLevelIndex++;
+    }
+    currentLevel = levels[currentLevelIndex];
+    playAgain();
+}
+
 
 document.addEventListener('keydown', (event) => {
     lastInput = new Date().getTime();

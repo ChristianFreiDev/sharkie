@@ -10,7 +10,7 @@ class PufferFish extends MovableObject {
     speedY = 0;
 
     constructor(type, x, y) {
-        super().loadImage('img/2.enemies/1.puffer-fish/1.swim/1.swim1.png');
+        super().loadImage(`img/2.enemies/1.puffer-fish/1.swim/${type}.swim1.png`);
         this.IMAGES_SWIM = [
             `img/2.enemies/1.puffer-fish/1.swim/${type}.swim1.png`,
             `img/2.enemies/1.puffer-fish/1.swim/${type}.swim2.png`,

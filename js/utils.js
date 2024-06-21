@@ -26,6 +26,12 @@ function resumeAllIntervals() {
 }
 
 
+function loadCurrentLevel() {
+    let loadLevelFunctions = [loadLevel1, loadLevel2, loadLevel3];
+    loadLevelFunctions[currentLevelIndex]();
+}
+
+
 function isTouchscreen() {
     return window.matchMedia("(pointer: coarse)").matches;
 }
@@ -72,26 +78,34 @@ function openFullScreen(elementId) {
 }
 
 
-function onMuteButtonClick() {
+function onMuteButtonClick(event) {
     let muteButtonSpan = document.getElementById('mute-button-span');
-    if (!world.character.AUDIO_SWIM.muted) {
-        muteOrUnmuteAllAudio(true);
-        muteButtonSpan.innerHTML = '&#x1F568';
-    } else {
-        muteOrUnmuteAllAudio(false);
-        muteButtonSpan.innerHTML = '&#x1F56A';
+    if (event.pointerType !== '') {
+        if (!muted) {
+            muteOrUnmuteAllAudio(true);
+            muteButtonSpan.innerHTML = '&#x1F568';
+        } else {
+            muteOrUnmuteAllAudio(false);
+            muteButtonSpan.innerHTML = '&#x1F56A';
+        }
     }
 }
 
 
+function resumeAmbienceSound() {
+    world.AUDIO_AMBIENCE.play();
+    world.AUDIO_AMBIENCE.loop = true;
+}
+
+
 function muteOrUnmuteGameAudio(bool) {
-    muted = bool;
     world.character.AUDIO_SWIM.muted = bool;
     world.character.AUDIO_BUBBLE_TRAP.muted = bool;
     world.character.AUDIO_FIN_SLAP.muted = bool;
     world.character.AUDIO_HURT.muted = bool;
     world.character.AUDIO_ELECTRIC_SHOCK.muted = bool;
     world.AUDIO_AMBIENCE.muted = bool;
+    world.AUDIO_ENEMY_HURT.muted = bool;
     let finalBoss = world.enemies[world.enemies.length - 1];
     finalBoss.AUDIO_SPLASH.muted = bool;
     finalBoss.AUDIO_HURT.muted = bool;
@@ -101,6 +115,7 @@ function muteOrUnmuteGameAudio(bool) {
 
 
 function muteOrUnmuteAllAudio(bool) {
+    muted = bool;
     muteOrUnmuteGameAudio(bool);
     world.AUDIO_YAY.muted = bool;
     world.AUDIO_POP.muted = bool;

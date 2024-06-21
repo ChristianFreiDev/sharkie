@@ -2,14 +2,14 @@ class World {
     canvas;
     ctx;
     keyboard;
-    level = level1;
-    backgroundObjects = level1.backgroundObjects;
+    level;
+    backgroundObjects;
     character = new Character();
-    enemies = level1.enemies;
+    enemies;
     bubbles = [];
-    coins = level1.coins;
+    coins;
     collectedCoins = 0;
-    poisonBottles = level1.poisonBottles;
+    poisonBottles;
     collectedPoisonBottles = 0;
     confetti = [];
     confettiAmount = 200;
@@ -27,7 +27,12 @@ class World {
     statusBar = new StatusBar();
     debugMode = true;
 
-    constructor(canvas, keyboard) {
+    constructor(canvas, keyboard, level) {
+        this.level = level;
+        this.backgroundObjects = level.backgroundObjects;
+        this.enemies = level.enemies;
+        this.coins = level.coins;
+        this.poisonBottles = level.poisonBottles;
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;

@@ -1,7 +1,7 @@
-const level1 = new Level();
+const level2 = new Level();
 
-function loadLevel1() {
-    level1.backgroundObjects = [
+function loadLevel2() {
+    level2.backgroundObjects = [
         new BackgroundObject('img/3.background/layers/5.water/d2.png', -719),
         new BackgroundObject('img/3.background/layers/4.layer2/d2.png', -719),
         new BackgroundObject('img/3.background/layers/3.layer1/d2.png', -719),
@@ -24,37 +24,40 @@ function loadLevel1() {
         new BackgroundObject('img/3.background/layers/2.floor/d2.png', 719*3),
     ];
     
-    level1.enemies = [
-        new PufferFish(1, 500, 350),
-        new PufferFish(2, 900, 300),
-        new PufferFish(3, 1200, 100),
-        new PufferFish(2, 1900, 100),
-        new Jellyfish('super-dangerous', 'green', 400, 200),
-        new Jellyfish('super-dangerous', 'pink', 800, 100),
-        new Jellyfish('regular-damage', 'purple', 1200, 300),
-        new Jellyfish('regular-damage', 'yellow', 1700, 200),
-        new FinalBoss(15, 1)
+    level2.enemies = [
+        new PufferFish(3, 550, 250),
+        new PufferFish(1, 700, 50),
+        new PufferFish(3, 1450, 50),
+        new PufferFish(3, 1850, 150),
+        new PufferFish(1, 2200, 100),
+        new Jellyfish('regular-damage', 'yellow', 450, 100),
+        new Jellyfish('super-dangerous', 'pink', 800, 250),
+        new Jellyfish('super-dangerous', 'green', 1200, 150),
+        new Jellyfish('regular-damage', 'yellow', 1350, 200),
+        new Jellyfish('regular-damage', 'purple', 1750, 300),
+        new Jellyfish('super-dangerous', 'green', 2400, 250),
+        new FinalBoss(20, 1.15)
     ];
     
-    level1.coins = [
-        new Coin(300, 100),
-        new Coin(500, 300),
-        new Coin(650, 150),
-        new Coin(850, 50),
-        new Coin(950, 250),
+    level2.coins = [
+        new Coin(400, 300),
+        new Coin(450, 200),
+        new Coin(600, 50),
+        new Coin(700, 80),
+        new Coin(800, 350),
+        new Coin(900, 150),
+        new Coin(1000, 50),
         new Coin(1100, 350),
-        new Coin(1300, 100),
-        new Coin(1500, 350),
-        new Coin(1600, 50),
-        new Coin(1800, 250)
+        new Coin(1400, 380),
+        new Coin(1700, 100)
     ];
     
-    level1.poisonBottles = [
-        new PoisonBottle(500, 100),
-        new PoisonBottle(800, 150),
-        new PoisonBottle(1150, 250),
-        new PoisonBottle(1350, 350),
-        new PoisonBottle(1550, 50),
-        new PoisonBottle(1750, 140)
+    level2.poisonBottles = [
+        new PoisonBottle(600, 100),
+        new PoisonBottle(800, 40),
+        new PoisonBottle(900, 300),
+        new PoisonBottle(1200, 200),
+        new PoisonBottle(1400, 250),
+        new PoisonBottle(1600, 350)
     ];
 }

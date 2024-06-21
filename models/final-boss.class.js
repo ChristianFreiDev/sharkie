@@ -1,15 +1,15 @@
 class FinalBoss extends MovableObject {
 
-    height = 300;
-    width = this.height * 0.8560855263157895;
-    hitboxHeight = 120;
-    hitboxWidth = this.width - 40;
-    offsetX = 20;
-    offsetY = 120;
+    height;
+    width ;
+    hitboxHeight;
+    hitboxWidth;
+    offsetX;
+    offsetY;
     speed = 1.5;
     speedY = 0;
     hadFirstContact = false;
-    energy = 15;
+    energy;
     shouldSwimLeft = false;
     shouldSwimRight = false;
     shouldSwimUp = false;
@@ -73,13 +73,20 @@ class FinalBoss extends MovableObject {
         'img/2.enemies/3.final-boss/3.attack/6.png'
     ];
 
-    constructor() {
+    constructor(energy, size) {
         super().loadImage('img/2.enemies/3.final-boss/1.spawning/1.png');
         this.loadImages(this.IMAGES_FLOATING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_SPAWNING);
         this.loadImages(this.IMAGES_BITE);
+        this.energy = energy;
+        this.height = 300 * size;
+        this.width = this.height * 0.8560855263157895 * size;
+        this.hitboxHeight = 120 * size;
+        this.hitboxWidth = this.width - 40 * size;
+        this.offsetX = 20 * size;
+        this.offsetY = 120 * size;
         this.x = 720 * 3;
         this.y = 0;
         this.applyGravity();
