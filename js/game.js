@@ -113,6 +113,7 @@ function playAgain() {
     gameHasEnded = false;
     lastInput = new Date().getTime();
     intervals = [];
+    confetti = [];
     loadCurrentLevel();
     world = new World(canvas, keyboard, currentLevel);
     resumeAmbienceSound();
