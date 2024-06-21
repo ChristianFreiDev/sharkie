@@ -31,7 +31,7 @@ function showStartButton() {
     let instructionsButton = document.getElementById('instructions-button');
     instructionsButton.style.display = 'none';
     let startButton = document.getElementById('start-button');
-    startButton.style.display = 'block';
+    startButton.style.display = 'flex';
 }
 
 function pauseGame() {
@@ -47,7 +47,7 @@ function startGame() {
     let creditsButton = document.getElementById('credits-button');
     creditsButton.style.display = 'none';
     let infoButton = document.getElementById('info-button');
-    infoButton.style.display = 'inline-block';
+    infoButton.style.display = 'flex';
     if (isTouchscreen()) {
         showTouchscreenButtons();
     };

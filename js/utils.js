@@ -125,6 +125,6 @@ function muteOrUnmuteAllAudio(bool) {
 document.addEventListener("fullscreenchange", () => {
     if (!document.fullscreenElement) {
         let fullscreenButton = document.getElementById('fullscreen-button');
-        fullscreenButton.style.display = 'inline-block';
+        fullscreenButton.style.display = 'flex';
     }
 });
