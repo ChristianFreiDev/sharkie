@@ -11,6 +11,8 @@ class World {
     collectedCoins = 0;
     poisonBottles = level1.poisonBottles;
     collectedPoisonBottles = 0;
+    confetti = [];
+    confettiAmount = 200;
     lights = [
         new Light('img/3.background/layers/1.light/1.png', 0),
         new Light('img/3.background/layers/1.light/2.png', 719),
@@ -18,6 +20,9 @@ class World {
     AUDIO_AMBIENCE = new Audio('audio/ambience/ambience.mp3');
     AUDIO_COLLECT = new Audio('audio/collect/collect.wav');
     AUDIO_ENEMY_HURT = new Audio('audio/hurt/enemy-hurt.wav');
+    AUDIO_GAME_OVER = new Audio('audio/game-over/game-over.mp3');
+    AUDIO_YAY = new Audio('audio/win/yay.wav');
+    AUDIO_POP = new Audio('audio/win/pop.wav');
     camera_x = 0;
     statusBar = new StatusBar();
     debugMode = true;
@@ -37,9 +42,33 @@ class World {
         this.statusBar.world = this;
     }
 
+    fillConfetti() {
+        for (let i = 0; i < this.confettiAmount; i++) {
+            this.confetti.push(new Confetto(360, 640));
+        }
+    }
+
+    isGameOver() {
+        return this.character.energy <= 0;
+    }
+
+    isGameWon() {
+        return this.enemies[this.enemies.length - 1].energy <= 0;
+    }
+
     run() {
         setStoppableInterval(() => {
             this.detectCollisions();
+            if (!gameHasEnded) {
+                if (this.isGameOver()) {
+                    gameOver();
+                    gameHasEnded = true;
+                }
+                if (this.isGameWon()) {
+                    youWin();
+                    gameHasEnded = true;
+                }
+            }
         }, 200);
     }
 
@@ -127,6 +156,7 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
+        this.addObjectsToMap(this.confetti);
         this.ctx.translate(this.camera_x, 0);
         
         this.ctx.translate(-this.camera_x, 0);

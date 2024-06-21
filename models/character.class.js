@@ -235,9 +235,9 @@ class Character extends MovableObject {
         return this.world.enemies[this.world.enemies.length - 1].hadFirstContact && this.canSeeFinalBoss();
     }
 
-    shootBubble(isPoisoned) {
+    shootBubble() {
         setTimeout(() => {
-            this.world.bubbles.push(new Bubble(this.x + this.offsetX + this.hitboxWidth + 5, this.y + + this.offsetY + this.hitboxHeight / 2 - 20, isPoisoned));
+            this.world.bubbles.push(new Bubble(this.x + this.offsetX + this.hitboxWidth + 8, this.y + + this.offsetY + this.hitboxHeight / 2 - 20, this.lastBubbleIsPoisoned, this.otherDirection));
         }, 1600)
     }
 
@@ -250,7 +250,7 @@ class Character extends MovableObject {
                 this.lastBubbleIsPoisoned = true;
                 this.world.collectedPoisonBottles--;
             }
-            this.shootBubble(this.lastBubbleIsPoisoned);
+            this.shootBubble();
             if (!muted) {
                 let sound = this.AUDIO_BUBBLE_TRAP.cloneNode();
                 sound.volume = 0.55;
@@ -283,23 +283,25 @@ class Character extends MovableObject {
         } else {
             this.speed = 3;
         }
-        if (this.canMoveLeft()) {
-            this.swimLeft();
-        }
-        if (this.canMoveRight()) {
-           this.swimRight();
-        }
-        if (this.canMoveUp()) {
-            this.swimUp();
-        }
-        if (this.world.keyboard.DOWN && this.isAboveOceanFloor()) {
-            this.swimDown();
-        }
-        if (this.world.keyboard.D && !this.isHurt() && !this.isDead()) {
-            this.bubbleTrap();
-        }
-        if (this.world.keyboard.SPACE && !this.isHurt() && !this.isDead() && !this.isSlapCooldown()) {
-            this.finSlap();
+        if (!gameHasEnded) {
+            if (this.canMoveLeft()) {
+                this.swimLeft();
+            }
+            if (this.canMoveRight()) {
+               this.swimRight();
+            }
+            if (this.canMoveUp()) {
+                this.swimUp();
+            }
+            if (this.world.keyboard.DOWN && this.isAboveOceanFloor()) {
+                this.swimDown();
+            }
+            if (this.world.keyboard.D && !this.isHurt() && !this.isDead()) {
+                this.bubbleTrap();
+            }
+            if (this.world.keyboard.SPACE && !this.isHurt() && !this.isDead() && !this.isSlapCooldown()) {
+                this.finSlap();
+            }
         }
     }
 
@@ -327,8 +329,12 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_FIN_SLAP);
         }
         else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP) {
-            this.playAnimation(this.IMAGES_SWIM);
-            this.AUDIO_SWIM.play();
+            if (!gameHasEnded) {
+                this.playAnimation(this.IMAGES_SWIM);
+                this.AUDIO_SWIM.play();
+            } else {
+                this.playAnimation(this.IMAGES_IDLE);
+            }
         } else if (new Date().getTime() - lastInput > 15000 && new Date().getTime() - lastInput < 17000) {
             this.playAnimation(this.IMAGES_LONG_IDLE);
         } else if (new Date().getTime() - lastInput >= 17000) {

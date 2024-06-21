@@ -141,6 +141,20 @@ canvas {
     display: none;
 }
 
+#game-over-screen, #you-win-screen {
+    position: absolute;
+    display: none;
+}
+
+#game-over-screen h2, #you-win-screen h2 {
+    color: hsl(273, 67%, 31%);
+    /* color: white; */
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
+    text-align: center;
+    font-size: 48px;
+}
+
 #left-and-right-arrow-buttons {
     position: absolute;
     bottom: var(--button-canvas-spacing);

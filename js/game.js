@@ -4,9 +4,11 @@ let lastInput;
 let keyboard = new Keyboard();
 let debugMode = false;
 let muted = false;
+let gameHasEnded = false;
 
 function init() {
     canvas = document.getElementById('canvas');
+    loadLevel1();
     world = new World(canvas, keyboard);
     pauseGame();
     bindButtonEvents();
@@ -30,7 +32,7 @@ function showStartButton() {
 }
 
 function pauseGame() {
-    world.AUDIO_AMBIENCE.pause();
+    muteOrUnmuteGameAudio(true);
     stopAllIntervals();
 }
 
@@ -46,14 +48,53 @@ function startGame() {
     if (isTouchscreen()) {
         showTouchscreenButtons();
     };
+    muteOrUnmuteGameAudio(false);
     world.AUDIO_AMBIENCE.play();
     world.AUDIO_AMBIENCE.loop = true;
 }
 
 function resumeGame() {
     lastInput = new Date().getTime();
+    muteOrUnmuteGameAudio(false);
     world.AUDIO_AMBIENCE.play();
     resumeAllIntervals();
+}
+
+function gameOver() {
+    setTimeout(() => {
+        world.AUDIO_GAME_OVER.play();
+    }, 600)
+    setTimeout(() => {
+        pauseGame();
+        let gameOverScreen = document.getElementById('game-over-screen');
+        gameOverScreen.style.display = 'block';
+    }, 1800);
+}
+
+function youWin() {
+    setTimeout(() => {
+        world.AUDIO_YAY.play();
+        world.AUDIO_POP.play();
+        pauseGame();
+        world.fillConfetti();
+        let youWinScreen = document.getElementById('you-win-screen');
+        youWinScreen.style.display = 'block';
+    }, 2000);
+}
+
+function tryAgain() {
+    gameHasEnded = false;
+    lastInput = new Date().getTime();
+    intervals = [];
+    loadLevel1();
+    world = new World(canvas, keyboard);
+    muteOrUnmuteGameAudio(false);
+    world.AUDIO_AMBIENCE.play();
+    world.AUDIO_AMBIENCE.loop = true;
+    let gameOverScreen = document.getElementById('game-over-screen');
+    gameOverScreen.style.display = 'none';
+    let youWinScreen = document.getElementById('you-win-screen');
+    youWinScreen.style.display = 'none';
 }
 
 document.addEventListener('keydown', (event) => {

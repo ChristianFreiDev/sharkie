@@ -41,14 +41,18 @@ function showTouchscreenButtons() {
 
 
 function showInfos() {
-    pauseGame();
+    if (!gameHasEnded) {
+        pauseGame();
+    }
     let infos = document.getElementById('infos');
     infos.style.display = 'block';
 }
 
 
 function hideInfos() {
-    resumeGame();
+    if (!gameHasEnded) {
+        resumeGame();
+    }
     let infos = document.getElementById('infos');
     infos.style.display = 'none';
 }
@@ -71,16 +75,16 @@ function openFullScreen(elementId) {
 function onMuteButtonClick() {
     let muteButtonSpan = document.getElementById('mute-button-span');
     if (!world.character.AUDIO_SWIM.muted) {
-        muteOrUnmuteAudio(true);
+        muteOrUnmuteAllAudio(true);
         muteButtonSpan.innerHTML = '&#x1F568';
     } else {
-        muteOrUnmuteAudio(false);
+        muteOrUnmuteAllAudio(false);
         muteButtonSpan.innerHTML = '&#x1F56A';
     }
 }
 
 
-function muteOrUnmuteAudio(bool) {
+function muteOrUnmuteGameAudio(bool) {
     muted = bool;
     world.character.AUDIO_SWIM.muted = bool;
     world.character.AUDIO_BUBBLE_TRAP.muted = bool;
@@ -95,6 +99,13 @@ function muteOrUnmuteAudio(bool) {
     finalBoss.AUDIO_BITE.muted = bool;
 }
 
+
+function muteOrUnmuteAllAudio(bool) {
+    muteOrUnmuteGameAudio(bool);
+    world.AUDIO_YAY.muted = bool;
+    world.AUDIO_POP.muted = bool;
+    world.AUDIO_GAME_OVER.muted = bool;
+ }
 
 document.addEventListener("fullscreenchange", () => {
     if (!document.fullscreenElement) {

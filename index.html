@@ -18,6 +18,7 @@
     <script src="models/final-boss.class.js"></script>
     <script src="models/light.class.js"></script>
     <script src="models/background-object.class.js"></script>
+    <script src="models/confetto.class.js"></script>
     <script src="models/world.class.js"></script>
     <script src="models/keyboard.class.js"></script>
     <script src="models/level.class.js"></script>
@@ -30,6 +31,14 @@
     <div id="canvas-container">
         <canvas id="canvas" width="720" height="480"></canvas>
         <button id="start-button" class="button" onclick="startGame()">Start</button>
+        <div id="game-over-screen">
+            <h2>Game Over</h2>
+            <button class="button" onclick="tryAgain()">Try again</button>
+        </div>
+        <div id="you-win-screen">
+            <h2>You win!</h2>
+            <button class="button" onclick="tryAgain()">Play again</button>
+        </div>
         <img id="instructions-image" src="img/6.buttons/instructions1.png" alt="instructions1">
         <button id="instructions-button" class="button small-button" onclick="openInstructions2()">Next</button>
         <div id="top-right-buttons">
