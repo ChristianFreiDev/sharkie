@@ -3,6 +3,12 @@
     src: url('img/5.font/luckiest-guy/LuckiestGuy-Regular.ttf');
 }
 
+* {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 :root {
     --button-canvas-spacing: 8px;
     --info-button-spacing: 12px;
@@ -20,9 +26,6 @@ body {
     color: white;
     background-color: hsl(239, 50%, 27%);
     /* background-image: url('img/3.background/layers/5.water/l.png'); */
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 canvas {
