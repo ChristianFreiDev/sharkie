@@ -19,6 +19,7 @@ function stopAllIntervals() {
 
 function resumeAllIntervals() {
     let tempIntervals = [...intervals];
+    stopAllIntervals();
     intervals = [];
     tempIntervals.forEach(interval => {
         setStoppableInterval(interval.fn, interval.time);
@@ -79,14 +80,14 @@ function openFullScreen(elementId) {
 
 
 function onMuteButtonClick(event) {
-    let muteButtonSpan = document.getElementById('mute-button-span');
+    let muteButtonImage = document.getElementById('mute-button-image');
     if (event.pointerType !== '') {
         if (!muted) {
             muteOrUnmuteAllAudio(true);
-            muteButtonSpan.innerHTML = '&#x1F568';
+            muteButtonImage.src = 'img/7.icons/no_sound_24dp_FILL1_wght400_GRAD0_opsz24.svg';
         } else {
             muteOrUnmuteAllAudio(false);
-            muteButtonSpan.innerHTML = '&#x1F56A';
+            muteButtonImage.src = 'img/7.icons/volume_up_24dp_FILL1_wght400_GRAD0_opsz24.svg';
         }
     }
 }

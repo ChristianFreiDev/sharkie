@@ -112,6 +112,7 @@ function hideEndOfGameScreen() {
 function playAgain() {
     gameHasEnded = false;
     lastInput = new Date().getTime();
+    stopAllIntervals();
     intervals = [];
     confetti = [];
     loadCurrentLevel();

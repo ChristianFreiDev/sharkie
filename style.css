@@ -54,6 +54,7 @@ canvas {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 .button:hover {
@@ -93,6 +94,8 @@ canvas {
 
 #info-button {
     display: none;
+    justify-content: center;
+    align-items: center;
     width: 24px;
     height: 24px;
     background-color: hsl(0, 0%, 85%);
@@ -134,8 +137,9 @@ canvas {
     right: var(--info-button-spacing);
 }
 
-#mute-button-span {
+#mute-button-image {
     display: block;
+    height: 24px;
     width: 18px;
 }
 
