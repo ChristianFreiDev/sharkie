@@ -55,6 +55,7 @@ canvas {
     justify-content: center;
     align-items: center;
     text-align: center;
+    line-height: 1;
 }
 
 .button:hover {
@@ -139,7 +140,7 @@ canvas {
 
 #mute-button-image {
     display: block;
-    height: 24px;
+    /* height: 24px; */
     width: 18px;
 }
 
