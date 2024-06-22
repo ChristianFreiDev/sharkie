@@ -2,12 +2,13 @@ class PufferFish extends MovableObject {
 
     height = 99;
     width = this.height * 1.217171717171717;
-    hitboxHeight = 55;
+    hitboxHeight = 50;
     hitboxWidth = this.width - 42;
-    offsetY = 10;
-    offsetX = 10;
+    offsetY = 15;
+    offsetX = 15;
     energy = 15;
     speedY = 0;
+    firstHit;
 
     constructor(type, x, y) {
         super().loadImage(`img/2.enemies/1.puffer-fish/1.swim/${type}.swim1.png`);
@@ -46,8 +47,24 @@ class PufferFish extends MovableObject {
         this.animate();
     }
 
+    hit(obj) {
+        super.hit(obj);
+        if (!this.firstHit) {
+            this.firstHit = new Date().getTime();
+        }
+    }
+
     hasBeenHurt() {
-        return !this.isHurt() && this.energy < 15;
+        if (this.firstHit) {
+            let timePassed = new Date().getTime() - this.firstHit;
+            if (timePassed >= 1000) {
+                this.hitboxHeight = 75;
+                this.offsetY = 12;
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 
     applyGravity() {

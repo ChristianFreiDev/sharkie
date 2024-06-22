@@ -83,10 +83,10 @@ class FinalBoss extends MovableObject {
         this.energy = energy;
         this.height = 300 * size;
         this.width = this.height * 0.8560855263157895 * size;
-        this.hitboxHeight = 120 * size;
-        this.hitboxWidth = this.width - 40 * size;
-        this.offsetX = 20 * size;
-        this.offsetY = 120 * size;
+        this.hitboxHeight = 80 * size;
+        this.hitboxWidth = this.width - 50 * size;
+        this.offsetX = 30 * size;
+        this.offsetY = 150 * size;
         this.x = 720 * 3;
         this.y = 0;
         this.applyGravity();
