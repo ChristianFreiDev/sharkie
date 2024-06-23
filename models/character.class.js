@@ -296,10 +296,9 @@ class Character extends MovableObject {
             if (this.world.keyboard.DOWN && this.isAboveOceanFloor()) {
                 this.swimDown();
             }
-            if (this.world.keyboard.D && !this.isHurt() && !this.isDead()) {
+            if (this.world.keyboard.D && !this.isHurt() && !this.isDead() && !this.isSlapping()) {
                 this.bubbleTrap();
-            }
-            if (this.world.keyboard.SPACE && !this.isHurt() && !this.isDead() && !this.isSlapCooldown()) {
+            } else if (this.world.keyboard.SPACE && !this.isHurt() && !this.isDead() && !this.isBlowingBubble() && !this.isSlapCooldown()) {
                 this.finSlap();
             }
         }
