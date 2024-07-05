@@ -43,7 +43,7 @@ canvas {
     position: relative;
 }
 
-.button {
+.btn {
     font-size: 36px;
     padding: 12px 60px;
     color: white;
@@ -58,7 +58,7 @@ canvas {
     vertical-align: middle;
 }
 
-.button:hover {
+.btn:hover {
     background-color: hsl(273, 67%, 41%);
 }
 
@@ -148,11 +148,14 @@ canvas {
     position: absolute;
     bottom: var(--button-canvas-spacing);
     left: var(--button-canvas-spacing);
+    display: table-cell;
+    vertical-align: middle;
 }
 
 #start-button {
     position: absolute;
     display: none;
+    font-family: sans-serif;
 }
 
 #game-over-screen, #you-win-screen {

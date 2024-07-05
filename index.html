@@ -32,40 +32,40 @@
 
     <div id="canvas-container">
         <canvas id="canvas" width="720" height="480"></canvas>
-        <button id="start-button" class="button" onclick="startGame()">Start</button>
+        <div id="start-button" class="btn" onclick="startGame()">Start</div>
         <div id="game-over-screen">
             <h2>Game Over</h2>
-            <button class="button" onclick="playAgain()">Try again</button>
+            <button class="btn" onclick="playAgain()">Try again</button>
         </div>
         <div id="you-win-screen">
             <h2>You win!</h2>
-            <button id="keep-playing-button" class="button" onclick="nextLevel()">Next level</button>
+            <button id="keep-playing-button" class="btn" onclick="nextLevel()">Next level</button>
         </div>
         <img id="instructions-image" src="img/6.buttons/instructions1.png" alt="instructions1">
-        <button id="instructions-button" class="button small-button" onclick="openInstructions2()">Next</button>
+        <button id="instructions-button" class="btn small-button" onclick="openInstructions2()">Next</button>
         <div id="top-right-buttons">
             <button id="info-button" onclick="showInfos()">i</button>
-            <button id="mute-button" class="button small-button very-small-button" onclick="onMuteButtonClick(event)">
+            <button id="mute-button" class="btn small-button very-small-button" onclick="onMuteButtonClick(event)">
                 <img id="mute-button-image" src="img/7.icons/volume_up_24dp_FILL1_wght400_GRAD0_opsz24.svg"></img>
             </button>
-            <button id="fullscreen-button" class="button small-button very-small-button" onclick="openFullScreen('canvas-container')">&#x26F6</button>
+            <button id="fullscreen-button" class="btn small-button very-small-button" onclick="openFullScreen('canvas-container')">&#x26F6</button>
         </div>
-        <a id="credits-button" class="button small-button very-small-button" href="credits.html">Credits</a>
+        <a id="credits-button" class="btn small-button very-small-button" href="credits.html">Credits</a>
         <div id="left-and-right-arrow-buttons">
-            <button id="left-button" class="button small-button very-small-button">
+            <button id="left-button" class="btn small-button very-small-button">
                 <div class="left-arrow"></div>
             </button>
-            <button id="right-button" class="button small-button very-small-button">
+            <button id="right-button" class="btn small-button very-small-button">
                 <div class="right-arrow"></div>
             </button>
         </div>
         <div id="up-and-down-arrow-and-attack-buttons">
-            <button id="bubble-trap-button" class="button small-button very-small-button">&#9711</button>
-            <button id="fin-slap-button" class="button small-button very-small-button">&#129416</button>
-            <button id="up-button" class="button small-button very-small-button">
+            <button id="bubble-trap-button" class="btn small-button very-small-button">&#9711</button>
+            <button id="fin-slap-button" class="btn small-button very-small-button">&#129416</button>
+            <button id="up-button" class="btn small-button very-small-button">
                 <div class="up-arrow"></div>
             </button>
-            <button id="down-button" class="button small-button very-small-button">
+            <button id="down-button" class="btn small-button very-small-button">
                 <div class="down-arrow"></div>
             </button>
         </div>
@@ -75,8 +75,8 @@
             <p>Hit enemies with your fin by pressing the space key or the &#129416 button on touchscreen devices. Be careful! Not all enemies can be defeated with a fin slap.</p>
             <p>Collect coins to increase your score and collect poison bottles to be able to defeat the final boss.</p>
             <br>
-            <a id="info-credits-button" class="button small-button very-small-button" href="credits.html">Credits</a>
-            <button id="info-ok-button" class="button small-button very-small-button" onclick="hideInfos()">OK</button>
+            <a id="info-credits-button" class="btn small-button very-small-button" href="credits.html">Credits</a>
+            <button id="info-ok-button" class="btn small-button very-small-button" onclick="hideInfos()">OK</button>
         </div>
     </div>
 </body>
