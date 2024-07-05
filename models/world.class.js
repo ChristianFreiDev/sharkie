@@ -90,10 +90,11 @@ class World {
             if (enemy instanceof FinalBoss) {
                 enemy.isBiting = false;
             }
+            if (this.character.isSlapping() && this.character.isSlapHitting(enemy) && enemy instanceof PufferFish) {
+                enemy.hit(this.character);
+            }
             if (this.character.isCollidingWith(enemy)) {
-                if (this.character.isSlapping() && enemy instanceof PufferFish) {
-                    enemy.hit(this.character);
-                } else {
+                if (!(this.character.isSlapping() && enemy instanceof PufferFish)) {
                     this.character.hit(enemy);
                     this.statusBar.setHealthPercentage(this.character.energy);
                 }

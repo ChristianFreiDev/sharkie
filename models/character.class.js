@@ -3,7 +3,8 @@ class Character extends MovableObject {
     height = 300;
     width = this.height * 0.815;
     hitboxHeight = 50;
-    hitboxWidth = this.width - 120;
+    hitboxWidth = this.width;
+    slapHitboxWidth = this.hitboxWidth + 100;
     offsetX = 65;
     offsetY = 165;
     speed = 3;
@@ -265,6 +266,13 @@ class Character extends MovableObject {
         setTimeout(() => this.AUDIO_FIN_SLAP.play(), 400);
     }
 
+    isSlapHitting(obj) {
+        return  (this.x + this.offsetX + this.slapHitboxWidth) >= obj.x + obj.offsetX &&
+                this.x + this.offsetX <= (obj.x + obj.offsetX + obj.hitboxWidth) && 
+                (this.y + this.offsetY + this.hitboxHeight) >= obj.y + obj.offsetY &&
+                this.y + this.offsetY <= (obj.y + obj.offsetY + obj.hitboxHeight);
+    }
+
     canMoveLeft() {
         return this.world.keyboard.LEFT && this.x > 0;
     }
@@ -326,6 +334,7 @@ class Character extends MovableObject {
             }
         } else if (this.isSlapping()) {
             this.playAnimation(this.IMAGES_FIN_SLAP);
+            // this.hitboxWidth = this.slapHitboxWidth;
         }
         else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP) {
             if (!gameHasEnded) {

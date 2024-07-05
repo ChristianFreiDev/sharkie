@@ -2,7 +2,7 @@ let canvas;
 let world;
 let lastInput;
 let keyboard = new Keyboard();
-let debugMode = false;
+let debugMode = true;
 let muted = false;
 let gameHasEnded = false;
 let levels = [level1, level2, level3];
