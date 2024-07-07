@@ -2,10 +2,12 @@ class PufferFish extends MovableObject {
 
     height = 99;
     width = this.height * 1.217171717171717;
-    hitboxHeight = 50;
-    hitboxWidth = this.width - 42;
-    offsetY = 15;
-    offsetX = 15;
+    offset = {
+        top: this.height * 0.16,
+        bottom: this.height * 0.36,
+        right: this.width * 0.29,
+        left: this.width * 0.15
+    }
     energy = 15;
     speedY = 0;
     firstHit;
@@ -58,8 +60,9 @@ class PufferFish extends MovableObject {
         if (this.firstHit) {
             let timePassed = new Date().getTime() - this.firstHit;
             if (timePassed >= 1000) {
-                this.hitboxHeight = 75;
-                this.offsetY = 12;
+                this.offset.top = this.height * 0.1;
+                this.offset.bottom = this.height * 0.13;
+                this.offset.left = this.width * 0.13;
                 return true;
             }
         } else {

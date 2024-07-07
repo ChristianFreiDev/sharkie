@@ -2,8 +2,6 @@ class Coin extends DrawableObject {
 
     height = 48;
     width = this.height * 1.064516129032258;
-    hitboxHeight = 48;
-    hitboxWidth = this.width;
 
     IMAGES = [
         'img/4.score/1.coins/1.png',

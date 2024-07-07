@@ -2,11 +2,16 @@ class Character extends MovableObject {
 
     height = 300;
     width = this.height * 0.815;
-    hitboxHeight = 50;
-    hitboxWidth = this.width;
-    slapHitboxWidth = this.hitboxWidth + 100;
-    offsetX = 65;
-    offsetY = 165;
+    offset =  {
+        top: this.height * 0.52,
+        bottom: this.height * 0.28,
+        right: this.width * 0.2,
+        left: this.width * 0.2,
+        slap: {
+            right: this.width * 0.05,
+            left: this.width * 0.2
+        }
+    }
     speed = 3;
     speedY = 0;
     maxSpeedY = -1;
@@ -196,12 +201,14 @@ class Character extends MovableObject {
     swimLeft() {
         this.moveLeft();
         this.speedY = 0;
+        this.swapOffsets(true);
         this.otherDirection = true;
     }
 
     swimRight() {
         this.moveRight();
         this.speedY = 0;
+        this.swapOffsets(false);
         this.otherDirection = false;
     }
 
@@ -238,7 +245,7 @@ class Character extends MovableObject {
 
     shootBubble() {
         setTimeout(() => {
-            this.world.bubbles.push(new Bubble(this.x + this.offsetX + this.hitboxWidth + 8, this.y + + this.offsetY + this.hitboxHeight / 2 - 20, this.lastBubbleIsPoisoned, this.otherDirection));
+            this.world.bubbles.push(new Bubble(this.x + this.width - this.offset.right + 8, this.y + this.height - this.offset.bottom - 52, this.lastBubbleIsPoisoned, this.otherDirection));
         }, 1600)
     }
 
@@ -267,10 +274,10 @@ class Character extends MovableObject {
     }
 
     isSlapHitting(obj) {
-        return  (this.x + this.offsetX + this.slapHitboxWidth) >= obj.x + obj.offsetX &&
-                this.x + this.offsetX <= (obj.x + obj.offsetX + obj.hitboxWidth) && 
-                (this.y + this.offsetY + this.hitboxHeight) >= obj.y + obj.offsetY &&
-                this.y + this.offsetY <= (obj.y + obj.offsetY + obj.hitboxHeight);
+        return  this.x + this.width - this.offset.slap.right > obj.x + obj.offset.left &&
+                this.y + this.height - this.offset.bottom > obj.y + obj.offset.top &&
+                this.x + this.offset.slap.left < obj.x + obj.width - obj.offset.right && 
+                this.y + this.offset.top < obj.y + obj.height - obj.offset.bottom;
     }
 
     canMoveLeft() {
@@ -334,7 +341,6 @@ class Character extends MovableObject {
             }
         } else if (this.isSlapping()) {
             this.playAnimation(this.IMAGES_FIN_SLAP);
-            // this.hitboxWidth = this.slapHitboxWidth;
         }
         else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP) {
             if (!gameHasEnded) {

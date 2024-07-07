@@ -1,11 +1,7 @@
 class FinalBoss extends MovableObject {
 
     height;
-    width ;
-    hitboxHeight;
-    hitboxWidth;
-    offsetX;
-    offsetY;
+    width;
     speed = 1.5;
     speedY = 0;
     hadFirstContact = false;
@@ -83,10 +79,12 @@ class FinalBoss extends MovableObject {
         this.energy = energy;
         this.height = 300 * size;
         this.width = this.height * 0.8560855263157895 * size;
-        this.hitboxHeight = 80 * size;
-        this.hitboxWidth = this.width - 50 * size;
-        this.offsetX = 30 * size;
-        this.offsetY = 150 * size;
+        this.offset =  {
+            top: this.height * 0.52,
+            bottom: this.height * 0.24,
+            right: this.width * 0.22,
+            left: this.width * 0.15,
+        }
         this.x = 720 * 3;
         this.y = 0;
         this.applyGravity();
@@ -117,11 +115,13 @@ class FinalBoss extends MovableObject {
 
     swimLeft() {
         this.moveLeft();
+        this.swapOffsets(false);
         this.otherDirection = false;
     }
 
     swimRight() {
         this.moveRight();
+        this.swapOffsets(true);
         this.otherDirection = true;
     }
 

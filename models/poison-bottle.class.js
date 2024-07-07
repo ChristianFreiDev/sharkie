@@ -1,8 +1,6 @@
 class PoisonBottle extends DrawableObject {
     height = 72;
     width = this.height * 0.7325102880658436;
-    hitboxHeight = this.height;
-    hitboxWidth = this.width;
 
     IMAGES = [
         'img/4.score/3.poison/animated/1.png',

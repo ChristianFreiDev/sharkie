@@ -3,8 +3,6 @@ class Bubble extends MovableObject {
     speedY = 2;
     height = 40;
     width = 40;
-    hitboxHeight = 40;
-    hitboxWidth = 40;
     energy = 10;
     isPoisoned = false;
     AUDIO_BUBBLE_POP = new Audio('audio/bubble-pop/bubble-pop.wav');
