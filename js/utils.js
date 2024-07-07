@@ -47,6 +47,15 @@ function showTouchscreenButtons() {
 }
 
 
+function hideTouchscreenButtons() {
+    let ids = ['left-and-right-arrow-buttons', 'up-and-down-arrow-and-attack-buttons'];
+    ids.forEach(id => {
+        let element = document.getElementById(id);
+        element.style.display = 'none';
+    })
+}
+
+
 function showInfos() {
     if (!gameHasEnded) {
         pauseGame();

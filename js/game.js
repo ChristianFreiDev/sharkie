@@ -2,7 +2,7 @@ let canvas;
 let world;
 let lastInput;
 let keyboard = new Keyboard();
-let debugMode = true;
+let debugMode = false;
 let muted = false;
 let gameHasEnded = false;
 let levels = [level1, level2, level3];
@@ -76,6 +76,7 @@ function gameOver() {
         pauseGame();
         let gameOverScreen = document.getElementById('game-over-screen');
         gameOverScreen.style.display = 'block';
+        hideTouchscreenButtons();
     }, 1600);
 }
 
@@ -97,6 +98,7 @@ function youWin() {
         } else {
             keepPlayingButton.innerText = 'Next level';
         }
+        hideTouchscreenButtons();
     }, 1800);
 }
 
@@ -124,6 +126,9 @@ function playAgain() {
         muteOrUnmuteAllAudio(true);
     }
     hideEndOfGameScreen();
+    if (isTouchscreen()) {
+        showTouchscreenButtons();
+    };
 }
 
 
