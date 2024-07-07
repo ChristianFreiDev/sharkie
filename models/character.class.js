@@ -16,6 +16,7 @@ class Character extends MovableObject {
     speedY = 0;
     maxSpeedY = -1;
     acceleration = 0.01;
+    bubbleTimeouts = [];
     lastBubble = 0;
     lastBubbleIsPoisoned = false;
     lastSlap = 0;
@@ -243,10 +244,16 @@ class Character extends MovableObject {
         return this.world.enemies[this.world.enemies.length - 1].hadFirstContact && this.canSeeFinalBoss();
     }
 
+    clearBubbleTimeouts() {
+        this.bubbleTimeouts.forEach(bubbleTimeout => clearTimeout(bubbleTimeout));
+        this.bubbleTimeouts = [];
+    }
+
     shootBubble() {
-        setTimeout(() => {
+        let bubbleTimeout = setTimeout(() => {
             this.world.bubbles.push(new Bubble(this.x + this.width - this.offset.right + 8, this.y + this.height - this.offset.bottom - 52, this.lastBubbleIsPoisoned, this.otherDirection));
         }, 1600)
+        this.bubbleTimeouts.push(bubbleTimeout);
     }
 
     bubbleTrap() {
@@ -295,6 +302,7 @@ class Character extends MovableObject {
     moveCharacter() {
         if (this.isHurt()) {
             this.speed = 1.5;
+            this.clearBubbleTimeouts();
         } else {
             this.speed = 3;
         }
