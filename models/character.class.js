@@ -3,10 +3,10 @@ class Character extends MovableObject {
     height = 300;
     width = this.height * 0.815;
     offset =  {
-        top: this.height * 0.52,
-        bottom: this.height * 0.28,
-        right: this.width * 0.2,
-        left: this.width * 0.2,
+        top: this.height * 0.55,
+        bottom: this.height * 0.3,
+        right: this.width * 0.26,
+        left: this.width * 0.25,
         slap: {
             right: this.width * 0.05,
             left: this.width * 0.2

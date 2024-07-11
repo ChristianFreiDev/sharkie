@@ -4,8 +4,8 @@ class Jellyfish extends MovableObject {
     offset = {
         top: 25,
         bottom: 27,
-        right: 20,
-        left: 20
+        right: 22,
+        left: 22
     }
     energy = 5;
     speedY = 0;
