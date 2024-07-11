@@ -21,7 +21,7 @@ class Character extends MovableObject {
     speed = 3;
     speedY = 0;
     maxSpeedY = -1;
-    acceleration = 0.01;
+    acceleration = 0.004;
     bubbleTimeouts = [];
     lastBubble = 0;
     lastBubbleIsPoisoned = false;
@@ -220,11 +220,11 @@ class Character extends MovableObject {
     }
 
     swimUp() {
-        this.speedY = 1;
+        this.speedY = 1.2;
     }
 
     swimDown() {
-        this.speedY = -1;
+        this.speedY = -1.2;
     }
 
     isBlowingBubble() {
