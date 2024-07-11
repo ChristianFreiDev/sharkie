@@ -2,11 +2,17 @@ class Character extends MovableObject {
 
     height = 300;
     width = this.height * 0.815;
-    offset =  {
+    defaultOffset =  {
         top: this.height * 0.55,
         bottom: this.height * 0.3,
         right: this.width * 0.26,
-        left: this.width * 0.25,
+        left: this.width * 0.25
+    }
+    offset =  {
+        top: this.defaultOffset.top,
+        bottom: this.defaultOffset.bottom,
+        right: this.defaultOffset.right,
+        left: this.defaultOffset.left,
         slap: {
             right: this.width * 0.05,
             left: this.width * 0.2
@@ -299,12 +305,32 @@ class Character extends MovableObject {
         return this.world.keyboard.UP && this.isRoomForMovingUp();
     }
 
+    setElectricShockHitbox() {
+        this.offset.top = this.height * 0.44;
+        this.offset.bottom  = this.height * 0.26;
+        this.offset.right = this.width * 0.4;
+        this.offset.left = this.width * 0.38;
+    }
+
+    resetOffset() {
+        this.offset.top = this.defaultOffset.top;
+        this.offset.bottom = this.defaultOffset.bottom;
+        this.offset.right = this.defaultOffset.right;
+        this.offset.left = this.defaultOffset.left;
+    }
+
     moveCharacter() {
         if (this.isHurt()) {
             this.speed = 1.5;
             this.clearBubbleTimeouts();
+            if (this.wasLastHitElectricShock) {
+                this.setElectricShockHitbox()
+            } else {
+                this.resetOffset();
+            }
         } else {
             this.speed = 3;
+            this.resetOffset();
         }
         if (!gameHasEnded) {
             if (this.canMoveLeft()) {
