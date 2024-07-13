@@ -313,32 +313,29 @@ class AssetCache {
     }
 
     async loadImages() {
-        let images = [];
-        this.imagePaths.forEach(imagePath => {
+        await Promise.all(this.imagePaths.map(imagePath => new Promise(resolve => {
             let img = new Image();
             img.src = imagePath;
             this.imageCache[imagePath] = img;
-            images.push(img);
-        });
-        await Promise.all(images.map(image => new Promise(resolve => image.addEventListener('load', () => {
-            this.updateProgress();
-            resolve();
-        }))));
+            img.addEventListener('load', () => {
+                this.updateProgress();
+                resolve();
+            }
+        )})));
     }
 
     async loadAudio() {
-        let audioFiles = [];
-        Object.keys(this.audioCache).forEach(key => {
+        let keys = Object.keys(this.audioCache);
+        await Promise.all(keys.map(key => new Promise(resolve => {
             let audioObject = this.audioCache[key];
             let audio = new Audio(audioObject.path);
             audio.volume = audioObject.volume;
             audioObject.file = audio;
-            audioFiles.push(audio);
-        })
-        await Promise.all(audioFiles.map(audioFile => new Promise(resolve => audioFile.addEventListener('canplaythrough', () => {
-            this.updateProgress();
-            resolve();
-        }))));
+            audioObject.file.addEventListener('canplaythrough', () => {
+                this.updateProgress();
+                resolve();
+            }
+        )})));
     }
 
     async loadAssets() {
