@@ -15,7 +15,6 @@ class PoisonBottle extends DrawableObject {
 
     constructor(x, y) {
         super().loadImage('img/4.score/3.poison/animated/1.png');
-        this.loadImages(this.IMAGES);
         this.x = x;
         this.y = y;
         this.animate();

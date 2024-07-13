@@ -8,8 +8,15 @@ let gameHasEnded = false;
 let levels = [level1, level2, level3];
 let currentLevelIndex = 0;
 let currentLevel = level1;
+let assetCache = new AssetCache();
+let progress = 0;
 
-function init() {
+async function init() {
+    await assetCache.loadAssets();
+    setupGame();
+}
+
+function setupGame() {
     canvas = document.getElementById('canvas');
     loadCurrentLevel();
     world = new World(canvas, keyboard, currentLevel);
@@ -125,6 +132,7 @@ function playAgain() {
     } else {
         muteOrUnmuteAllAudio(true);
     }
+    muteFinalBossSound();
     hideEndOfGameScreen();
     if (isTouchscreen()) {
         showTouchscreenButtons();

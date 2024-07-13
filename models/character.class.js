@@ -27,11 +27,11 @@ class Character extends MovableObject {
     lastBubbleIsPoisoned = false;
     lastSlap = 0;
     wasLastHitElectricShock = false;
-    AUDIO_SWIM = new Audio('audio/swim/swim.ogg');
-    AUDIO_BUBBLE_TRAP = new Audio('audio/blow/blow.ogg');
-    AUDIO_FIN_SLAP = new Audio('audio/slap/slap.wav');
-    AUDIO_HURT = new Audio('audio/hurt/character-hurt.wav');
-    AUDIO_ELECTRIC_SHOCK = new Audio('audio/hurt/electric-shock.wav');
+    AUDIO_SWIM = assetCache.audioCache['swim'].file;
+    AUDIO_BUBBLE_TRAP = assetCache.audioCache['blow'].file;
+    AUDIO_FIN_SLAP = assetCache.audioCache['slap'].file;
+    AUDIO_HURT = assetCache.audioCache['character-hurt'].file;
+    AUDIO_ELECTRIC_SHOCK = assetCache.audioCache['electric-shock'].file;
     IMAGES_IDLE = [
         'img/1.sharkie/1.idle/1.png',
         'img/1.sharkie/1.idle/2.png',
@@ -138,22 +138,8 @@ class Character extends MovableObject {
 
     constructor() {
         super().loadImage('img/1.sharkie/1.idle/1.png');
-        this.loadImages(this.IMAGES_IDLE);
-        this.loadImages(this.IMAGES_LONG_IDLE);
-        this.loadImages(this.IMAGES_SLEEPING);
-        this.loadImages(this.IMAGES_SWIM);
-        this.loadImages(this.IMAGES_DEAD_POISONED);
-        this.loadImages(this.IMAGES_HURT_POISONED);
-        this.loadImages(this.IMAGES_HURT_ELECTRIC_SHOCK);
-        this.loadImages(this.IMAGES_BUBBLE_TRAP);
-        this.loadImages(this.IMAGES_BUBBLE_TRAP_POISONED);
-        this.loadImages(this.IMAGES_FIN_SLAP);
         this.applyGravity();
         this.animate();
-        this.AUDIO_SWIM.volume = 0.3;
-        this.AUDIO_HURT.volume = 0.3;
-        this.AUDIO_ELECTRIC_SHOCK.volume = 0.7;
-        this.AUDIO_FIN_SLAP.volume = 0.5;
     }
 
     isAboveOceanFloor() {
@@ -199,7 +185,7 @@ class Character extends MovableObject {
         setStoppableInterval(() => {
             this.checkLongIdle();
             this.moveCharacter();
-            this.world.camera_x = -this.x + 64;
+            this.world.camera_x = Math.round(-this.x) + 64;
         }, 1000 / 60)
 
         setStoppableInterval(() => this.playCharacterAnimations(), 200);
@@ -274,7 +260,7 @@ class Character extends MovableObject {
             this.shootBubble();
             if (!muted) {
                 let sound = this.AUDIO_BUBBLE_TRAP.cloneNode();
-                sound.volume = 0.55;
+                sound.volume = assetCache.audioCache['blow'].volume;
                 sound.play();
             }
         }
@@ -321,7 +307,7 @@ class Character extends MovableObject {
 
     moveCharacter() {
         if (this.isHurt()) {
-            this.speed = 1.5;
+            this.speed = 2;
             this.clearBubbleTimeouts();
             if (this.wasLastHitElectricShock) {
                 this.setElectricShockHitbox()

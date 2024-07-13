@@ -38,10 +38,6 @@ class PufferFish extends MovableObject {
         this.IMAGES_DEAD = [
             `img/2.enemies/1.puffer-fish/4.dead/${type}.png`
         ];
-        this.loadImages(this.IMAGES_SWIM);
-        this.loadImages(this.IMAGES_TRANSITION);
-        this.loadImages(this.IMAGES_BUBBLE_SWIM);
-        this.loadImages(this.IMAGES_DEAD);
         this.x = x
         this.y = y;
         this.speed = 0.15 + Math.random() * 0.5;

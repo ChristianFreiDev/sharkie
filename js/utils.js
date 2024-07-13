@@ -130,7 +130,13 @@ function muteOrUnmuteAllAudio(bool) {
     world.AUDIO_YAY.muted = bool;
     world.AUDIO_POP.muted = bool;
     world.AUDIO_GAME_OVER.muted = bool;
- }
+}
+
+
+function muteFinalBossSound() {
+    let finalBoss = world.enemies[world.enemies.length - 1];
+    finalBoss.AUDIO_BOSS_FIGHT.pause();
+}
 
 document.addEventListener("fullscreenchange", () => {
     if (!document.fullscreenElement) {

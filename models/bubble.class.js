@@ -5,7 +5,7 @@ class Bubble extends MovableObject {
     width = 40;
     energy = 10;
     isPoisoned = false;
-    AUDIO_BUBBLE_POP = new Audio('audio/bubble-pop/bubble-pop.wav');
+    AUDIO_BUBBLE_POP = assetCache.audioCache['bubble-pop'].file;
 
     constructor(x, y, isPoisoned, otherDirection) {
         if (isPoisoned) {
@@ -21,7 +21,6 @@ class Bubble extends MovableObject {
             this.x = this.x - 193;
         }
         this.blow();
-        this.AUDIO_BUBBLE_POP.volume = 0.9;
     }
 
     blow() {

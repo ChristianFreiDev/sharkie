@@ -11,10 +11,10 @@ class FinalBoss extends MovableObject {
     shouldSwimUp = false;
     shouldSwimDown = false;
     isBiting = false;
-    AUDIO_SPLASH = new Audio('audio/splash/splash.wav');
-    AUDIO_HURT = new Audio('audio/hurt/final-boss-hurt.ogg');
-    AUDIO_BOSS_FIGHT = new Audio('audio/boss-fight/boss-fight.mp3');
-    AUDIO_BITE = new Audio('audio/bite/bite.wav');
+    AUDIO_SPLASH = assetCache.audioCache['splash'].file;
+    AUDIO_HURT = assetCache.audioCache['final-boss-hurt'].file;
+    AUDIO_BOSS_FIGHT = assetCache.audioCache['boss-fight'].file;
+    AUDIO_BITE = assetCache.audioCache['bite'].file;
     IMAGES_FLOATING = [
         'img/2.enemies/3.final-boss/2.floating/1.png',
         'img/2.enemies/3.final-boss/2.floating/2.png',
@@ -71,11 +71,6 @@ class FinalBoss extends MovableObject {
 
     constructor(energy, size) {
         super().loadImage('img/2.enemies/3.final-boss/1.spawning/1.png');
-        this.loadImages(this.IMAGES_FLOATING);
-        this.loadImages(this.IMAGES_HURT);
-        this.loadImages(this.IMAGES_DEAD);
-        this.loadImages(this.IMAGES_SPAWNING);
-        this.loadImages(this.IMAGES_BITE);
         this.energy = energy;
         this.height = 300 * size;
         this.width = this.height * 0.8560855263157895 * size;
@@ -89,7 +84,6 @@ class FinalBoss extends MovableObject {
         this.y = 0;
         this.applyGravity();
         this.animate();
-        this.AUDIO_BOSS_FIGHT.volume = 0.2;
     }
 
     die() {

@@ -17,12 +17,12 @@ class World {
         new Light('img/3.background/layers/1.light/1.png', 0),
         new Light('img/3.background/layers/1.light/2.png', 719),
     ];
-    AUDIO_AMBIENCE = new Audio('audio/ambience/ambience.mp3');
-    AUDIO_COLLECT = new Audio('audio/collect/collect.wav');
-    AUDIO_ENEMY_HURT = new Audio('audio/hurt/enemy-hurt.wav');
-    AUDIO_GAME_OVER = new Audio('audio/game-over/game-over.mp3');
-    AUDIO_YAY = new Audio('audio/win/yay.wav');
-    AUDIO_POP = new Audio('audio/win/pop.wav');
+    AUDIO_AMBIENCE = assetCache.audioCache['ambience'].file;
+    AUDIO_COLLECT = assetCache.audioCache['collect'].file;
+    AUDIO_ENEMY_HURT = assetCache.audioCache['enemy-hurt'].file;
+    AUDIO_GAME_OVER = assetCache.audioCache['game-over'].file;
+    AUDIO_YAY = assetCache.audioCache['yay'].file;
+    AUDIO_POP = assetCache.audioCache['pop'].file;
     camera_x = 0;
     statusBar = new StatusBar();
     debugMode = true;
@@ -36,7 +36,6 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.AUDIO_ENEMY_HURT.volume = 0.3;
         this.setWorld();
         this.draw();
         this.run();
@@ -80,7 +79,7 @@ class World {
     playCollectSound() {
         if (!muted) {
             let sound = this.AUDIO_COLLECT.cloneNode();
-            sound.volume = 0.15;
+            sound.volume = assetCache.audioCache['collect'].volume;
             sound.play();
         }
     }
@@ -147,7 +146,7 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.translate(this.camera_x, 0);
+        this.ctx.translate(Math.round(this.camera_x), 0);
         this.addObjectsToMap(this.level.backgroundObjects);
 
         this.addObjectsToMap(this.level.coins);
@@ -156,16 +155,16 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.bubbles);
 
-        this.ctx.translate(this.camera_x / 12, 0);
+        this.ctx.translate(Math.round(this.camera_x) / 12, 0);
         this.addObjectsToMap(this.lights);
-        this.ctx.translate(-this.camera_x / 12, 0);
+        this.ctx.translate(Math.round(-this.camera_x) / 12, 0);
 
-        this.ctx.translate(-this.camera_x, 0);
+        this.ctx.translate(Math.round(-this.camera_x), 0);
         this.addToMap(this.statusBar);
         this.addObjectsToMap(this.confetti);
-        this.ctx.translate(this.camera_x, 0);
+        this.ctx.translate(Math.round(this.camera_x), 0);
         
-        this.ctx.translate(-this.camera_x, 0);
+        this.ctx.translate(Math.round(-this.camera_x), 0);
         
         let self = this;
         requestAnimationFrame(function() {

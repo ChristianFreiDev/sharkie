@@ -16,7 +16,7 @@ class DrawableObject {
     currentImage = 0;
 
     draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        ctx.drawImage(this.img, Math.round(this.x), Math.round(this.y), this.width, this.height);
     }
 
     drawOutline(ctx) {
@@ -79,23 +79,14 @@ class DrawableObject {
         }
     }
 
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
-    }
-
-    loadImages(imagePaths) {
-        imagePaths.forEach(imagePath => {
-            let img = new Image();
-            img.src = imagePath;
-            this.imageCache[imagePath] = img;
-        });
+    loadImage(imagePath) {
+        this.img = assetCache.imageCache[imagePath];
     }
 
     playAnimation(imagePaths) {
         let imageIndex = this.currentImage % imagePaths.length;
         let imagePath = imagePaths[imageIndex];
-        this.img = this.imageCache[imagePath];
+        this.img = assetCache.imageCache[imagePath];
         this.currentImage++;
     }
 

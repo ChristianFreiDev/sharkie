@@ -26,8 +26,8 @@ class Jellyfish extends MovableObject {
             `img/2.enemies/2.jelly-fish/${type}/dead/${color}/3.png`,
             `img/2.enemies/2.jelly-fish/${type}/dead/${color}/4.png`,
         ];
-        this.loadImages(this.IMAGES_SWIM);
-        this.loadImages(this.IMAGES_DEAD);
+        // this.loadImages(this.IMAGES_SWIM);
+        // this.loadImages(this.IMAGES_DEAD);
         this.x = x;
         this.y = y;
         this.speed = 0.15 + Math.random() * 0.5;
