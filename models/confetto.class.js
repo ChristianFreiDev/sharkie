@@ -1,3 +1,4 @@
+/** Class representing a confetto. */
 class Confetto extends DrawableObject {
     height = 8;
     width = 4;
@@ -8,6 +9,11 @@ class Confetto extends DrawableObject {
     speedY = Math.random() * (this.minSpeedY - this.maxSpeedY) + this.minSpeedY;
     acceleration = 0.3;
 
+    /**
+     * Create a confetto.
+     * @param {number} x - The x location of the confetto object.
+     * @param {number} y - The y location of the confetto object.
+     */
     constructor(x, y) {
         super();
         this.x = x;
@@ -16,11 +22,18 @@ class Confetto extends DrawableObject {
         this.applyGravity();
     }
 
+    /**
+     * Draw the confetto.
+     * @param {Object} ctx - The canvas context.
+     */
     draw(ctx) {
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, this.width, this.height)
     }
 
+    /**
+     * Apply gravity to the confetto.
+     */
     applyGravity() {
         setStoppableInterval(() => {
             this.y -= this.speedY;

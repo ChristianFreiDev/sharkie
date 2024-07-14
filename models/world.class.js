@@ -1,3 +1,4 @@
+/** Class representing the game world. */
 class World {
     canvas;
     ctx;
@@ -27,6 +28,12 @@ class World {
     statusBar = new StatusBar();
     debugMode = true;
 
+    /**
+     * Create a world.
+     * @param {Object} canvas - The canvas object.
+     * @param {Object} keyboard - The keyboard object.
+     * @param {Object} level - The level object.
+     */
     constructor(canvas, keyboard, level) {
         this.level = level;
         this.backgroundObjects = level.backgroundObjects;
@@ -41,25 +48,42 @@ class World {
         this.run();
     }
 
+    /**
+     * Set the world by adding the world to the character and the status bar.
+     */
     setWorld() {
         this.character.world = this;
         this.statusBar.world = this;
     }
 
+    /**
+     * Create a certain amount of confetti.
+     */
     fillConfetti() {
         for (let i = 0; i < this.confettiAmount; i++) {
             this.confetti.push(new Confetto(360, 640));
         }
     }
 
+    /**
+     * Check if the game is over because the character has no energy left.
+     * @returns {boolean} Whether the game is over or not.
+     */
     isGameOver() {
         return this.character.energy <= 0;
     }
 
+    /**
+     * Check if the game has been won because the final boss has no energy left.
+     * @returns {boolean} Whether the game has been won.
+     */
     isGameWon() {
         return this.enemies[this.enemies.length - 1].energy <= 0;
     }
 
+    /**
+     * Run the world.
+     */
     run() {
         setStoppableInterval(() => {
             this.detectCollisions();
@@ -76,6 +100,9 @@ class World {
         }, 200);
     }
 
+    /**
+     * Play the appropriate sound when a coin or a poison bottle is collected.
+     */
     playCollectSound() {
         if (!muted) {
             let sound = this.AUDIO_COLLECT.cloneNode();
@@ -84,6 +111,9 @@ class World {
         }
     }
 
+    /**
+     * Check for collisions (of the player character) with enemies.
+     */
     checkEnemyCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (enemy instanceof FinalBoss) {
@@ -118,6 +148,9 @@ class World {
         });
     }
 
+    /**
+     * Check for collisions (of the player character) with coins.
+     */
     checkCoinCollisions() {
         this.level.coins.forEach((coin) => {
             if (coin.isCollidingWith(this.character)) {
@@ -128,6 +161,9 @@ class World {
         });
     }
 
+    /**
+     * Check for collisions (of the player character) with poison bottles.
+     */
     checkPoisonBottleCollisions() {
         this.level.poisonBottles.forEach((poisonBottle) => {
             if (poisonBottle.isCollidingWith(this.character)) {
@@ -138,12 +174,18 @@ class World {
         });
     }
 
+    /**
+     * Check for any collisions.
+     */
     detectCollisions() {
         this.checkEnemyCollisions();
         this.checkCoinCollisions();
         this.checkPoisonBottleCollisions();
     }
 
+    /**
+     * Draw the world.
+     */
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(Math.round(this.camera_x), 0);
@@ -172,6 +214,10 @@ class World {
         });
     }
 
+    /**
+     * Add an object to the game map.
+     * @param {Object} movableObject - An object.
+     */
     addToMap(movableObject) {
         if (movableObject.otherDirection) {
             this.flipImage(movableObject);
@@ -183,12 +229,20 @@ class World {
         }
     }
 
+    /**
+     * Add multiple objects to the game map.
+     * @param {Array} objects 
+     */
     addObjectsToMap(objects) {
         objects.forEach(object =>  {
             this.addToMap(object);
         })
     }
 
+    /**
+     * Flip an image (required when an object faces a different direction).
+     * @param {Object} movableObject - An object.
+     */
     flipImage(movableObject) {
         this.ctx.save();
         this.ctx.translate(movableObject.width, 0);
@@ -196,6 +250,10 @@ class World {
         movableObject.x = movableObject.x * -1;
     }
 
+    /**
+     * Flip an image back (required when an object faces a different direction and has just been drawn).
+     * @param {Object} movableObject 
+     */
     flipImageBack(movableObject) {
         movableObject.x = movableObject.x * -1;
         this.ctx.restore();

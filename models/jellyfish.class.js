@@ -1,3 +1,4 @@
+/** Class representing a jellyfish. */
 class Jellyfish extends MovableObject {
     height = 150;
     width = 105.5;
@@ -11,6 +12,13 @@ class Jellyfish extends MovableObject {
     speedY = 0;
     type;
 
+    /**
+     * Create a jellyfish.
+     * @param {string} type - The type of jellyfish. Can be "regular-damage" or "super-dangerous".
+     * @param {string} color - The color of the jellyfish. Can be "green", "yellow", "purple", or "pink".
+     * @param {number} x - The x location of the jellyfish.
+     * @param {number} y - The y location of the jellyfish.
+     */
     constructor(type, color, x, y) {
         super().loadImage(`img/2.enemies/2.jelly-fish/${type}/swim/${color}/1.png`);
         this.type = type;
@@ -26,8 +34,6 @@ class Jellyfish extends MovableObject {
             `img/2.enemies/2.jelly-fish/${type}/dead/${color}/3.png`,
             `img/2.enemies/2.jelly-fish/${type}/dead/${color}/4.png`,
         ];
-        // this.loadImages(this.IMAGES_SWIM);
-        // this.loadImages(this.IMAGES_DEAD);
         this.x = x;
         this.y = y;
         this.speed = 0.15 + Math.random() * 0.5;
@@ -35,18 +41,27 @@ class Jellyfish extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Kill the jellyfish.
+     */
     die() {
         super.die();
         this.speed = 0.1;
         this.speedY = 0.3;
     }
 
+    /**
+     * Apply gravity to the jellyfish object.
+     */
     applyGravity() {
         setStoppableInterval(() =>  {
             this.y -= this.speedY;
         }, 1000 / 60);
     }
 
+    /**
+     * Animate the jellyfish.
+     */
     animate() {
         setStoppableInterval(() => {
             this.moveLeft();

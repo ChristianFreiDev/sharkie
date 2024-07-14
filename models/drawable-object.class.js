@@ -1,3 +1,4 @@
+/** Class representing a drawable object. */
 class DrawableObject {
     x = 0;
     y = 0;
@@ -15,10 +16,18 @@ class DrawableObject {
     imageCache = {};
     currentImage = 0;
 
+    /**
+     * Draw the object.
+     * @param {Object} ctx - The canvas context.
+     */
     draw(ctx) {
         ctx.drawImage(this.img, Math.round(this.x), Math.round(this.y), this.width, this.height);
     }
 
+    /**
+     * Draw the image outline (for debugging only).
+     * @param {Object} ctx - The canvas context.
+     */
     drawOutline(ctx) {
         ctx.beginPath();
         ctx.lineWidth = "10";
@@ -27,14 +36,10 @@ class DrawableObject {
         ctx.stroke();
     }
 
-    drawSlapHitbox(ctx) {
-        ctx.beginPath();
-        ctx.lineWidth = "10";
-        ctx.strokeStyle = "yellow";
-        ctx.rect(this.x + this.offset.slap.left, this.y + this.offset.top, this.width - this.offset.left - this.offset.slap.right, this.height - this.offset.top - this.offset.bottom);
-        ctx.stroke();
-    }
-
+    /**
+     * Swap the hitbox offsets (and slap hitbox offsets for the character) when the direction changes.
+     * @param {boolean} newOtherDirection 
+     */
     swapOffsets(newOtherDirection) {
         if (newOtherDirection != this.otherDirection) {
             let tempOffsetLeft = this.offset.left;
@@ -48,6 +53,10 @@ class DrawableObject {
         }
     }
 
+    /**
+     * Set the hitbox offsets (and slap hitbox offsets for the character) depending on the current direction.
+     * This is so that the hitboxes are drawn correctly despite image flipping and translation.
+     */
     swapOffsetsForDrawingHitbox() {
         if (this.otherDirection) {
             let tempOffsetLeft = this.offset.left;
@@ -61,6 +70,10 @@ class DrawableObject {
         }
     }
 
+    /**
+     * Draw the hitbox (and slap hitbox for the character) - for debugging only.
+     * @param {Object} ctx - The canvas context.
+     */
     drawHitbox(ctx) {
         if (debugMode) {
             if (this instanceof Character || this instanceof PufferFish || this instanceof FinalBoss || this instanceof Bubble || this instanceof Jellyfish || this instanceof Coin || this instanceof PoisonBottle) {
@@ -79,10 +92,18 @@ class DrawableObject {
         }
     }
 
+    /**
+     * Load the initial image.
+     * @param {string} imagePath - The path to the image.
+     */
     loadImage(imagePath) {
         this.img = assetCache.imageCache[imagePath];
     }
 
+    /**
+     * Play an animation consisting of several images.
+     * @param {Array} imagePaths - A collection of image paths.
+     */
     playAnimation(imagePaths) {
         let imageIndex = this.currentImage % imagePaths.length;
         let imagePath = imagePaths[imageIndex];
@@ -90,12 +111,20 @@ class DrawableObject {
         this.currentImage++;
     }
 
+    /**
+     * Animate the object by playing an animation of its images.
+     */
     animate() {
         setStoppableInterval(() => {
             this.playAnimation(this.IMAGES);
         }, 200)
     }
 
+    /**
+     * Check if this object is colliding with another object.
+     * @param {Object} obj - Another object.
+     * @returns {boolean} Whether this object is colliding with the other object or not.
+     */
     isCollidingWith(obj) {
         return  this.x + this.width - this.offset.right > obj.x + obj.offset.left &&
                 this.y + this.height - this.offset.bottom > obj.y + obj.offset.top &&

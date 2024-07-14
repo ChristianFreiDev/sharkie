@@ -1,3 +1,4 @@
+/** Class representing the status bar. */
 class StatusBar extends DrawableObject {
     IMAGES = [
         'img/4.score/2.elements/coin.png',
@@ -6,6 +7,9 @@ class StatusBar extends DrawableObject {
     ];
     world;
 
+    /**
+     * Create a status bar.
+     */
     constructor() {
         super().loadImage('img/4.score/2.elements/heart.png');
         this.x = 20;
@@ -15,6 +19,10 @@ class StatusBar extends DrawableObject {
         this.setHealthPercentage(100);
     }
 
+    /**
+     * Draw the status bar.
+     * @param {Object} ctx - The canvas context.
+     */
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
         ctx.font = "24px luckiestguy";
@@ -26,6 +34,10 @@ class StatusBar extends DrawableObject {
         ctx.fillText(this.world.collectedPoisonBottles.toString(), this.x + 200, this.y + 38);
     }
 
+    /**
+     * Update the health percentage (hitpoints) in the status bar.
+     * @param {number} percentage 
+     */
     setHealthPercentage(percentage) {
         this.percentage = Math.ceil(percentage);
     }

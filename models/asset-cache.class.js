@@ -1,3 +1,4 @@
+/** Class for an asset cache that stores all the images and audio files. */
 class AssetCache {
     imageCache = {};
     imagePaths = [
@@ -303,6 +304,9 @@ class AssetCache {
     assetLength = this.imagePaths.length + Object.keys(this.audioCache).length;
     loadPercentage = 0;
 
+    /**
+     * Update progress variable and progress bar HTML element. 
+     */
     updateProgress() {
         progress++;
         this.loadPercentage = Math.round(progress / this.assetLength * 100) || 0;
@@ -312,6 +316,9 @@ class AssetCache {
         }
     }
 
+    /**
+     * Load all images and cache them.
+     */
     async loadImages() {
         await Promise.all(this.imagePaths.map(imagePath => new Promise(resolve => {
             let img = new Image();
@@ -324,6 +331,9 @@ class AssetCache {
         )})));
     }
 
+    /**
+     * Load all audio files and cache them.
+     */
     async loadAudio() {
         let keys = Object.keys(this.audioCache);
         await Promise.all(keys.map(key => new Promise(resolve => {
@@ -338,6 +348,11 @@ class AssetCache {
         )})));
     }
 
+    /**
+     * Load all assets. Hide loading screen with a slight delay after all assets have been loaded
+     * so that assets can be rendered behind loading screen before it disappears
+     * and the loading screen is shown at least for a little while.
+     */
     async loadAssets() {
         try {
             await Promise.all([this.loadImages(), this.loadAudio()]);

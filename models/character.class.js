@@ -1,3 +1,4 @@
+/** Class repesenting the player character. */
 class Character extends MovableObject {
 
     height = 300;
@@ -136,20 +137,46 @@ class Character extends MovableObject {
     ];
     world;
 
+    /**
+     * Create a character.
+     */
     constructor() {
         super().loadImage('img/1.sharkie/1.idle/1.png');
         this.applyGravity();
         this.animate();
     }
 
+    /**
+     * Draw the slap hitbox. Enemies within this hitbox will be slapped if they can be hurt by slaps.
+     * @param {Object} ctx - The canvas context.
+     */
+    drawSlapHitbox(ctx) {
+        ctx.beginPath();
+        ctx.lineWidth = "10";
+        ctx.strokeStyle = "yellow";
+        ctx.rect(this.x + this.offset.slap.left, this.y + this.offset.top, this.width - this.offset.left - this.offset.slap.right, this.height - this.offset.top - this.offset.bottom);
+        ctx.stroke();
+    }
+
+    /**
+     * Get whether the character is above a certain point on the screen or not.
+     * @returns {boolean} Whether the character is above the ocean floor or not.
+     */
     isAboveOceanFloor() {
         return this.y < 220;
     }
 
+    /**
+     * Get whether there is enough room for the character to move up on the screen.
+     * @returns {boolean} Whether there is room for moving upwards or not.
+     */
     isRoomForMovingUp() {
         return (this.y - this.speedY) > -150;
     }
 
+    /**
+     * Apply gravity to the player character.
+     */
     applyGravity() {
         setStoppableInterval(() =>  {
             if (this.isRoomForMovingUp()) {
@@ -165,6 +192,10 @@ class Character extends MovableObject {
         }, 1000 / 60);
     }
 
+    /**
+     * Perform certain actions (save whether last hit was electric shock or not) when the player is hit.
+     * @param {Object} obj - Object that hits the player character.
+     */
     hit(obj) {
         super.hit(obj);
         if (obj instanceof Jellyfish && obj.type === 'super-dangerous') {
@@ -174,6 +205,10 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Check if the player has been idling for a long time
+     * and then set the current image index for the long idle animation to 0 at a certain point.
+     */
     checkLongIdle() {
         let now = new Date().getTime();
         if (now - lastInput > 15000 && now - lastInput < 15017) {
@@ -181,6 +216,9 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Animate the player character.
+     */
     animate() {
         setStoppableInterval(() => {
             this.checkLongIdle();
@@ -191,6 +229,9 @@ class Character extends MovableObject {
         setStoppableInterval(() => this.playCharacterAnimations(), 200);
     }
 
+    /**
+     * Swim to the left.
+     */
     swimLeft() {
         this.moveLeft();
         this.speedY = 0;
@@ -198,6 +239,9 @@ class Character extends MovableObject {
         this.otherDirection = true;
     }
 
+    /**
+     * Swim to the right.
+     */
     swimRight() {
         this.moveRight();
         this.speedY = 0;
@@ -205,42 +249,74 @@ class Character extends MovableObject {
         this.otherDirection = false;
     }
 
+    /**
+     * Swim upwards.
+     */
     swimUp() {
         this.speedY = 1.2;
     }
 
+    /**
+     * Swim towards the bottom of the screen.
+     */
     swimDown() {
         this.speedY = -1.2;
     }
 
+    /**
+     * Check if character is currently blowing a bubble.
+     * @returns {boolean} Whether the character is blowing a bubble or not.
+     */
     isBlowingBubble() {
         let timePassed = new Date().getTime() - this.lastBubble;
         return timePassed < 1600;
     }
 
+    /**
+     * Check if the character is currently slapping.
+     * @returns {boolean} Whether the character is slapping or not.
+     */
     isSlapping() {
         let timePassed = new Date().getTime() - this.lastSlap;
         return timePassed < 1200;
     }
 
+    /**
+     * Check if the slap cooldown is currently active.
+     * @returns {boolean} Whether the slap cooldown is active or not.
+     */
     isSlapCooldown() {
         let timePassed = new Date().getTime() - this.lastSlap;
         return timePassed < 2000;
     }
 
+    /**
+     * Check if the player can see the final boss.
+     * @returns {boolean} Whether the player can see the boss or not.
+     */
     canSeeFinalBoss() {
         return Math.abs(this.x - this.world.enemies[this.world.enemies.length - 1].x) < 720;
     }
 
+    /**
+     * Check if the player is currently fighting the final boss.
+     * @returns {boolean} Whether the player is fighting the boss.
+     */
     isFightingFinalBoss() {
         return this.world.enemies[this.world.enemies.length - 1].hadFirstContact && this.canSeeFinalBoss();
     }
 
+    /**
+     * Remove all existing bubble timeouts.
+     */
     clearBubbleTimeouts() {
         this.bubbleTimeouts.forEach(bubbleTimeout => clearTimeout(bubbleTimeout));
         this.bubbleTimeouts = [];
     }
 
+    /**
+     * Produce a bubble.
+     */
     shootBubble() {
         let bubbleTimeout = setTimeout(() => {
             this.world.bubbles.push(new Bubble(this.x + this.width - this.offset.right + 8, this.y + this.height - this.offset.bottom - 52, this.lastBubbleIsPoisoned, this.otherDirection));
@@ -248,6 +324,9 @@ class Character extends MovableObject {
         this.bubbleTimeouts.push(bubbleTimeout);
     }
 
+    /**
+     * Activate bubble attack if possible.
+     */
     bubbleTrap() {
         if (!this.isBlowingBubble()) {
             this.currentImage = 0;
@@ -266,12 +345,20 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Activate fin slap attack.
+     */
     finSlap() {
         this.currentImage = 0;
         this.lastSlap = new Date().getTime();
         setTimeout(() => this.AUDIO_FIN_SLAP.play(), 400);
     }
 
+    /**
+     * Determine if the player is hitting an object with a slap.
+     * @param {Object} obj The enemy object.
+     * @returns {boolean} Whether the slap is hitting or not.
+     */
     isSlapHitting(obj) {
         return  this.x + this.width - this.offset.slap.right > obj.x + obj.offset.left &&
                 this.y + this.height - this.offset.bottom > obj.y + obj.offset.top &&
@@ -279,18 +366,34 @@ class Character extends MovableObject {
                 this.y + this.offset.top < obj.y + obj.height - obj.offset.bottom;
     }
 
+    /**
+     * Check if the player can move to the left.
+     * @returns {boolean} Whether the player can move the left or not.
+     */
     canMoveLeft() {
         return this.world.keyboard.LEFT && this.x > 0;
     }
 
+    /**
+     * Check if the player can move to the right.
+     * @returns {boolean} Whether the player can move the right or not.
+     */
     canMoveRight() {
         return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
     }
 
+    /**
+     * Check if the player can move upwards.
+     * @returns {boolean} Whether the player can move upwards or not.
+     */
     canMoveUp() {
         return this.world.keyboard.UP && this.isRoomForMovingUp();
     }
 
+    /**
+     * Change the hitbox when an electric shock occurred
+     * because the space taken up by the player image changes significantly.
+     */
     setElectricShockHitbox() {
         this.offset.top = this.height * 0.44;
         this.offset.bottom  = this.height * 0.26;
@@ -298,6 +401,9 @@ class Character extends MovableObject {
         this.offset.left = this.width * 0.38;
     }
 
+    /**
+     * Reset the offset to the default values.
+     */
     resetOffset() {
         this.offset.top = this.defaultOffset.top;
         this.offset.bottom = this.defaultOffset.bottom;
@@ -305,6 +411,9 @@ class Character extends MovableObject {
         this.offset.left = this.defaultOffset.left;
     }
 
+    /**
+     * Move the character depending on the current states of the player and the game.
+     */
     moveCharacter() {
         if (this.isHurt()) {
             this.speed = 2;
@@ -339,6 +448,9 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Play the character animations depending on the current states of the player and the game.
+     */
     playCharacterAnimations() {
         this.AUDIO_SWIM.pause();
         if (this.isDead()) {

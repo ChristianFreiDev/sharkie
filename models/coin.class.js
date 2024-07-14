@@ -1,3 +1,4 @@
+/** Class representing a coin. */
 class Coin extends DrawableObject {
 
     height = 48;
@@ -10,6 +11,11 @@ class Coin extends DrawableObject {
         'img/4.score/1.coins/4.png'
     ];
 
+    /**
+     * Create a coin.
+     * @param {number} x - The x location of the coin object.
+     * @param {number} y - The y location of the coin object.
+     */
     constructor(x, y) {
         super().loadImage('img/4.score/1.coins/1.png');
         this.x = x;

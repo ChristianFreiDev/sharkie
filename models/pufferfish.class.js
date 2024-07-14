@@ -1,3 +1,4 @@
+/** Class representing a puffer fish. */
 class PufferFish extends MovableObject {
 
     height = 99;
@@ -12,6 +13,12 @@ class PufferFish extends MovableObject {
     speedY = 0;
     firstHit;
 
+    /**
+     * Create a puffer fish.
+     * @param {number} type - The type of puffer fish. Can be 1, 2, or 3.
+     * @param {number} x - The x location of the puffer fish.
+     * @param {number} y - The y location of the puffer fish.
+     */
     constructor(type, x, y) {
         super().loadImage(`img/2.enemies/1.puffer-fish/1.swim/${type}.swim1.png`);
         this.IMAGES_SWIM = [
@@ -45,6 +52,10 @@ class PufferFish extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Call hit method of superordinate class and save timestamp of first hit.
+     * @param {Object} obj - Another object.
+     */
     hit(obj) {
         super.hit(obj);
         if (!this.firstHit) {
@@ -52,6 +63,10 @@ class PufferFish extends MovableObject {
         }
     }
 
+    /**
+     * Check if the puffer fish has been hurt yet.
+     * @returns {boolean} Whether the puffer fish has been hurt or not.
+     */
     hasBeenHurt() {
         if (this.firstHit) {
             let timePassed = new Date().getTime() - this.firstHit;
@@ -66,12 +81,18 @@ class PufferFish extends MovableObject {
         }
     }
 
+    /**
+     * Apply gravity to the puffer fish.
+     */
     applyGravity() {
         setStoppableInterval(() =>  {
             this.y -= this.speedY;
         }, 1000 / 60);
     }
 
+    /**
+     * Animate the puffer fish.
+     */
     animate() {
         setStoppableInterval(() => {
             if (!this.isDead()) {
@@ -93,5 +114,4 @@ class PufferFish extends MovableObject {
             }
         }, 200)
     }
-
 }

@@ -11,11 +11,18 @@ let currentLevel = level1;
 let assetCache = new AssetCache();
 let progress = 0;
 
+/**
+ * This function initializes the game by loading the assets and setting up the game.
+ */
 async function init() {
     await assetCache.loadAssets();
     setupGame();
 }
 
+/**
+ * This function sets up the game by loading the level, creating the world,
+ * pausing the game after that (thus creating a start screen) and binding button events.
+ */
 function setupGame() {
     canvas = document.getElementById('canvas');
     loadCurrentLevel();
@@ -24,6 +31,9 @@ function setupGame() {
     bindButtonEvents();
 }
 
+/**
+ * This function opens the second set of instructions on how to play the game.
+ */
 function openInstructions2() {
     let instructionsImage = document.getElementById('instructions-image');
     instructionsImage.src = 'img/6.buttons/instructions2.png';
@@ -32,6 +42,9 @@ function openInstructions2() {
     instructionsButton.setAttribute('onclick', 'showStartButton()');
 }
 
+/**
+ * This function shows the start button (and hides the instructions).
+ */
 function showStartButton() {
     let instructionsImage = document.getElementById('instructions-image');
     instructionsImage.style.display = 'none';
@@ -41,11 +54,17 @@ function showStartButton() {
     startButton.style.display = 'flex';
 }
 
+/**
+ * This function pauses the game.
+ */
 function pauseGame() {
     muteOrUnmuteGameAudio(true);
     stopAllIntervals();
 }
 
+/**
+ * This function starts the game.
+ */
 function startGame() {
     lastInput = new Date().getTime();
     resumeAllIntervals();
@@ -64,6 +83,9 @@ function startGame() {
     resumeAmbienceSound();
 }
 
+/**
+ * This function resumes the game.
+ */
 function resumeGame() {
     lastInput = new Date().getTime();
     if (!muted) {
@@ -75,6 +97,9 @@ function resumeGame() {
     resumeAllIntervals();
 }
 
+/**
+ * This function displays the "Game Over" screen.
+ */
 function gameOver() {
     setTimeout(() => {
         world.AUDIO_GAME_OVER.play();
@@ -87,11 +112,17 @@ function gameOver() {
     }, 1600);
 }
 
+/**
+ * This function plays the corresponding sounds when the player wins.
+ */
 function playWinSounds() {
     world.AUDIO_YAY.play();
     world.AUDIO_POP.play();
 }
 
+/**
+ * This function performs the corresponding actions when the player wins.
+ */
 function youWin() {
     setTimeout(() => {
         playWinSounds();
@@ -109,7 +140,9 @@ function youWin() {
     }, 1800);
 }
 
-
+/**
+ * This functions hides the screens displayed at the end of a game so that a new game can start.
+ */
 function hideEndOfGameScreen() {
     let gameOverScreen = document.getElementById('game-over-screen');
     gameOverScreen.style.display = 'none';
@@ -117,7 +150,9 @@ function hideEndOfGameScreen() {
     youWinScreen.style.display = 'none';
 }
 
-
+/**
+ * This function starts a new game.
+ */
 function playAgain() {
     gameHasEnded = false;
     lastInput = new Date().getTime();
@@ -139,7 +174,9 @@ function playAgain() {
     };
 }
 
-
+/**
+ * This function changes the level to the next level.
+ */
 function nextLevel() {
     if (currentLevelIndex === levels.length - 1) {
         currentLevelIndex = 0;
@@ -150,7 +187,9 @@ function nextLevel() {
     playAgain();
 }
 
-
+/**
+ * This event listener sets the keyboard values when a key is pressed down.
+ */
 document.addEventListener('keydown', (event) => {
     lastInput = new Date().getTime();
     if (event.key === 'ArrowLeft') {
@@ -173,6 +212,9 @@ document.addEventListener('keydown', (event) => {
     }
 })
 
+/**
+ * This event listener sets the keyboard values when a key is released.
+ */
 document.addEventListener('keyup', (event) => {
     lastInput = new Date().getTime();
     if (event.key === 'ArrowLeft') {
@@ -195,6 +237,10 @@ document.addEventListener('keyup', (event) => {
     }
 })
 
+/**
+ * This function is executed on every touch.
+ * @param {*} event 
+ */
 function onTouch(event) {
     if (event.cancelable) {
         event.preventDefault();
@@ -202,6 +248,9 @@ function onTouch(event) {
     lastInput = new Date().getTime();
 }
 
+/**
+ * This function binds the corresponding touch events to the keyboard buttons using event listeners.
+ */
 function bindButtonEvents() {
     document.getElementById('left-button').addEventListener('touchstart', (event) => {
         onTouch(event);

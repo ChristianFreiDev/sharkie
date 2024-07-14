@@ -1,5 +1,8 @@
 const level3 = new Level();
 
+/**
+ * This function loads level 3 and all the objects associated with it.
+ */
 function loadLevel3() {
     level3.backgroundObjects = [
         new BackgroundObject('img/3.background/layers/5.water/d2.png', -719),

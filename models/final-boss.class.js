@@ -1,3 +1,4 @@
+/** Class representing the final boss. */
 class FinalBoss extends MovableObject {
 
     height;
@@ -69,6 +70,11 @@ class FinalBoss extends MovableObject {
         'img/2.enemies/3.final-boss/3.attack/6.png'
     ];
 
+    /**
+     * Create a final boss.
+     * @param {number} energy - Life energy (hitpoints) of the final boss. Greater in higher levels.
+     * @param {number} size - Size of the final boss. Larger in higher levels.
+     */
     constructor(energy, size) {
         super().loadImage('img/2.enemies/3.final-boss/1.spawning/1.png');
         this.energy = energy;
@@ -86,47 +92,76 @@ class FinalBoss extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Kill final boss.
+     */
     die() {
         super.die();
         setTimeout(() => this.speedY = 0.3, 1200);
     }
 
+    /**
+     * Check if death animation is currently playing.
+     * @returns {boolean} Whether the death animation is playing or not.
+     */
     isDeathAnimationPlaying() {
         return this.isDead() && this.currentImage != 6;
     }
 
+    /**
+     * Apply gravity to final boss object.
+     */
     applyGravity() {
         setStoppableInterval(() =>  {
             this.y -= this.speedY;
         }, 1000 / 60);
     }
 
+    /**
+     * Call hit from superordinate class if final boss is hit by a poisoned bubble.
+     * @param {Object} obj - Another object.
+     */
     hit(obj) {
         if (obj.isPoisoned) {
             super.hit(obj);
         } 
     }
 
+    /**
+     * Swim to the left.
+     */
     swimLeft() {
         this.moveLeft();
         this.swapOffsets(false);
         this.otherDirection = false;
     }
 
+    /**
+     * Swim to the right.
+     */
     swimRight() {
         this.moveRight();
         this.swapOffsets(true);
         this.otherDirection = true;
     }
 
+    /**
+     * Swim upwards.
+     */
     swimUp() {
         this.speedY = -0.3;
     }
 
+    /**
+     * Swim towards the bottom of the screen.
+     */
     swimDown() {
         this.speedY = 0.3;
     }
 
+    /**
+     * Update where the final boss should move.
+     */
     updateMovementTargets() {
         if (world && this.x > world.character.x) {
             this.shouldSwimLeft = true;
@@ -144,6 +179,10 @@ class FinalBoss extends MovableObject {
         }
     }
 
+    /**
+     * Move final boss after it has been seen for some time.
+     * @param {number} i - Number of intervals after the final boss has been seen.
+     */
     moveFinalBoss(i) {
         if (i > 15 && this.hadFirstContact) {
             if (this.shouldSwimLeft) {
@@ -159,6 +198,9 @@ class FinalBoss extends MovableObject {
         }
     }
 
+    /**
+     * Animate final boss.
+     */
     animate() {
         let i = 10;
         setStoppableInterval(() => {
