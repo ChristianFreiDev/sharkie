@@ -147,6 +147,8 @@ function muteOrUnmuteGameAudio(bool) {
     world.character.AUDIO_FIN_SLAP.muted = bool;
     world.character.AUDIO_HURT.muted = bool;
     world.character.AUDIO_ELECTRIC_SHOCK.muted = bool;
+    world.character.AUDIO_SNORING.muted = bool;
+    world.character.AUDIO_YAWN.muted = bool;
     world.AUDIO_AMBIENCE.muted = bool;
     world.AUDIO_ENEMY_HURT.muted = bool;
     let finalBoss = world.enemies[world.enemies.length - 1];

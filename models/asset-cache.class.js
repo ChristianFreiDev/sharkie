@@ -256,6 +256,14 @@ class AssetCache {
             path: 'audio/slap/slap.wav',
             volume: 0.5
         },
+        'snoring': {
+            path: 'audio/sleep/snoring.wav',
+            volume: 1
+        },
+        'yawn': {
+            path: 'audio/sleep/yawn.wav',
+            volume: 0.1
+        },
         'splash': {
             path: 'audio/splash/splash.wav',
             volume: 1

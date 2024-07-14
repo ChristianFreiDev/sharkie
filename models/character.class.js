@@ -33,6 +33,8 @@ class Character extends MovableObject {
     AUDIO_FIN_SLAP = assetCache.audioCache['slap'].file;
     AUDIO_HURT = assetCache.audioCache['character-hurt'].file;
     AUDIO_ELECTRIC_SHOCK = assetCache.audioCache['electric-shock'].file;
+    AUDIO_SNORING = assetCache.audioCache['snoring'].file;
+    AUDIO_YAWN = assetCache.audioCache['yawn'].file;
     IMAGES_IDLE = [
         'img/1.sharkie/1.idle/1.png',
         'img/1.sharkie/1.idle/2.png',
@@ -412,6 +414,17 @@ class Character extends MovableObject {
     }
 
     /**
+     * This function plays a snoring sound when approriate.
+     */
+    playSnoringSoundIfNecessary() {
+        if (new Date().getTime() - lastInput >= 17000) {
+            this.AUDIO_SNORING.play();
+        } else {
+            this.AUDIO_SNORING.pause();
+        }
+    }
+
+    /**
      * Move the character depending on the current states of the player and the game.
      */
     moveCharacter() {
@@ -483,10 +496,12 @@ class Character extends MovableObject {
             }
         } else if (new Date().getTime() - lastInput > 15000 && new Date().getTime() - lastInput < 17000) {
             this.playAnimation(this.IMAGES_LONG_IDLE);
+            this.AUDIO_YAWN.play();
         } else if (new Date().getTime() - lastInput >= 17000) {
             this.playAnimation(this.IMAGES_SLEEPING);
         } else {
             this.playAnimation(this.IMAGES_IDLE);
         }
+        this.playSnoringSoundIfNecessary();
     }
 }
