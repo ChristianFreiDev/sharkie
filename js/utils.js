@@ -179,6 +179,25 @@ function muteFinalBossSound() {
 }
 
 /**
+ * This function checks if the footer links container and the canvas overlap to determine if the footer links container should be shown.
+ * @returns {boolean} Whether the footer links container and the canvas overlap.
+ */
+function isFooterLinksContainerOverlapping() {
+    let footerLinksContainer = document.getElementById('footer-links-container');
+    let canvas = document.getElementById('canvas');
+    let footerLinksContainerRect = footerLinksContainer.getBoundingClientRect();
+    let canvasRect = canvas.getBoundingClientRect();
+    if (footerLinksContainerRect.right > canvasRect.left &&
+        footerLinksContainerRect.left < canvasRect.right &&
+        footerLinksContainerRect.bottom > canvasRect.top &&
+        footerLinksContainerRect.top < canvasRect.bottom) {
+            return true;
+        } else {
+            return false;
+        }
+}
+
+/**
  * This event listener detects when fullscreen mode is exited and then shows the fullscreen button again.
  */
 document.addEventListener("fullscreenchange", () => {

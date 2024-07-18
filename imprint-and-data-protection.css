@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    background-color: hsl(239, 50%, 27%);
+}
+
+.imprint-and-data-protection {
+    font-family: 'Calibri', sans-serif;
+    margin: 16px;
+    color: white;
+}
+
+.imprint-and-data-protection a {
+    color: white;
+}

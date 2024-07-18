@@ -4,7 +4,7 @@ let lastInput;
 let keyboard = new Keyboard();
 let debugMode = false;
 let muted = false;
-let gameHasEnded = false;
+let gameHasEnded = true;
 let levels = [level1, level2, level3];
 let currentLevelIndex = 0;
 let currentLevel = level1;
@@ -63,6 +63,18 @@ function pauseGame() {
 }
 
 /**
+ * This function hides the footer links container if it overlaps with the canvas and the game is running.
+ */
+function hideOrShowFooterLinksContainer() {
+    let footerLinksContainer = document.getElementById('footer-links-container');
+    if (isFooterLinksContainerOverlapping() && gameHasEnded == false) {
+        footerLinksContainer.style.visibility = 'hidden';
+    } else {
+        footerLinksContainer.style.visibility = 'visible';
+    }
+}
+
+/**
  * This function starts the game.
  */
 function startGame() {
@@ -74,6 +86,8 @@ function startGame() {
     creditsButton.style.display = 'none';
     let infoButton = document.getElementById('info-button');
     infoButton.style.display = 'flex';
+    gameHasEnded = false;
+    hideOrShowFooterLinksContainer();
     if (isTouchscreen()) {
         showTouchscreenButtons();
     };
@@ -101,6 +115,7 @@ function resumeGame() {
  * This function displays the "Game Over" screen.
  */
 function gameOver() {
+    gameHasEnded = true;
     setTimeout(() => {
         world.AUDIO_GAME_OVER.play();
     }, 600)
@@ -109,6 +124,7 @@ function gameOver() {
         let gameOverScreen = document.getElementById('game-over-screen');
         gameOverScreen.style.display = 'block';
         hideTouchscreenButtons();
+        hideOrShowFooterLinksContainer();
     }, 1600);
 }
 
@@ -124,6 +140,7 @@ function playWinSounds() {
  * This function performs the corresponding actions when the player wins.
  */
 function youWin() {
+    gameHasEnded = true;
     setTimeout(() => {
         playWinSounds();
         pauseGame();
@@ -137,6 +154,7 @@ function youWin() {
             keepPlayingButton.innerText = 'Next level';
         }
         hideTouchscreenButtons();
+        hideOrShowFooterLinksContainer();
     }, 1800);
 }
 
@@ -172,6 +190,7 @@ function playAgain() {
     if (isTouchscreen()) {
         showTouchscreenButtons();
     };
+    hideOrShowFooterLinksContainer();
 }
 
 /**
@@ -312,3 +331,10 @@ function bindButtonEvents() {
         keyboard.DOWN = false;
     });
 }
+
+/**
+ * This event listener shows the footer links container if the game is running and it should be visible or hides it.
+ */
+window.addEventListener('resize', () => {
+    hideOrShowFooterLinksContainer();
+})
