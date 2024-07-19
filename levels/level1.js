@@ -36,7 +36,7 @@ function loadLevel1() {
         new Jellyfish('super-dangerous', 'pink', 800, 100),
         new Jellyfish('regular-damage', 'purple', 1200, 300),
         new Jellyfish('regular-damage', 'yellow', 1700, 200),
-        new FinalBoss(15, 1)
+        new FinalBoss(15, 1, 'easy', 1.5)
     ];
     
     level1.coins = [

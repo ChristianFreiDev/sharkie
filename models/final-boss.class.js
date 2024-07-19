@@ -3,7 +3,7 @@ class FinalBoss extends MovableObject {
 
     height;
     width;
-    speed = 1.5;
+    speed;
     speedY = 0;
     hadFirstContact = false;
     energy;
@@ -12,6 +12,7 @@ class FinalBoss extends MovableObject {
     shouldSwimUp = false;
     shouldSwimDown = false;
     isBiting = false;
+    difficulty;
     AUDIO_SPLASH = assetCache.audioCache['splash'].file;
     AUDIO_HURT = assetCache.audioCache['final-boss-hurt'].file;
     AUDIO_BOSS_FIGHT = assetCache.audioCache['boss-fight'].file;
@@ -75,10 +76,12 @@ class FinalBoss extends MovableObject {
      * @param {number} energy - Life energy (hitpoints) of the final boss. Greater in higher levels.
      * @param {number} size - Size of the final boss. Larger in higher levels.
      */
-    constructor(energy, size) {
+    constructor(energy, size, difficulty, speed) {
         super().loadImage('img/2.enemies/3.final-boss/1.spawning/1.png');
         this.energy = energy;
         this.height = 300 * size;
+        this.difficulty = difficulty;
+        this.speed = speed;
         this.width = this.height * 0.8560855263157895 * size;
         this.offset =  {
             top: this.height * 0.52,
@@ -162,20 +165,31 @@ class FinalBoss extends MovableObject {
     /**
      * Update where the final boss should move.
      */
-    updateMovementTargets() {
-        if (world && this.x > world.character.x) {
+    updateMovementTargets(target) {
+        if (world && this.x > target.x) {
             this.shouldSwimLeft = true;
             this.shouldSwimRight = false;
         } else {
             this.shouldSwimLeft = false;
             this.shouldSwimRight = true;
         }
-        if (world && this.y > world.character.y) {
+        if (world && this.y > target.y) {
             this.shouldSwimUp = false;
             this.shouldSwimDown = true;
         } else {
             this.shouldSwimUp = true;
             this.shouldSwimDown = false;
+        }
+    }
+
+    /**
+     * Steer final boss in a particular direction, either towards player or towards spawn point.
+     */
+    steer(j) {
+        if (j % 4 == 0 && this.difficulty == 'easy') {
+            this.updateMovementTargets({x: 2100, y: 120});
+        } else {
+            this.updateMovementTargets(world.character);
         }
     }
 
@@ -203,9 +217,11 @@ class FinalBoss extends MovableObject {
      */
     animate() {
         let i = 10;
+        let j = 0;
         setStoppableInterval(() => {
-            this.updateMovementTargets();
-        }, 800)
+            this.steer(j);
+            j++
+        }, 1000)
 
         setStoppableInterval(() => {
             if (!this.isDead()) {
