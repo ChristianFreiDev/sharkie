@@ -1,9 +1,9 @@
 /** Class representing the status bar. */
 class StatusBar extends DrawableObject {
     IMAGES = [
-        'img/4.score/2.elements/coin.png',
-        'img/4.score/2.elements/heart.png',
-        'img/4.score/2.elements/poison.png',
+        'img/4.score/2.elements/coin.webp',
+        'img/4.score/2.elements/heart.webp',
+        'img/4.score/2.elements/poison.webp',
     ];
     world;
 
@@ -11,7 +11,7 @@ class StatusBar extends DrawableObject {
      * Create a status bar.
      */
     constructor() {
-        super().loadImage('img/4.score/2.elements/heart.png');
+        super().loadImage('img/4.score/2.elements/heart.webp');
         this.x = 20;
         this.y = 10;
         this.width = 50;
@@ -28,9 +28,9 @@ class StatusBar extends DrawableObject {
         ctx.font = "24px luckiestguy";
         ctx.fillStyle = "hsl(239, 50%, 27%)";
         ctx.fillText(this.world.character.energy.toString(), this.x + 46, this.y + 38);
-        ctx.drawImage(assetCache.imageCache['img/4.score/2.elements/coin.png'], this.x + 90, this.y + 5, this.width, this.height);
+        ctx.drawImage(assetCache.imageCache['img/4.score/2.elements/coin.webp'], this.x + 90, this.y + 5, this.width, this.height);
         ctx.fillText(this.world.collectedCoins.toString(), this.x + 138, this.y + 38);
-        ctx.drawImage(assetCache.imageCache['img/4.score/2.elements/poison.png'], this.x + 160, this.y, this.width, this.height);
+        ctx.drawImage(assetCache.imageCache['img/4.score/2.elements/poison.webp'], this.x + 160, this.y, this.width, this.height);
         ctx.fillText(this.world.collectedPoisonBottles.toString(), this.x + 200, this.y + 38);
     }
 

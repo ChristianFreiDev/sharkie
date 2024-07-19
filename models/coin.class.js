@@ -5,10 +5,10 @@ class Coin extends DrawableObject {
     width = this.height * 1.064516129032258;
 
     IMAGES = [
-        'img/4.score/1.coins/1.png',
-        'img/4.score/1.coins/2.png',
-        'img/4.score/1.coins/3.png',
-        'img/4.score/1.coins/4.png'
+        'img/4.score/1.coins/1.webp',
+        'img/4.score/1.coins/2.webp',
+        'img/4.score/1.coins/3.webp',
+        'img/4.score/1.coins/4.webp'
     ];
 
     /**
@@ -17,7 +17,7 @@ class Coin extends DrawableObject {
      * @param {number} y - The y location of the coin object.
      */
     constructor(x, y) {
-        super().loadImage('img/4.score/1.coins/1.png');
+        super().loadImage('img/4.score/1.coins/1.webp');
         this.x = x;
         this.y = y;
         this.animate();

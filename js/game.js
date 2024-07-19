@@ -36,7 +36,7 @@ function setupGame() {
  */
 function openInstructions2() {
     let instructionsImage = document.getElementById('instructions-image');
-    instructionsImage.src = 'img/6.buttons/instructions2.png';
+    instructionsImage.src = 'img/6.buttons/instructions2.webp';
     let instructionsButton = document.getElementById('instructions-button');
     instructionsButton.innerText = 'OK';
     instructionsButton.setAttribute('onclick', 'showStartButton()');

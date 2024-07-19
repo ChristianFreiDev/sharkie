@@ -20,19 +20,19 @@ class Jellyfish extends MovableObject {
      * @param {number} y - The y location of the jellyfish.
      */
     constructor(type, color, x, y) {
-        super().loadImage(`img/2.enemies/2.jelly-fish/${type}/swim/${color}/1.png`);
+        super().loadImage(`img/2.enemies/2.jelly-fish/${type}/swim/${color}/1.webp`);
         this.type = type;
         this.IMAGES_SWIM = [
-            `img/2.enemies/2.jelly-fish/${type}/swim/${color}/1.png`,
-            `img/2.enemies/2.jelly-fish/${type}/swim/${color}/2.png`,
-            `img/2.enemies/2.jelly-fish/${type}/swim/${color}/3.png`,
-            `img/2.enemies/2.jelly-fish/${type}/swim/${color}/4.png`,
+            `img/2.enemies/2.jelly-fish/${type}/swim/${color}/1.webp`,
+            `img/2.enemies/2.jelly-fish/${type}/swim/${color}/2.webp`,
+            `img/2.enemies/2.jelly-fish/${type}/swim/${color}/3.webp`,
+            `img/2.enemies/2.jelly-fish/${type}/swim/${color}/4.webp`,
         ];
         this.IMAGES_DEAD = [
-            `img/2.enemies/2.jelly-fish/${type}/dead/${color}/1.png`,
-            `img/2.enemies/2.jelly-fish/${type}/dead/${color}/2.png`,
-            `img/2.enemies/2.jelly-fish/${type}/dead/${color}/3.png`,
-            `img/2.enemies/2.jelly-fish/${type}/dead/${color}/4.png`,
+            `img/2.enemies/2.jelly-fish/${type}/dead/${color}/1.webp`,
+            `img/2.enemies/2.jelly-fish/${type}/dead/${color}/2.webp`,
+            `img/2.enemies/2.jelly-fish/${type}/dead/${color}/3.webp`,
+            `img/2.enemies/2.jelly-fish/${type}/dead/${color}/4.webp`,
         ];
         this.x = x;
         this.y = y;

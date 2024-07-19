@@ -18,57 +18,57 @@ class FinalBoss extends MovableObject {
     AUDIO_BOSS_FIGHT = assetCache.audioCache['boss-fight'].file;
     AUDIO_BITE = assetCache.audioCache['bite'].file;
     IMAGES_FLOATING = [
-        'img/2.enemies/3.final-boss/2.floating/1.png',
-        'img/2.enemies/3.final-boss/2.floating/2.png',
-        'img/2.enemies/3.final-boss/2.floating/3.png',
-        'img/2.enemies/3.final-boss/2.floating/4.png',
-        'img/2.enemies/3.final-boss/2.floating/5.png',
-        'img/2.enemies/3.final-boss/2.floating/6.png',
-        'img/2.enemies/3.final-boss/2.floating/7.png',
-        'img/2.enemies/3.final-boss/2.floating/8.png',
-        'img/2.enemies/3.final-boss/2.floating/9.png',
-        'img/2.enemies/3.final-boss/2.floating/10.png',
-        'img/2.enemies/3.final-boss/2.floating/11.png',
-        'img/2.enemies/3.final-boss/2.floating/12.png',
-        'img/2.enemies/3.final-boss/2.floating/13.png',
+        'img/2.enemies/3.final-boss/2.floating/1.webp',
+        'img/2.enemies/3.final-boss/2.floating/2.webp',
+        'img/2.enemies/3.final-boss/2.floating/3.webp',
+        'img/2.enemies/3.final-boss/2.floating/4.webp',
+        'img/2.enemies/3.final-boss/2.floating/5.webp',
+        'img/2.enemies/3.final-boss/2.floating/6.webp',
+        'img/2.enemies/3.final-boss/2.floating/7.webp',
+        'img/2.enemies/3.final-boss/2.floating/8.webp',
+        'img/2.enemies/3.final-boss/2.floating/9.webp',
+        'img/2.enemies/3.final-boss/2.floating/10.webp',
+        'img/2.enemies/3.final-boss/2.floating/11.webp',
+        'img/2.enemies/3.final-boss/2.floating/12.webp',
+        'img/2.enemies/3.final-boss/2.floating/13.webp',
     ];
 
     IMAGES_HURT = [
-        'img/2.enemies/3.final-boss/5.hurt/1.png',
-        'img/2.enemies/3.final-boss/5.hurt/2.png',
-        'img/2.enemies/3.final-boss/5.hurt/3.png',
-        'img/2.enemies/3.final-boss/5.hurt/4.png',
+        'img/2.enemies/3.final-boss/5.hurt/1.webp',
+        'img/2.enemies/3.final-boss/5.hurt/2.webp',
+        'img/2.enemies/3.final-boss/5.hurt/3.webp',
+        'img/2.enemies/3.final-boss/5.hurt/4.webp',
     ];
 
     IMAGES_DEAD = [
-        'img/2.enemies/3.final-boss/4.dead/1.png',
-        'img/2.enemies/3.final-boss/4.dead/2.png',
-        'img/2.enemies/3.final-boss/4.dead/3.png',
-        'img/2.enemies/3.final-boss/4.dead/4.png',
-        'img/2.enemies/3.final-boss/4.dead/5.png',
-        'img/2.enemies/3.final-boss/4.dead/6.png',
+        'img/2.enemies/3.final-boss/4.dead/1.webp',
+        'img/2.enemies/3.final-boss/4.dead/2.webp',
+        'img/2.enemies/3.final-boss/4.dead/3.webp',
+        'img/2.enemies/3.final-boss/4.dead/4.webp',
+        'img/2.enemies/3.final-boss/4.dead/5.webp',
+        'img/2.enemies/3.final-boss/4.dead/6.webp',
     ];
 
     IMAGES_SPAWNING = [
-        'img/2.enemies/3.final-boss/1.spawning/1.png',
-        'img/2.enemies/3.final-boss/1.spawning/2.png',
-        'img/2.enemies/3.final-boss/1.spawning/3.png',
-        'img/2.enemies/3.final-boss/1.spawning/4.png',
-        'img/2.enemies/3.final-boss/1.spawning/5.png',
-        'img/2.enemies/3.final-boss/1.spawning/6.png',
-        'img/2.enemies/3.final-boss/1.spawning/7.png',
-        'img/2.enemies/3.final-boss/1.spawning/8.png',
-        'img/2.enemies/3.final-boss/1.spawning/9.png',
-        'img/2.enemies/3.final-boss/1.spawning/10.png',
+        'img/2.enemies/3.final-boss/1.spawning/1.webp',
+        'img/2.enemies/3.final-boss/1.spawning/2.webp',
+        'img/2.enemies/3.final-boss/1.spawning/3.webp',
+        'img/2.enemies/3.final-boss/1.spawning/4.webp',
+        'img/2.enemies/3.final-boss/1.spawning/5.webp',
+        'img/2.enemies/3.final-boss/1.spawning/6.webp',
+        'img/2.enemies/3.final-boss/1.spawning/7.webp',
+        'img/2.enemies/3.final-boss/1.spawning/8.webp',
+        'img/2.enemies/3.final-boss/1.spawning/9.webp',
+        'img/2.enemies/3.final-boss/1.spawning/10.webp',
     ];
 
     IMAGES_BITE = [
-        'img/2.enemies/3.final-boss/3.attack/1.png',
-        'img/2.enemies/3.final-boss/3.attack/2.png',
-        'img/2.enemies/3.final-boss/3.attack/3.png',
-        'img/2.enemies/3.final-boss/3.attack/4.png',
-        'img/2.enemies/3.final-boss/3.attack/5.png',
-        'img/2.enemies/3.final-boss/3.attack/6.png'
+        'img/2.enemies/3.final-boss/3.attack/1.webp',
+        'img/2.enemies/3.final-boss/3.attack/2.webp',
+        'img/2.enemies/3.final-boss/3.attack/3.webp',
+        'img/2.enemies/3.final-boss/3.attack/4.webp',
+        'img/2.enemies/3.final-boss/3.attack/5.webp',
+        'img/2.enemies/3.final-boss/3.attack/6.webp'
     ];
 
     /**
@@ -77,7 +77,7 @@ class FinalBoss extends MovableObject {
      * @param {number} size - Size of the final boss. Larger in higher levels.
      */
     constructor(energy, size, difficulty, speed) {
-        super().loadImage('img/2.enemies/3.final-boss/1.spawning/1.png');
+        super().loadImage('img/2.enemies/3.final-boss/1.spawning/1.webp');
         this.energy = energy;
         this.height = 300 * size;
         this.difficulty = difficulty;

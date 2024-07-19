@@ -15,8 +15,8 @@ class World {
     confetti = [];
     confettiAmount = 200;
     lights = [
-        new Light('img/3.background/layers/1.light/1.png', 0),
-        new Light('img/3.background/layers/1.light/2.png', 719),
+        new Light('img/3.background/layers/1.light/1.webp', 0),
+        new Light('img/3.background/layers/1.light/2.webp', 719),
     ];
     AUDIO_AMBIENCE = assetCache.audioCache['ambience'].file;
     AUDIO_COLLECT = assetCache.audioCache['collect'].file;

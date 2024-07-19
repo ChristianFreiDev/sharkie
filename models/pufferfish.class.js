@@ -20,30 +20,30 @@ class PufferFish extends MovableObject {
      * @param {number} y - The y location of the puffer fish.
      */
     constructor(type, x, y) {
-        super().loadImage(`img/2.enemies/1.puffer-fish/1.swim/${type}.swim1.png`);
+        super().loadImage(`img/2.enemies/1.puffer-fish/1.swim/${type}.swim1.webp`);
         this.IMAGES_SWIM = [
-            `img/2.enemies/1.puffer-fish/1.swim/${type}.swim1.png`,
-            `img/2.enemies/1.puffer-fish/1.swim/${type}.swim2.png`,
-            `img/2.enemies/1.puffer-fish/1.swim/${type}.swim3.png`,
-            `img/2.enemies/1.puffer-fish/1.swim/${type}.swim4.png`,
-            `img/2.enemies/1.puffer-fish/1.swim/${type}.swim5.png`,
+            `img/2.enemies/1.puffer-fish/1.swim/${type}.swim1.webp`,
+            `img/2.enemies/1.puffer-fish/1.swim/${type}.swim2.webp`,
+            `img/2.enemies/1.puffer-fish/1.swim/${type}.swim3.webp`,
+            `img/2.enemies/1.puffer-fish/1.swim/${type}.swim4.webp`,
+            `img/2.enemies/1.puffer-fish/1.swim/${type}.swim5.webp`,
         ];
         this.IMAGES_TRANSITION = [
-            `img/2.enemies/1.puffer-fish/2.transition/${type}.transition1.png`,
-            `img/2.enemies/1.puffer-fish/2.transition/${type}.transition2.png`,
-            `img/2.enemies/1.puffer-fish/2.transition/${type}.transition3.png`,
-            `img/2.enemies/1.puffer-fish/2.transition/${type}.transition4.png`,
-            `img/2.enemies/1.puffer-fish/2.transition/${type}.transition5.png`,
+            `img/2.enemies/1.puffer-fish/2.transition/${type}.transition1.webp`,
+            `img/2.enemies/1.puffer-fish/2.transition/${type}.transition2.webp`,
+            `img/2.enemies/1.puffer-fish/2.transition/${type}.transition3.webp`,
+            `img/2.enemies/1.puffer-fish/2.transition/${type}.transition4.webp`,
+            `img/2.enemies/1.puffer-fish/2.transition/${type}.transition5.webp`,
         ];
         this.IMAGES_BUBBLE_SWIM = [
-            `img/2.enemies/1.puffer-fish/3.bubbleswim/${type}.bubbleswim2.png`,
-            `img/2.enemies/1.puffer-fish/3.bubbleswim/${type}.bubbleswim3.png`,
-            `img/2.enemies/1.puffer-fish/3.bubbleswim/${type}.bubbleswim4.png`,
-            `img/2.enemies/1.puffer-fish/3.bubbleswim/${type}.bubbleswim1.png`,
-            `img/2.enemies/1.puffer-fish/3.bubbleswim/${type}.bubbleswim5.png`,
+            `img/2.enemies/1.puffer-fish/3.bubbleswim/${type}.bubbleswim2.webp`,
+            `img/2.enemies/1.puffer-fish/3.bubbleswim/${type}.bubbleswim3.webp`,
+            `img/2.enemies/1.puffer-fish/3.bubbleswim/${type}.bubbleswim4.webp`,
+            `img/2.enemies/1.puffer-fish/3.bubbleswim/${type}.bubbleswim1.webp`,
+            `img/2.enemies/1.puffer-fish/3.bubbleswim/${type}.bubbleswim5.webp`,
         ];
         this.IMAGES_DEAD = [
-            `img/2.enemies/1.puffer-fish/4.dead/${type}.png`
+            `img/2.enemies/1.puffer-fish/4.dead/${type}.webp`
         ];
         this.x = x
         this.y = y;

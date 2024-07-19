@@ -17,10 +17,10 @@ class Bubble extends MovableObject {
      */
     constructor(x, y, isPoisoned, otherDirection) {
         if (isPoisoned) {
-            super().loadImage('img/1.sharkie/4.attack/bubble-trap/poisoned-bubble.png');
+            super().loadImage('img/1.sharkie/4.attack/bubble-trap/poisoned-bubble.webp');
             this.isPoisoned = true;
         } else {
-            super().loadImage('img/1.sharkie/4.attack/bubble-trap/bubble.png');
+            super().loadImage('img/1.sharkie/4.attack/bubble-trap/bubble.webp');
         }
         this.x = x;
         this.y = y;

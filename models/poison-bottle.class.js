@@ -4,14 +4,14 @@ class PoisonBottle extends DrawableObject {
     width = this.height * 0.7325102880658436;
 
     IMAGES = [
-        'img/4.score/3.poison/animated/1.png',
-        'img/4.score/3.poison/animated/2.png',
-        'img/4.score/3.poison/animated/3.png',
-        'img/4.score/3.poison/animated/4.png',
-        'img/4.score/3.poison/animated/5.png',
-        'img/4.score/3.poison/animated/6.png',
-        'img/4.score/3.poison/animated/7.png',
-        'img/4.score/3.poison/animated/8.png'
+        'img/4.score/3.poison/animated/1.webp',
+        'img/4.score/3.poison/animated/2.webp',
+        'img/4.score/3.poison/animated/3.webp',
+        'img/4.score/3.poison/animated/4.webp',
+        'img/4.score/3.poison/animated/5.webp',
+        'img/4.score/3.poison/animated/6.webp',
+        'img/4.score/3.poison/animated/7.webp',
+        'img/4.score/3.poison/animated/8.webp'
     ];
 
     /**
@@ -20,7 +20,7 @@ class PoisonBottle extends DrawableObject {
      * @param {number} y - The y location of the poison bottle.
      */
     constructor(x, y) {
-        super().loadImage('img/4.score/3.poison/animated/1.png');
+        super().loadImage('img/4.score/3.poison/animated/1.webp');
         this.x = x;
         this.y = y;
         this.animate();
