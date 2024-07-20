@@ -2,17 +2,7 @@
 class PoisonBottle extends DrawableObject {
     height = 72;
     width = this.height * 0.7325102880658436;
-
-    IMAGES = [
-        'img/4.score/3.poison/animated/1.webp',
-        'img/4.score/3.poison/animated/2.webp',
-        'img/4.score/3.poison/animated/3.webp',
-        'img/4.score/3.poison/animated/4.webp',
-        'img/4.score/3.poison/animated/5.webp',
-        'img/4.score/3.poison/animated/6.webp',
-        'img/4.score/3.poison/animated/7.webp',
-        'img/4.score/3.poison/animated/8.webp'
-    ];
+    IMAGES = createImagePaths('img/4.score/3.poison/animated/', 1, 8);
 
     /**
      * Create a poison bottle.

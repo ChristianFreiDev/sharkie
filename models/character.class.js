@@ -34,108 +34,16 @@ class Character extends MovableObject {
     AUDIO_ELECTRIC_SHOCK = assetCache.audioCache['electric-shock'].file;
     AUDIO_SNORING = assetCache.audioCache['snoring'].file;
     AUDIO_YAWN = assetCache.audioCache['yawn'].file;
-    IMAGES_IDLE = [
-        'img/1.sharkie/1.idle/1.webp',
-        'img/1.sharkie/1.idle/2.webp',
-        'img/1.sharkie/1.idle/3.webp',
-        'img/1.sharkie/1.idle/4.webp',
-        'img/1.sharkie/1.idle/5.webp',
-        'img/1.sharkie/1.idle/6.webp',
-        'img/1.sharkie/1.idle/7.webp',
-        'img/1.sharkie/1.idle/8.webp',
-        'img/1.sharkie/1.idle/9.webp',
-        'img/1.sharkie/1.idle/10.webp',
-        'img/1.sharkie/1.idle/11.webp',
-        'img/1.sharkie/1.idle/12.webp',
-        'img/1.sharkie/1.idle/13.webp',
-        'img/1.sharkie/1.idle/14.webp',
-        'img/1.sharkie/1.idle/15.webp',
-        'img/1.sharkie/1.idle/16.webp',
-        'img/1.sharkie/1.idle/17.webp',
-        'img/1.sharkie/1.idle/18.webp'
-    ];
-    IMAGES_LONG_IDLE = [
-        'img/1.sharkie/2.long-idle/1.webp',
-        'img/1.sharkie/2.long-idle/2.webp',
-        'img/1.sharkie/2.long-idle/3.webp',
-        'img/1.sharkie/2.long-idle/4.webp',
-        'img/1.sharkie/2.long-idle/5.webp',
-        'img/1.sharkie/2.long-idle/6.webp',
-        'img/1.sharkie/2.long-idle/7.webp',
-        'img/1.sharkie/2.long-idle/8.webp',
-        'img/1.sharkie/2.long-idle/9.webp',
-        'img/1.sharkie/2.long-idle/10.webp',
-        'img/1.sharkie/2.long-idle/11.webp',
-        'img/1.sharkie/2.long-idle/12.webp',
-        'img/1.sharkie/2.long-idle/13.webp',
-        'img/1.sharkie/2.long-idle/14.webp'
-    ];
-    IMAGES_SLEEPING = [
-        'img/1.sharkie/2.long-idle/11.webp',
-        'img/1.sharkie/2.long-idle/12.webp',
-        'img/1.sharkie/2.long-idle/13.webp',
-        'img/1.sharkie/2.long-idle/14.webp'
-    ];
-    IMAGES_SWIM = [
-        'img/1.sharkie/3.swim/1.webp',
-        'img/1.sharkie/3.swim/2.webp',
-        'img/1.sharkie/3.swim/3.webp',
-        'img/1.sharkie/3.swim/4.webp',
-        'img/1.sharkie/3.swim/5.webp',
-        'img/1.sharkie/3.swim/6.webp',
-    ];
-    IMAGES_DEAD_POISONED = [
-        'img/1.sharkie/6.dead/1.poisoned/1.webp',
-        'img/1.sharkie/6.dead/1.poisoned/2.webp',
-        'img/1.sharkie/6.dead/1.poisoned/3.webp',
-        'img/1.sharkie/6.dead/1.poisoned/4.webp',
-        'img/1.sharkie/6.dead/1.poisoned/5.webp',
-        'img/1.sharkie/6.dead/1.poisoned/6.webp',
-        'img/1.sharkie/6.dead/1.poisoned/7.webp',
-        'img/1.sharkie/6.dead/1.poisoned/8.webp',
-        'img/1.sharkie/6.dead/1.poisoned/9.webp',
-        'img/1.sharkie/6.dead/1.poisoned/10.webp',
-        'img/1.sharkie/6.dead/1.poisoned/11.webp',
-        'img/1.sharkie/6.dead/1.poisoned/12.webp'
-    ];
-    IMAGES_HURT_POISONED = [
-        'img/1.sharkie/5.hurt/1.poisoned/1.webp',
-        'img/1.sharkie/5.hurt/1.poisoned/2.webp',
-        'img/1.sharkie/5.hurt/1.poisoned/3.webp',
-        'img/1.sharkie/5.hurt/1.poisoned/4.webp'
-    ];
-    IMAGES_HURT_ELECTRIC_SHOCK = [
-        'img/1.sharkie/5.hurt/2.electric-shock/1.webp',
-        'img/1.sharkie/5.hurt/2.electric-shock/2.webp'
-    ];
-    IMAGES_BUBBLE_TRAP = [
-        'img/1.sharkie/4.attack/bubble-trap/op1/1.webp',
-        'img/1.sharkie/4.attack/bubble-trap/op1/2.webp',
-        'img/1.sharkie/4.attack/bubble-trap/op1/3.webp',
-        'img/1.sharkie/4.attack/bubble-trap/op1/4.webp',
-        'img/1.sharkie/4.attack/bubble-trap/op1/5.webp',
-        'img/1.sharkie/4.attack/bubble-trap/op1/6.webp',
-        'img/1.sharkie/4.attack/bubble-trap/op1/7.webp',
-        'img/1.sharkie/4.attack/bubble-trap/op1/8.webp'
-    ];
-    IMAGES_BUBBLE_TRAP_POISONED = [
-        'img/1.sharkie/4.attack/bubble-trap/poisoned/1.webp',
-        'img/1.sharkie/4.attack/bubble-trap/poisoned/2.webp',
-        'img/1.sharkie/4.attack/bubble-trap/poisoned/3.webp',
-        'img/1.sharkie/4.attack/bubble-trap/poisoned/4.webp',
-        'img/1.sharkie/4.attack/bubble-trap/poisoned/5.webp',
-        'img/1.sharkie/4.attack/bubble-trap/poisoned/6.webp',
-        'img/1.sharkie/4.attack/bubble-trap/poisoned/7.webp',
-        'img/1.sharkie/4.attack/bubble-trap/poisoned/8.webp'
-    ];
-    IMAGES_FIN_SLAP = [
-        'img/1.sharkie/4.attack/fin-slap/1.webp',
-        'img/1.sharkie/4.attack/fin-slap/2.webp',
-        'img/1.sharkie/4.attack/fin-slap/3.webp',
-        'img/1.sharkie/4.attack/fin-slap/4.webp',
-        'img/1.sharkie/4.attack/fin-slap/5.webp',
-        'img/1.sharkie/4.attack/fin-slap/6.webp',
-    ];
+    IMAGES_IDLE = createImagePaths('img/1.sharkie/1.idle/', 1, 18);
+    IMAGES_LONG_IDLE = createImagePaths('img/1.sharkie/2.long-idle/', 1, 14);
+    IMAGES_SLEEPING = createImagePaths('img/1.sharkie/2.long-idle/', 11, 14);
+    IMAGES_SWIM = createImagePaths('img/1.sharkie/3.swim/', 1, 6);
+    IMAGES_DEAD_POISONED = createImagePaths('img/1.sharkie/6.dead/1.poisoned/', 1, 12);
+    IMAGES_HURT_POISONED = createImagePaths('img/1.sharkie/5.hurt/1.poisoned/', 1, 4);
+    IMAGES_HURT_ELECTRIC_SHOCK = createImagePaths('img/1.sharkie/5.hurt/2.electric-shock/', 1, 2);
+    IMAGES_BUBBLE_TRAP = createImagePaths('img/1.sharkie/4.attack/bubble-trap/op1/', 1, 8);
+    IMAGES_BUBBLE_TRAP_POISONED = createImagePaths('img/1.sharkie/4.attack/bubble-trap/poisoned/', 1, 8);
+    IMAGES_FIN_SLAP = createImagePaths('img/1.sharkie/4.attack/fin-slap/', 1, 6);
     world;
 
     /**

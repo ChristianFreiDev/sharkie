@@ -57,6 +57,22 @@ function changeMultipleDisplayProperties(htmlElementIds, displayProperty) {
 }
 
 /**
+ * This function creates an array of image paths for images named 1.webp, 2.webp etc., for example.
+ * @param {string} basePath - The base path.
+ * @param {number} start - The starting number.
+ * @param {number} end - The last number.
+ * @returns {Array} Image paths.
+ */
+function createImagePaths(basePath, start, end) {
+    let imagePaths = [];
+    for (let i = start; i <= end; i++) {
+        let imagePath = `${basePath}${i}.webp`;
+        imagePaths.push(imagePath);
+    }
+    return imagePaths;
+}
+
+/**
  * This functions loads the current level.
  */
 function loadCurrentLevel() {
