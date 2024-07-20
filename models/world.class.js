@@ -112,39 +112,68 @@ class World {
     }
 
     /**
+     * Reset property isBiting of the final boss.
+     * Property will be set to true later if a collision with the character is detected.
+     */
+    resetIsBiting(enemy) {
+        if (enemy instanceof FinalBoss) {
+            enemy.isBiting = false;
+        }
+    }
+
+    /**
      * Check for collisions (of the player character) with enemies.
      */
     checkEnemyCollisions() {
         this.level.enemies.forEach((enemy) => {
+            this.resetIsBiting(enemy);
+            this.checkSlapCollisions(enemy);
+            this.checkCharacterCollisions(enemy);
+            this.checkBubbleCollisions(enemy);
+        });
+    }
+
+    /**
+     * Check if a slap is hitting the enemy.
+     */
+    checkSlapCollisions(enemy) {
+        if (this.character.isSlapping() && this.character.isSlapHitting(enemy) && enemy instanceof PufferFish) {
+            enemy.hit(this.character);
+        }
+    }
+
+    /**
+     * Check if the character is colliding with an enemy.
+     */
+    checkCharacterCollisions(enemy) {
+        if (this.character.isCollidingWith(enemy)) {
+            if (!(this.character.isSlapping() && enemy instanceof PufferFish)) {
+                this.character.hit(enemy);
+                this.statusBar.setHealthPercentage(this.character.energy);
+            }
             if (enemy instanceof FinalBoss) {
-                enemy.isBiting = false;
+                enemy.isBiting = true;
             }
-            if (this.character.isSlapping() && this.character.isSlapHitting(enemy) && enemy instanceof PufferFish) {
-                enemy.hit(this.character);
-            }
-            if (this.character.isCollidingWith(enemy)) {
-                if (!(this.character.isSlapping() && enemy instanceof PufferFish)) {
-                    this.character.hit(enemy);
-                    this.statusBar.setHealthPercentage(this.character.energy);
-                }
-                if (enemy instanceof FinalBoss) {
-                    enemy.isBiting = true;
-                }
-            }
-            this.bubbles.forEach((bubble) => {
-                if (bubble.isCollidingWith(enemy)) {
-                    if (enemy.energy > 0) {
-                        enemy.hit(bubble);
-                        if (enemy instanceof PufferFish) {
-                            this.AUDIO_ENEMY_HURT.play();
-                        }
-                        this.bubbles.splice(this.bubbles.indexOf(bubble), 1);
-                        if (!muted) {
-                            bubble.AUDIO_BUBBLE_POP.play();
-                        }
+        }
+    }
+
+    /**
+     * Check if any bubbles are colliding with an enemy.
+     */
+    checkBubbleCollisions(enemy) {
+        this.bubbles.forEach((bubble) => {
+            if (bubble.isCollidingWith(enemy)) {
+                if (enemy.energy > 0) {
+                    enemy.hit(bubble);
+                    if (enemy instanceof PufferFish) {
+                        this.AUDIO_ENEMY_HURT.play();
+                    }
+                    this.bubbles.splice(this.bubbles.indexOf(bubble), 1);
+                    if (!muted) {
+                        bubble.AUDIO_BUBBLE_POP.play();
                     }
                 }
-            })
+            }
         });
     }
 
@@ -184,30 +213,46 @@ class World {
     }
 
     /**
-     * Draw the world.
+     * Draw the light rays.
      */
-    draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.translate(Math.round(this.camera_x), 0);
-        this.addObjectsToMap(this.level.backgroundObjects);
+    drawLights() {
+        this.ctx.translate(Math.round(this.camera_x) / 12, 0);
+        this.addObjectsToMap(this.lights);
+        this.ctx.translate(Math.round(-this.camera_x) / 12, 0);
+    }
 
+    /**
+     * Draw game objects: background objects, coins, poison bottles, character, enemies, and bubbles.
+     */
+    drawGameObjects() {
+        this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.poisonBottles);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.bubbles);
+    }
 
-        this.ctx.translate(Math.round(this.camera_x) / 12, 0);
-        this.addObjectsToMap(this.lights);
-        this.ctx.translate(Math.round(-this.camera_x) / 12, 0);
-
+    /**
+     * Draw status bar at the top and confetti when they appear.
+     */
+    drawStatusBarAndConfetti() {
         this.ctx.translate(Math.round(-this.camera_x), 0);
         this.addToMap(this.statusBar);
         this.addObjectsToMap(this.confetti);
         this.ctx.translate(Math.round(this.camera_x), 0);
-        
+    }
+
+    /**
+     * Draw the world.
+     */
+    draw() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.translate(Math.round(this.camera_x), 0);
+        this.drawGameObjects();
+        this.drawLights();
+        this.drawStatusBarAndConfetti();
         this.ctx.translate(Math.round(-this.camera_x), 0);
-        
         let self = this;
         requestAnimationFrame(function() {
             self.draw();
@@ -223,7 +268,7 @@ class World {
             this.flipImage(movableObject);
         }
         movableObject.draw(this.ctx);
-        movableObject.drawHitbox(this.ctx);
+        movableObject.drawHitboxes(this.ctx);
         if (movableObject.otherDirection) {
             this.flipImageBack(movableObject);
         }

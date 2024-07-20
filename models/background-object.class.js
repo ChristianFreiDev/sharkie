@@ -1,8 +1,8 @@
 /** Class representing a background object. */
 class BackgroundObject extends MovableObject {
-
     height = 480;
     width = 720;
+    
     /**
      * Create a background object.
      * @param {string} imagePath - The path to the image.

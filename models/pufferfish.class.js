@@ -1,6 +1,5 @@
 /** Class representing a puffer fish. */
 class PufferFish extends MovableObject {
-
     height = 99;
     width = this.height * 1.217171717171717;
     offset = {
@@ -91,9 +90,9 @@ class PufferFish extends MovableObject {
     }
 
     /**
-     * Animate the puffer fish.
+     * Set movement interval for puffer fish.
      */
-    animate() {
+    setMovementInterval() {
         setStoppableInterval(() => {
             if (!this.isDead()) {
                 this.moveLeft();
@@ -101,7 +100,12 @@ class PufferFish extends MovableObject {
                 this.speedY = 0.3;
             }
         }, 1000 / 60)
+    }
 
+    /**
+     * Set animation interval for puffer fish.
+     */
+    setAnimationInterval() {
         setStoppableInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
@@ -113,5 +117,13 @@ class PufferFish extends MovableObject {
                 this.playAnimation(this.IMAGES_SWIM);
             }
         }, 200)
+    }
+
+    /**
+     * Animate the puffer fish.
+     */
+    animate() {
+        this.setMovementInterval();
+        this.setAnimationInterval();
     }
 }

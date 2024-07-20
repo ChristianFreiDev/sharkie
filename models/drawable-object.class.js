@@ -71,10 +71,21 @@ class DrawableObject {
     }
 
     /**
+     * Draw the hitbox - for debugging only.
+     */
+    drawHitbox() {
+        ctx.beginPath();
+        ctx.lineWidth = "10";
+        ctx.strokeStyle = "red";
+        ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.left - this.offset.right, this.height - this.offset.top - this.offset.bottom);
+        ctx.stroke();
+    }
+
+    /**
      * Draw the hitbox (and slap hitbox for the character) - for debugging only.
      * @param {Object} ctx - The canvas context.
      */
-    drawHitbox(ctx) {
+    drawHitboxes(ctx) {
         if (debugMode) {
             if (this instanceof Character || this instanceof PufferFish || this instanceof FinalBoss || this instanceof Bubble || this instanceof Jellyfish || this instanceof Coin || this instanceof PoisonBottle) {
                 this.drawOutline(ctx);
@@ -82,11 +93,7 @@ class DrawableObject {
                 if (this instanceof Character) {
                     this.drawSlapHitbox(ctx);
                 }
-                ctx.beginPath();
-                ctx.lineWidth = "10";
-                ctx.strokeStyle = "red";
-                ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.left - this.offset.right, this.height - this.offset.top - this.offset.bottom);
-                ctx.stroke();
+                this.drawHitbox();
                 this.swapOffsetsForDrawingHitbox();
             }
         }

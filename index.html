@@ -42,12 +42,46 @@
             <h2>You win!</h2>
             <button id="keep-playing-button" class="btn" onclick="nextLevel()">Next level</button>
         </div>
-        <img id="instructions-image" src="img/6.buttons/instructions1.webp" alt="instructions1">
-        <button id="instructions-button" class="btn small-button" onclick="openInstructions2()">Next</button>
+        <div id="instructions">
+            <div class="controls-container">
+                 <div class="example-buttons-container">
+                    <button class="btn small-button very-small-button example-button">
+                        <div class="left-arrow purple-left-arrow"></div>
+                    </button>
+                    <button class="btn small-button very-small-button example-button">
+                        <div class="right-arrow purple-right-arrow"></div>
+                    </button>
+                    <button class="btn small-button very-small-button example-button">
+                        <div class="up-arrow purple-up-arrow"></div>
+                    </button>
+                    <button class="btn small-button very-small-button example-button">
+                        <div class="down-arrow purple-down-arrow"></div>
+                    </button>
+                 </div>
+                <span>MOVE SHARK</span>
+            </div>
+            <div class="controls-container">
+                <div class="example-buttons-container">
+                    <button class="btn small-button very-small-button example-button" disabled>D</button>
+                    <span>/</span>
+                    <button class="btn small-button very-small-button example-button" disabled>O</button>
+                </div>
+                <span>ATTACK 1</span>
+            </div>
+            <div class="controls-container">
+                <div class="example-buttons-container">
+                    <button id="space-bar" class="btn small-button very-small-button example-button" disabled>SPACE BAR</button>
+                    <span>/</span>
+                    <button id="fin-slap-button-purple" class="btn small-button very-small-button example-button">&#129416</button>
+                </div>
+                <span>ATTACK 2</span>
+            </div>
+        </div>
+        <button id="instructions-button" class="btn small-button" onclick="showStartButton()">Play</button>
         <div id="top-right-buttons">
             <button id="info-button" onclick="showInfos()">i</button>
             <button id="mute-button" class="btn small-button very-small-button" onclick="onMuteButtonClick(event)">
-                <img id="mute-button-image" src="img/7.icons/volume_up_24dp_FILL1_wght400_GRAD0_opsz24.svg"></img>
+                <img id="mute-button-image" src="img/6.icons/volume_up_24dp_FILL1_wght400_GRAD0_opsz24.svg"></img>
             </button>
             <button id="fullscreen-button" class="btn small-button very-small-button" onclick="openFullScreen('canvas-container')">&#x26F6</button>
         </div>
@@ -61,7 +95,7 @@
             </button>
         </div>
         <div id="up-and-down-arrow-and-attack-buttons">
-            <button id="bubble-trap-button" class="btn small-button very-small-button">&#9711</button>
+            <button id="bubble-trap-button" class="btn small-button very-small-button">O</button>
             <button id="fin-slap-button" class="btn small-button very-small-button">&#129416</button>
             <button id="up-button" class="btn small-button very-small-button">
                 <div class="up-arrow"></div>
@@ -75,7 +109,7 @@
             <p>Blow bubbles using the D key on your keyboard or the O button on touchscreen devices.</p>
             <p>Hit enemies with your fin by pressing the space key or the &#129416 button on touchscreen devices. Be careful! Not all enemies can be defeated with a fin slap.</p>
             <p>Use the arrow keys/buttons to move around.</p>
-            <p>Collect coins to increase your score and collect poison bottles to be able to defeat the final boss (hint: slaps won't do it).</p>
+            <p>Collect coins to increase your score and collect poison bottles to be able to defeat the final boss (hint: use poisoned bubbles).</p>
             <br>
             <a id="info-credits-button" class="btn small-button very-small-button" href="credits.html">Credits</a>
             <button id="info-ok-button" class="btn small-button very-small-button" onclick="hideInfos()">OK</button>
@@ -88,7 +122,7 @@
             <p>Please turn your device.</p>
         </div>
     </div>
-    <div id="footer-links-container">
+    <div id="game-footer-links-container" class="footer-links-container">
         <a href="data-protection.html">Datenschutz</a>
         <a href="imprint.html">Impressum</a>
     </div>

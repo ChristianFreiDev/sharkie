@@ -368,8 +368,7 @@ class AssetCache {
             console.error('Assets could not be loaded.');
         } finally {
             setTimeout(() => {
-                let loadingScreen = document.getElementById('loading-screen');
-                loadingScreen.style.display = 'none';
+                changeDisplayProperty('loading-screen', 'none');
             }, 1000);
         }
     }

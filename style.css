@@ -14,6 +14,7 @@
     --button-canvas-spacing: 8px;
     --info-button-spacing: 12px;
     --spacing-between-buttons: 12px;
+    --arrow-purple: hsl(273, 67%, 31%);
 }
 
 body {
@@ -51,6 +52,21 @@ canvas, #loading-screen {
     position: relative;
 }
 
+progress {
+    -webkit-appearance: none;
+}
+  
+::-webkit-progress-bar {
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 16px;
+    border-radius: 12px;
+}
+
+::-webkit-progress-value {
+    border-radius: 12px;
+    background-color: hsl(126, 70%, 47%);
+}
+
 .btn {
     font-size: 36px;
     padding: 12px 60px;
@@ -81,6 +97,26 @@ canvas, #loading-screen {
     padding: 6px 15px;
 }
 
+.example-button {
+    color: hsl(273, 67%, 31%);
+    background-color: hsl(165, 100%, 75%);
+    border: 3px solid white;
+    font-size: 18px;
+    height: 40px;
+    pointer-events: none;
+}
+
+.example-buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+#space-bar {
+    padding: 6px 64px;
+}
+
 #instructions-button {
     position: absolute;
     bottom: var(--button-canvas-spacing);
@@ -90,6 +126,31 @@ canvas, #loading-screen {
 #instructions-image {
     position: absolute;
     width: 100%;
+    display: none;
+}
+
+#instructions {
+    visibility: hidden;
+    box-sizing: border-box;
+    position: absolute;
+    height: 300px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 42px;
+    padding: 48px 0;
+}
+
+.controls-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 540px;
+    font-size: 24px;
 }
 
 #top-right-buttons {
@@ -219,6 +280,11 @@ canvas, #loading-screen {
     text-shadow: 0 0 0 white;
 }
 
+#fin-slap-button-purple {
+    color: transparent;  
+    text-shadow: 0 0 0 var(--arrow-purple);
+}
+
 .left-arrow {
     width: 0;
     height: 0;
@@ -251,6 +317,22 @@ canvas, #loading-screen {
     border-top: 10px solid white;
 }
 
+.purple-left-arrow {
+    border-right: 10px solid var(--arrow-purple);
+}
+
+.purple-right-arrow {
+    border-left: 10px solid var(--arrow-purple);
+}
+
+.purple-up-arrow {
+    border-bottom: 10px solid var(--arrow-purple);
+}
+
+.purple-down-arrow {
+    border-top: 10px solid var(--arrow-purple);
+}
+
 h1 {
     font-size: 64px;
     letter-spacing: 2px;
@@ -259,9 +341,12 @@ h1 {
     margin-bottom: 42px;
 }
 
-#footer-links-container {
+#game-footer-links-container {
     position: absolute;
     bottom: 16px;
+}
+
+.footer-links-container {
     display: flex;
     gap: 16px;
     font-size: 14px;
@@ -270,7 +355,7 @@ h1 {
     border-radius: 16px;
 }
 
-#footer-links-container a {
+#game-footer-links-container a {
     color: white;
 }
 
@@ -284,7 +369,7 @@ h1 {
 }
 
 @media (min-width: 950px) and (max-height: 560px) {
-    #footer-links-container {
+    #game-footer-links-container {
         flex-direction: column;
         gap: 8px;
         bottom: auto;
@@ -311,6 +396,31 @@ h1 {
     }
 }
 
+@media (max-width: 560px) {
+    #infos {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 488px) {
+    #infos {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 440px) {
+    #infos {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    #infos {
+        font-size: 8px;
+    }
+}
+
+
 @media (max-width: 480px) and (orientation: portrait) and (pointer: coarse) {
     #turn-device-screen {
         display: flex;
@@ -318,7 +428,7 @@ h1 {
 }
 
 @media (max-width: 440px) or (max-height: 300px) {
-    #footer-links-container {
+    #game-footer-links-container {
         flex-direction: column;
         gap: 8px;
     }
@@ -336,5 +446,14 @@ h1 {
     }
     canvas, #loading-screen {
         border-radius: 0;
+    }
+    #infos {
+        font-size: 14px;
+    }
+}
+
+@media (max-height: 340px) {
+    #infos {
+        font-size: 12px;
     }
 }

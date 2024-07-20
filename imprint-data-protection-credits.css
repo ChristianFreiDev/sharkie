@@ -31,6 +31,10 @@ body {
     align-self: flex-end;
 }
 
+#credits-footer-links-container {
+    align-self: flex-start;
+}
+
 .imprint-and-data-protection, .credits-container {
     max-width: 1920px;
 }

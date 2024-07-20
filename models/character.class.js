@@ -1,6 +1,5 @@
 /** Class repesenting the player character. */
 class Character extends MovableObject {
-
     height = 300;
     width = this.height * 0.815;
     defaultOffset =  {
@@ -327,6 +326,15 @@ class Character extends MovableObject {
     }
 
     /**
+     * Play the sound of blowing a bubble.
+     */
+    playBlowBubbleSound() {
+        let sound = this.AUDIO_BUBBLE_TRAP.cloneNode();
+        sound.volume = assetCache.audioCache['blow'].volume;
+        sound.play();
+    }
+
+    /**
      * Activate bubble attack if possible.
      */
     bubbleTrap() {
@@ -340,9 +348,7 @@ class Character extends MovableObject {
             }
             this.shootBubble();
             if (!muted) {
-                let sound = this.AUDIO_BUBBLE_TRAP.cloneNode();
-                sound.volume = assetCache.audioCache['blow'].volume;
-                sound.play();
+                this.playBlowBubbleSound();
             }
         }
     }
@@ -425,40 +431,105 @@ class Character extends MovableObject {
     }
 
     /**
+     * Perform actions when the player character is hurt.
+     */
+    movementOnCharacterHurt() {
+        this.speed = 2;
+        this.clearBubbleTimeouts();
+        if (this.wasLastHitElectricShock) {
+            this.setElectricShockHitbox()
+        } else {
+            this.resetOffset();
+        }
+    }
+
+    /**
+     * Reset character for movement method.
+     */
+    resetCharacterMovement() {
+        this.speed = 3;
+        this.resetOffset();
+    }
+
+    /**
+     * Swim in a certain direction if possible.
+     */
+    swim() {
+        if (this.canMoveLeft()) {
+            this.swimLeft();
+        }
+        if (this.canMoveRight()) {
+           this.swimRight();
+        }
+        if (this.canMoveUp()) {
+            this.swimUp();
+        }
+        if (this.world.keyboard.DOWN && this.isAboveOceanFloor()) {
+            this.swimDown();
+        }
+    }
+
+    /**
      * Move the character depending on the current states of the player and the game.
      */
     moveCharacter() {
         if (this.isHurt()) {
-            this.speed = 2;
-            this.clearBubbleTimeouts();
-            if (this.wasLastHitElectricShock) {
-                this.setElectricShockHitbox()
-            } else {
-                this.resetOffset();
-            }
+            this.movementOnCharacterHurt();
         } else {
-            this.speed = 3;
-            this.resetOffset();
+            this.resetCharacterMovement();
         }
         if (!gameHasEnded) {
-            if (this.canMoveLeft()) {
-                this.swimLeft();
-            }
-            if (this.canMoveRight()) {
-               this.swimRight();
-            }
-            if (this.canMoveUp()) {
-                this.swimUp();
-            }
-            if (this.world.keyboard.DOWN && this.isAboveOceanFloor()) {
-                this.swimDown();
-            }
+            this.swim();
             if (this.world.keyboard.D && !this.isHurt() && !this.isDead() && !this.isSlapping()) {
                 this.bubbleTrap();
             } else if (this.world.keyboard.SPACE && !this.isHurt() && !this.isDead() && !this.isBlowingBubble() && !this.isSlapCooldown()) {
                 this.finSlap();
             }
         }
+    }
+
+    /**
+     * Play corresponding animation (and sound) when player is hurt.
+     */
+    playHurtAnimation() {
+        if (this.wasLastHitElectricShock) {
+            this.playAnimation(this.IMAGES_HURT_ELECTRIC_SHOCK);
+            this.AUDIO_ELECTRIC_SHOCK.play();
+        } else {
+            this.playAnimation(this.IMAGES_HURT_POISONED);
+        }
+        this.AUDIO_HURT.play();
+    }
+
+    /**
+     * Play corresponding animation when player is blowing a bubble.
+     */
+    playBubbleTrapAnimation() {
+        if (this.lastBubbleIsPoisoned) {
+            this.playAnimation(this.IMAGES_BUBBLE_TRAP_POISONED);
+        } else {
+            this.playAnimation(this.IMAGES_BUBBLE_TRAP);
+        }
+    }
+
+    /**
+     * Play swimming or idle animation.
+     */
+    playSwimOrIdleAnimation() {
+        if (!gameHasEnded) {
+            this.playAnimation(this.IMAGES_SWIM);
+            this.AUDIO_SWIM.play();
+        } else {
+            this.playAnimation(this.IMAGES_IDLE);
+        }
+    }
+
+    /**
+     * Play long idle (falling asleep) animation and yawning sound.
+     */
+    playFallingAsleepAnimation() {
+        this.playAnimation(this.IMAGES_LONG_IDLE);
+        this.AUDIO_YAWN.play();
     }
 
     /**
@@ -470,33 +541,17 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_DEAD_POISONED);
         }
         else if (this.isHurt()) {
-            if (this.wasLastHitElectricShock) {
-                this.playAnimation(this.IMAGES_HURT_ELECTRIC_SHOCK);
-                this.AUDIO_ELECTRIC_SHOCK.play();
-            } else {
-                this.playAnimation(this.IMAGES_HURT_POISONED);
-            }
-            this.AUDIO_HURT.play();
+            this.playHurtAnimation();
         }
         else if (this.isBlowingBubble()) {
-            if (this.lastBubbleIsPoisoned) {
-                this.playAnimation(this.IMAGES_BUBBLE_TRAP_POISONED);
-            } else {
-                this.playAnimation(this.IMAGES_BUBBLE_TRAP);
-            }
+            this.playBubbleTrapAnimation();
         } else if (this.isSlapping()) {
             this.playAnimation(this.IMAGES_FIN_SLAP);
         }
         else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP) {
-            if (!gameHasEnded) {
-                this.playAnimation(this.IMAGES_SWIM);
-                this.AUDIO_SWIM.play();
-            } else {
-                this.playAnimation(this.IMAGES_IDLE);
-            }
+            this.playSwimOrIdleAnimation();
         } else if (new Date().getTime() - lastInput > 15000 && new Date().getTime() - lastInput < 17000) {
-            this.playAnimation(this.IMAGES_LONG_IDLE);
-            this.AUDIO_YAWN.play();
+            this.playFallingAsleepAnimation();
         } else if (new Date().getTime() - lastInput >= 17000) {
             this.playAnimation(this.IMAGES_SLEEPING);
         } else {

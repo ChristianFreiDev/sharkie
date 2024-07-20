@@ -1,6 +1,5 @@
 /** Class representing the final boss. */
 class FinalBoss extends MovableObject {
-
     height;
     width;
     speed;
@@ -32,14 +31,12 @@ class FinalBoss extends MovableObject {
         'img/2.enemies/3.final-boss/2.floating/12.webp',
         'img/2.enemies/3.final-boss/2.floating/13.webp',
     ];
-
     IMAGES_HURT = [
         'img/2.enemies/3.final-boss/5.hurt/1.webp',
         'img/2.enemies/3.final-boss/5.hurt/2.webp',
         'img/2.enemies/3.final-boss/5.hurt/3.webp',
         'img/2.enemies/3.final-boss/5.hurt/4.webp',
     ];
-
     IMAGES_DEAD = [
         'img/2.enemies/3.final-boss/4.dead/1.webp',
         'img/2.enemies/3.final-boss/4.dead/2.webp',
@@ -48,7 +45,6 @@ class FinalBoss extends MovableObject {
         'img/2.enemies/3.final-boss/4.dead/5.webp',
         'img/2.enemies/3.final-boss/4.dead/6.webp',
     ];
-
     IMAGES_SPAWNING = [
         'img/2.enemies/3.final-boss/1.spawning/1.webp',
         'img/2.enemies/3.final-boss/1.spawning/2.webp',
@@ -61,7 +57,6 @@ class FinalBoss extends MovableObject {
         'img/2.enemies/3.final-boss/1.spawning/9.webp',
         'img/2.enemies/3.final-boss/1.spawning/10.webp',
     ];
-
     IMAGES_BITE = [
         'img/2.enemies/3.final-boss/3.attack/1.webp',
         'img/2.enemies/3.final-boss/3.attack/2.webp',
@@ -213,51 +208,108 @@ class FinalBoss extends MovableObject {
     }
 
     /**
-     * Animate final boss.
+     * Set an interval for steering the final boss towards a target.
+     * @param {Object} counters - Index object.
      */
-    animate() {
-        let i = 10;
-        let j = 0;
+    setSteeringInterval(counters) {
         setStoppableInterval(() => {
-            this.steer(j);
-            j++
+            this.steer(counters.j);
+            counters.j++
         }, 1000)
+    }
 
+    /**
+     * Set an interval for the movement of the final boss.
+     * @param {Object} counters - Index object.
+     */
+    setMovementInterval(counters) {
         setStoppableInterval(() => {
             if (!this.isDead()) {
-                this.moveFinalBoss(i);
+                this.moveFinalBoss(counters.i);
             }
         }, 1000 / 60)
+    }
 
+    /**
+     * Play dying animation (and corresponding sound).
+     */
+    playDeathAnimation() {
+        this.playAnimation(this.IMAGES_DEAD);
+        this.AUDIO_HURT.play();
+    }
+
+    /**
+     * Play corresponding sounds when the final boss enters the screen and set variables accordingly.
+     * @param {Object} counters 
+     */
+    onFirstContact(counters) {
+        counters.i = 0;
+        this.hadFirstContact = true;
+        this.AUDIO_SPLASH.play();
+        this.AUDIO_BOSS_FIGHT.play();
+        this.AUDIO_BOSS_FIGHT.loop = true;
+    }
+
+    /**
+     * Play corresponding animation (and sound) when the final boss is hurt.
+     */
+    playHurtAnimation() {
+        this.playAnimation(this.IMAGES_HURT);
+        this.AUDIO_HURT.play();
+    }
+
+    /**
+     * Play corresponding animation (and sound) when the final boss is biting.
+     */
+    playBiteAnimation() {
+        this.playAnimation(this.IMAGES_BITE);
+        this.AUDIO_BITE.play();
+    }
+
+    /**
+     * Play the corresponding animations when the final boss is neither spawning or dead.
+     */
+    playRegularAnimations() {
+        if (this.isHurt()) {
+            this.playHurtAnimation();
+        } else if (this.isBiting) {
+            this.playBiteAnimation();
+        } else {
+            this.playAnimation(this.IMAGES_FLOATING);
+        }
+    }
+
+    /**
+     * Set an interval for the animation of the final boss.
+     * @param {Object} counters - Index object.
+     */
+    setAnimationInterval(counters) {
         setStoppableInterval(() => {
-            if (i < 10) {
+            if (counters.i < 10) {
                 this.playAnimation(this.IMAGES_SPAWNING);
             }
             else if (this.hadFirstContact) {
                 if (this.isDeathAnimationPlaying()) {
-                    this.playAnimation(this.IMAGES_DEAD);
-                    this.AUDIO_HURT.play();
+                    this.playDeathAnimation();
                 }
                 else if (!this.isDead()) {
-                    if (this.isHurt()) {
-                        this.playAnimation(this.IMAGES_HURT);
-                        this.AUDIO_HURT.play();
-                    } else if (this.isBiting) {
-                        this.playAnimation(this.IMAGES_BITE);
-                        this.AUDIO_BITE.play();
-                    } else {
-                        this.playAnimation(this.IMAGES_FLOATING);
-                    }
+                    this.playRegularAnimations();
                 }
             }
-            i++;
+            counters.i++;
             if (world && world.character.x > 1700 && !this.hadFirstContact) {
-                i = 0;
-                this.hadFirstContact = true;
-                this.AUDIO_SPLASH.play();
-                this.AUDIO_BOSS_FIGHT.play();
-                this.AUDIO_BOSS_FIGHT.loop = true;
+                this.onFirstContact(counters);
             }
         }, 200)
+    }
+
+    /**
+     * Animate final boss.
+     */
+    animate() {
+        let counters = {i: 10, j: 0};
+        this.setSteeringInterval(counters);
+        this.setMovementInterval(counters);
+        this.setAnimationInterval(counters);
     }
 }

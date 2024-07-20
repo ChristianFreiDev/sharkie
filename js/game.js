@@ -16,6 +16,7 @@ let progress = 0;
  */
 async function init() {
     await assetCache.loadAssets();
+    changeInstructionSize();
     setupGame();
 }
 
@@ -32,26 +33,11 @@ function setupGame() {
 }
 
 /**
- * This function opens the second set of instructions on how to play the game.
- */
-function openInstructions2() {
-    let instructionsImage = document.getElementById('instructions-image');
-    instructionsImage.src = 'img/6.buttons/instructions2.webp';
-    let instructionsButton = document.getElementById('instructions-button');
-    instructionsButton.innerText = 'OK';
-    instructionsButton.setAttribute('onclick', 'showStartButton()');
-}
-
-/**
  * This function shows the start button (and hides the instructions).
  */
 function showStartButton() {
-    let instructionsImage = document.getElementById('instructions-image');
-    instructionsImage.style.display = 'none';
-    let instructionsButton = document.getElementById('instructions-button');
-    instructionsButton.style.display = 'none';
-    let startButton = document.getElementById('start-button');
-    startButton.style.display = 'flex';
+    changeMultipleDisplayProperties(['instructions', 'instructions-button'], 'none');
+    changeDisplayProperty('start-button', 'flex');
 }
 
 /**
@@ -66,7 +52,7 @@ function pauseGame() {
  * This function hides the footer links container if it overlaps with the canvas and the game is running.
  */
 function hideOrShowFooterLinksContainer() {
-    let footerLinksContainer = document.getElementById('footer-links-container');
+    let footerLinksContainer = document.getElementById('game-footer-links-container');
     if (isFooterLinksContainerOverlapping() && gameHasEnded == false) {
         footerLinksContainer.style.visibility = 'hidden';
     } else {
@@ -80,12 +66,9 @@ function hideOrShowFooterLinksContainer() {
 function startGame() {
     lastInput = new Date().getTime();
     resumeAllIntervals();
-    let startButton = document.getElementById('start-button');
-    startButton.style.display = 'none';
-    let creditsButton = document.getElementById('credits-button');
-    creditsButton.style.display = 'none';
-    let infoButton = document.getElementById('info-button');
-    infoButton.style.display = 'flex';
+    changeDisplayProperty('start-button', 'none');
+    changeDisplayProperty('credits-button', 'none');
+    changeDisplayProperty('info-button', 'flex');
     gameHasEnded = false;
     hideOrShowFooterLinksContainer();
     if (isTouchscreen()) {
@@ -121,8 +104,7 @@ function gameOver() {
     }, 600)
     setTimeout(() => {
         pauseGame();
-        let gameOverScreen = document.getElementById('game-over-screen');
-        gameOverScreen.style.display = 'block';
+        changeDisplayProperty('game-over-screen', 'block');
         hideTouchscreenButtons();
         hideOrShowFooterLinksContainer();
     }, 1600);
@@ -145,8 +127,7 @@ function youWin() {
         playWinSounds();
         pauseGame();
         world.fillConfetti();
-        let youWinScreen = document.getElementById('you-win-screen');
-        youWinScreen.style.display = 'block';
+        changeDisplayProperty('you-win-screen', 'block');
         let keepPlayingButton = document.getElementById('keep-playing-button');
         if (currentLevelIndex === levels.length - 1) {
             keepPlayingButton.innerText = 'Play again';
@@ -162,10 +143,7 @@ function youWin() {
  * This functions hides the screens displayed at the end of a game so that a new game can start.
  */
 function hideEndOfGameScreen() {
-    let gameOverScreen = document.getElementById('game-over-screen');
-    gameOverScreen.style.display = 'none';
-    let youWinScreen = document.getElementById('you-win-screen');
-    youWinScreen.style.display = 'none';
+    changeMultipleDisplayProperties(['game-over-screen', 'you-win-screen'], 'none');
 }
 
 /**
@@ -229,6 +207,9 @@ document.addEventListener('keydown', (event) => {
     if (event.code === 'KeyD') {
         keyboard.D = true;
     }
+    if (event.code === 'KeyO') {
+        keyboard.D = true;
+    }
 })
 
 /**
@@ -252,6 +233,9 @@ document.addEventListener('keyup', (event) => {
         keyboard.SPACE = false;
     }
     if (event.code === 'KeyD') {
+        keyboard.D = false;
+    }
+    if (event.code === 'KeyO') {
         keyboard.D = false;
     }
 })
@@ -333,8 +317,30 @@ function bindButtonEvents() {
 }
 
 /**
+ * This function changes the size of the instructions container.
+ */
+function changeInstructionSize() {
+    let canvas = document.getElementById('canvas');
+    let max = 2;
+    let yScale = Math.min(max, canvas.clientHeight / 480);
+    let xScale = Math.min(max, canvas.clientWidth / 720);
+    let newScale = Math.min(yScale, xScale);
+    let instructions = document.getElementById('instructions');
+    instructions.style.transform = `scale(${newScale})`;
+    instructions.style.visibility = 'visible';
+}
+
+/**
  * This event listener shows the footer links container if the game is running and it should be visible or hides it.
  */
 window.addEventListener('resize', () => {
     hideOrShowFooterLinksContainer();
+    changeInstructionSize();
 })
+
+/**
+ * This event listener changes the size of the instructions when the device is rotated.
+ */
+screen.orientation.addEventListener("change", () => {
+    changeInstructionSize();
+});

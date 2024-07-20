@@ -36,6 +36,27 @@ function resumeAllIntervals() {
 }
 
 /**
+ * This function changes the display property of the style of an HTML element.
+ * @param {string} htmlElementId
+ * @param {string} displayProperty 
+ */
+function changeDisplayProperty(htmlElementId, displayProperty) {
+    let selectedElement = document.getElementById(htmlElementId);
+    selectedElement.style.display = displayProperty;
+}
+
+/**
+ * This function changes the display property of multiple HTML elements.
+ * @param {Array} htmlElementIds 
+ * @param {string} displayProperty 
+ */
+function changeMultipleDisplayProperties(htmlElementIds, displayProperty) {
+    htmlElementIds.forEach(htmlElementId => {
+        changeDisplayProperty(htmlElementId, displayProperty);
+    })
+}
+
+/**
  * This functions loads the current level.
  */
 function loadCurrentLevel() {
@@ -56,10 +77,7 @@ function isTouchscreen() {
  */
 function showTouchscreenButtons() {
     let ids = ['left-and-right-arrow-buttons', 'up-and-down-arrow-and-attack-buttons'];
-    ids.forEach(id => {
-        let element = document.getElementById(id);
-        element.style.display = 'flex';
-    })
+    changeMultipleDisplayProperties(ids, 'flex');
 }
 
 /**
@@ -67,10 +85,7 @@ function showTouchscreenButtons() {
  */
 function hideTouchscreenButtons() {
     let ids = ['left-and-right-arrow-buttons', 'up-and-down-arrow-and-attack-buttons'];
-    ids.forEach(id => {
-        let element = document.getElementById(id);
-        element.style.display = 'none';
-    })
+    changeMultipleDisplayProperties(ids, 'none');
 }
 
 /**
@@ -80,8 +95,7 @@ function showInfos() {
     if (!gameHasEnded) {
         pauseGame();
     }
-    let infos = document.getElementById('infos');
-    infos.style.display = 'block';
+    changeDisplayProperty('infos', 'block');
 }
 
 /**
@@ -91,8 +105,7 @@ function hideInfos() {
     if (!gameHasEnded) {
         resumeGame();
     }
-    let infos = document.getElementById('infos');
-    infos.style.display = 'none';
+    changeDisplayProperty('infos', 'none');
 }
 
 /**
@@ -108,8 +121,8 @@ function openFullScreen(elementId) {
     } else if (element.msRequestFullscreen) {
       element.msRequestFullscreen();
     }
-    let fullscreenButton = document.getElementById('fullscreen-button');
-    fullscreenButton.style.display = 'none';
+    changeDisplayProperty('fullscreen-button', 'none');
+    changeInstructionSize();
 }
 
 /**
@@ -121,10 +134,10 @@ function onMuteButtonClick(event) {
     if (event.pointerType !== '') {
         if (!muted) {
             muteOrUnmuteAllAudio(true);
-            muteButtonImage.src = 'img/7.icons/no_sound_24dp_FILL1_wght400_GRAD0_opsz24.svg';
+            muteButtonImage.src = 'img/6.icons/no_sound_24dp_FILL1_wght400_GRAD0_opsz24.svg';
         } else {
             muteOrUnmuteAllAudio(false);
-            muteButtonImage.src = 'img/7.icons/volume_up_24dp_FILL1_wght400_GRAD0_opsz24.svg';
+            muteButtonImage.src = 'img/6.icons/volume_up_24dp_FILL1_wght400_GRAD0_opsz24.svg';
         }
     }
 }
@@ -183,7 +196,7 @@ function muteFinalBossSound() {
  * @returns {boolean} Whether the footer links container and the canvas overlap.
  */
 function isFooterLinksContainerOverlapping() {
-    let footerLinksContainer = document.getElementById('footer-links-container');
+    let footerLinksContainer = document.getElementById('game-footer-links-container');
     let canvas = document.getElementById('canvas');
     let footerLinksContainerRect = footerLinksContainer.getBoundingClientRect();
     let canvasRect = canvas.getBoundingClientRect();
@@ -202,7 +215,6 @@ function isFooterLinksContainerOverlapping() {
  */
 document.addEventListener("fullscreenchange", () => {
     if (!document.fullscreenElement) {
-        let fullscreenButton = document.getElementById('fullscreen-button');
-        fullscreenButton.style.display = 'flex';
+        changeDisplayProperty('fullscreen-button', 'flex');
     }
 });

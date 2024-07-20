@@ -2,6 +2,7 @@
 class Light extends MovableObject {
     height = 480;
     width = 720;
+    
     /**
      * Create a light.
      * @param {string} imagePath - The path to the image.
