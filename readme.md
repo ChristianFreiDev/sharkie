@@ -9,9 +9,9 @@ There are three levels, increasing in difficulty. If you lose, you can play the 
 If you manage to beat level 3, you can start from the beginning.
 
 ## Controls
-D/O: Blow a bubble
-Space/&#129416: Fin slap
-Arrow keys/buttons: Move shark
+D/O: Blow a bubble  
+Space/🦈: Fin slap  
+Arrow keys/buttons: Move shark  
 ESC: End fullscreen
 
 ## Additional information
