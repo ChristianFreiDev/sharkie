@@ -167,10 +167,9 @@ function resumeAmbienceSound() {
 }
 
 /**
- * This function mutes or unmutes a specific set of sounds.
- * @param {boolean} bool - Whether audio should be muted or not.
+ * This function mutes the character sounds.
  */
-function muteOrUnmuteGameAudio(bool) {
+function muteCharacterAudio(bool) {
     world.character.AUDIO_SWIM.muted = bool;
     world.character.AUDIO_BUBBLE_TRAP.muted = bool;
     world.character.AUDIO_FIN_SLAP.muted = bool;
@@ -178,13 +177,35 @@ function muteOrUnmuteGameAudio(bool) {
     world.character.AUDIO_ELECTRIC_SHOCK.muted = bool;
     world.character.AUDIO_SNORING.muted = bool;
     world.character.AUDIO_YAWN.muted = bool;
+}
+
+/**
+ * This function mutes the world sounds.
+ */
+function muteWorldAudio(bool) {
     world.AUDIO_AMBIENCE.muted = bool;
     world.AUDIO_ENEMY_HURT.muted = bool;
+}
+
+/**
+ * This function mutes the sounds of the final boss.
+ */
+function muteFinalBossAudio(bool) {
     let finalBoss = world.enemies[world.enemies.length - 1];
     finalBoss.AUDIO_SPLASH.muted = bool;
     finalBoss.AUDIO_HURT.muted = bool;
     finalBoss.AUDIO_BOSS_FIGHT.muted = bool;
     finalBoss.AUDIO_BITE.muted = bool;
+}
+
+/**
+ * This function mutes or unmutes a specific set of sounds.
+ * @param {boolean} bool - Whether audio should be muted or not.
+ */
+function muteOrUnmuteGameAudio(bool) {
+    muteCharacterAudio(bool);
+    muteWorldAudio(bool);
+    muteFinalBossAudio(bool);
 }
 
 /**
@@ -234,3 +255,15 @@ document.addEventListener("fullscreenchange", () => {
         changeDisplayProperty('fullscreen-button', 'flex');
     }
 });
+
+/**
+ * This function disables the context menu on touchscreen devices to prevent the context menu from appearing on long touches.
+ */
+function disableContextmenu() {
+    if (isTouchscreen()) {
+        window.oncontextmenu = function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    }
+}

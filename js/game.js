@@ -16,6 +16,7 @@ let progress = 0;
  */
 async function init() {
     await assetCache.loadAssets();
+    disableContextmenu();
     changeInstructionSize();
     setupGame();
 }
@@ -252,6 +253,13 @@ function onTouch(event) {
 }
 
 /**
+ * This event listener prevents actions from continuing in the event that a touch is cancelled.
+ */
+window.addEventListener('touchcancel', () => {
+    keyboard.reset();
+});
+
+/**
  * This function binds the corresponding touch events to the keyboard buttons using event listeners.
  */
 function bindButtonEvents() {
@@ -259,57 +267,46 @@ function bindButtonEvents() {
         onTouch(event);
         keyboard.LEFT = true;
     });
-    
     document.getElementById('left-button').addEventListener('touchend', (event) => {
         onTouch(event);
         keyboard.LEFT = false;
     });
-    
     document.getElementById('right-button').addEventListener('touchstart', (event) => {
         onTouch(event);
         keyboard.RIGHT = true;
     });
-    
     document.getElementById('right-button').addEventListener('touchend', (event) => {
         onTouch(event);
         keyboard.RIGHT = false;
     });
-
     document.getElementById('bubble-trap-button').addEventListener('touchstart', (event) => {
         onTouch(event);
         keyboard.D = true;
     });
-
     document.getElementById('bubble-trap-button').addEventListener('touchend', (event) => {
         onTouch(event);
         keyboard.D = false;
     });
-
     document.getElementById('fin-slap-button').addEventListener('touchstart', (event) => {
         onTouch(event);
         keyboard.SPACE = true;
     });
-
     document.getElementById('fin-slap-button').addEventListener('touchend', (event) => {
         onTouch(event);
         keyboard.SPACE = false;
     });
-
     document.getElementById('up-button').addEventListener('touchstart', (event) => {
         onTouch(event);
         keyboard.UP = true;
     });
-
     document.getElementById('up-button').addEventListener('touchend', (event) => {
         onTouch(event);
         keyboard.UP = false;
     });
-
     document.getElementById('down-button').addEventListener('touchstart', (event) => {
         onTouch(event);
         keyboard.DOWN = true;
     });
-
     document.getElementById('down-button').addEventListener('touchend', (event) => {
         onTouch(event);
         keyboard.DOWN = false;
@@ -340,7 +337,11 @@ window.addEventListener('resize', () => {
 
 /**
  * This event listener changes the size of the instructions when the device is rotated.
+ * The page is reloaded on touchscreen devices using location.href so that the changes from changeInstructionSize() will definitely be applied.
  */
 screen.orientation.addEventListener("change", () => {
     changeInstructionSize();
+    if (isTouchscreen()) {
+        location.href = location.href;
+    }
 });
