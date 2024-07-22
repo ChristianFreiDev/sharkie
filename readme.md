@@ -17,4 +17,6 @@ ESC: End fullscreen
 ## Additional information
 If you enter "debugmode = true" in the console, you can see the image outlines (in blue), hitboxes (in red), and slap hitbox (in yellow).
 
+See credits.html and attribution.txt files in the respective folders for attribution.
+
 Have fun playing!
