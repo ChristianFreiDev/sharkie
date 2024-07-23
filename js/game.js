@@ -10,6 +10,7 @@ let currentLevelIndex = 0;
 let currentLevel = level1;
 let assetCache = new AssetCache();
 let progress = 0;
+let animationIntervalLength = 150;
 
 /**
  * This function initializes the game by loading the assets and setting up the game.
@@ -102,13 +103,13 @@ function gameOver() {
     gameHasEnded = true;
     setTimeout(() => {
         world.AUDIO_GAME_OVER.play();
-    }, 600)
+    }, animationIntervalLength * 3)
     setTimeout(() => {
         pauseGame();
         changeDisplayProperty('game-over-screen', 'block');
         hideTouchscreenButtons();
         hideOrShowFooterLinksContainer();
-    }, 1600);
+    }, animationIntervalLength * 8);
 }
 
 /**
@@ -137,7 +138,7 @@ function youWin() {
         }
         hideTouchscreenButtons();
         hideOrShowFooterLinksContainer();
-    }, 1800);
+    }, animationIntervalLength * 9);
 }
 
 /**

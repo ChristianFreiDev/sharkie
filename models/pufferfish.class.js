@@ -69,7 +69,7 @@ class PufferFish extends MovableObject {
     hasBeenHurt() {
         if (this.firstHit) {
             let timePassed = new Date().getTime() - this.firstHit;
-            if (timePassed >= 1000) {
+            if (timePassed >= this.animationIntervalLength * 5) {
                 this.offset.top = this.height * 0.1;
                 this.offset.bottom = this.height * 0.13;
                 this.offset.left = this.width * 0.13;
@@ -116,7 +116,7 @@ class PufferFish extends MovableObject {
             } else {
                 this.playAnimation(this.IMAGES_SWIM);
             }
-        }, 200)
+        }, this.animationIntervalLength)
     }
 
     /**

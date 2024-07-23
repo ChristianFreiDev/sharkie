@@ -73,6 +73,6 @@ class Jellyfish extends MovableObject {
             } else {
                 this.playAnimation(this.IMAGES_SWIM);
             }
-        }, 200)
+        }, this.animationIntervalLength)
     }
 }

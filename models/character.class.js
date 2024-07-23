@@ -135,7 +135,7 @@ class Character extends MovableObject {
             this.world.camera_x = Math.round(-this.x) + 64;
         }, 1000 / 60)
 
-        setStoppableInterval(() => this.playCharacterAnimations(), 200);
+        setStoppableInterval(() => this.playCharacterAnimations(), this.animationIntervalLength);
     }
 
     /**
@@ -178,7 +178,7 @@ class Character extends MovableObject {
      */
     isBlowingBubble() {
         let timePassed = new Date().getTime() - this.lastBubble;
-        return timePassed < 1600;
+        return timePassed < this.animationIntervalLength * 8;
     }
 
     /**
@@ -187,7 +187,7 @@ class Character extends MovableObject {
      */
     isSlapping() {
         let timePassed = new Date().getTime() - this.lastSlap;
-        return timePassed < 1200;
+        return timePassed < this.animationIntervalLength * 6;
     }
 
     /**
@@ -196,7 +196,7 @@ class Character extends MovableObject {
      */
     isSlapCooldown() {
         let timePassed = new Date().getTime() - this.lastSlap;
-        return timePassed < 2000;
+        return timePassed < this.animationIntervalLength * 10;
     }
 
     /**
@@ -229,7 +229,7 @@ class Character extends MovableObject {
     shootBubble() {
         let bubbleTimeout = setTimeout(() => {
             this.world.bubbles.push(new Bubble(this.x + this.width - this.offset.right + 8, this.y + this.height - this.offset.bottom - 52, this.lastBubbleIsPoisoned, this.otherDirection));
-        }, 1600)
+        }, this.animationIntervalLength * 8)
         this.bubbleTimeouts.push(bubbleTimeout);
     }
 
@@ -267,7 +267,7 @@ class Character extends MovableObject {
     finSlap() {
         this.currentImage = 0;
         this.lastSlap = new Date().getTime();
-        setTimeout(() => this.AUDIO_FIN_SLAP.play(), 400);
+        setTimeout(() => this.AUDIO_FIN_SLAP.play(), this.animationIntervalLength * 2);
     }
 
     /**
@@ -331,7 +331,7 @@ class Character extends MovableObject {
      * This function plays a snoring sound when approriate.
      */
     playSnoringSoundIfNecessary() {
-        if (new Date().getTime() - lastInput >= 17000) {
+        if (new Date().getTime() - lastInput >= (15000 + (this.animationIntervalLength * 10))) {
             this.AUDIO_SNORING.play();
         } else {
             this.AUDIO_SNORING.pause();
@@ -458,9 +458,9 @@ class Character extends MovableObject {
         }
         else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP) {
             this.playSwimOrIdleAnimation();
-        } else if (new Date().getTime() - lastInput > 15000 && new Date().getTime() - lastInput < 17000) {
+        } else if (new Date().getTime() - lastInput > 15000 && new Date().getTime() - lastInput < (15000 + (this.animationIntervalLength * 10))) {
             this.playFallingAsleepAnimation();
-        } else if (new Date().getTime() - lastInput >= 17000) {
+        } else if (new Date().getTime() - lastInput >= (15000 + (this.animationIntervalLength * 10))) {
             this.playAnimation(this.IMAGES_SLEEPING);
         } else {
             this.playAnimation(this.IMAGES_IDLE);

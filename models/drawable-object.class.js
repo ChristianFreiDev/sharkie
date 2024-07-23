@@ -15,6 +15,7 @@ class DrawableObject {
     width;
     imageCache = {};
     currentImage = 0;
+    animationIntervalLength = animationIntervalLength;
 
     /**
      * Draw the object.
@@ -124,7 +125,7 @@ class DrawableObject {
     animate() {
         setStoppableInterval(() => {
             this.playAnimation(this.IMAGES);
-        }, 200)
+        }, this.animationIntervalLength)
     }
 
     /**

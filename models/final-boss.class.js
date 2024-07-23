@@ -256,7 +256,7 @@ class FinalBoss extends MovableObject {
             if (world && world.character.x > 1700 && !this.hadFirstContact) {
                 this.onFirstContact(counters);
             }
-        }, 200)
+        }, this.animationIntervalLength)
     }
 
     /**
