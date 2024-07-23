@@ -162,14 +162,14 @@ class Character extends MovableObject {
      * Swim upwards.
      */
     swimUp() {
-        this.speedY = 1.2;
+        this.speedY = 1.5;
     }
 
     /**
      * Swim towards the bottom of the screen.
      */
     swimDown() {
-        this.speedY = -1.2;
+        this.speedY = -1.5;
     }
 
     /**
