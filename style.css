@@ -346,6 +346,7 @@ progress {
 }
 
 h1 {
+    color: rgba(255, 255, 255, 0.9);
     font-size: 64px;
     letter-spacing: 2px;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.62);

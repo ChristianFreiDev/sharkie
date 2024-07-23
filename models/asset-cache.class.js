@@ -190,6 +190,7 @@ class AssetCache {
         } finally {
             setTimeout(() => {
                 changeDisplayProperty('loading-screen', 'none');
+                darkenBackground();
             }, 1000);
         }
     }

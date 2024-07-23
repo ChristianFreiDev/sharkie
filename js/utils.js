@@ -229,6 +229,14 @@ function muteFinalBossSound() {
 }
 
 /**
+ * This function changes the brightness of the background image.
+ */
+function darkenBackground() {
+    let body = document.querySelector('body');
+    body.style.backdropFilter = 'brightness(0.83)';
+}
+
+/**
  * This function checks if the footer links container and the canvas overlap to determine if the footer links container should be shown.
  * @returns {boolean} Whether the footer links container and the canvas overlap.
  */
