@@ -104,7 +104,7 @@ class World {
      * Play the appropriate sound when a coin or a poison bottle is collected.
      */
     playCollectSound() {
-        if (!muted) {
+        if (!muted && isAudioEnabled) {
             let sound = this.AUDIO_COLLECT.cloneNode();
             sound.volume = assetCache.audioCache['collect'].volume;
             sound.play();
@@ -165,11 +165,11 @@ class World {
             if (bubble.isCollidingWith(enemy)) {
                 if (enemy.energy > 0) {
                     enemy.hit(bubble);
-                    if (enemy instanceof PufferFish) {
+                    if (enemy instanceof PufferFish && isAudioEnabled) {
                         this.AUDIO_ENEMY_HURT.play();
                     }
                     this.bubbles.splice(this.bubbles.indexOf(bubble), 1);
-                    if (!muted) {
+                    if (!muted && isAudioEnabled) {
                         bubble.AUDIO_BUBBLE_POP.play();
                     }
                 }

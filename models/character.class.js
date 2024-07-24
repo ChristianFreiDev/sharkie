@@ -237,9 +237,11 @@ class Character extends MovableObject {
      * Play the sound of blowing a bubble.
      */
     playBlowBubbleSound() {
-        let sound = this.AUDIO_BUBBLE_TRAP.cloneNode();
-        sound.volume = assetCache.audioCache['blow'].volume;
-        sound.play();
+        if (isAudioEnabled) {
+            let sound = this.AUDIO_BUBBLE_TRAP.cloneNode();
+            sound.volume = assetCache.audioCache['blow'].volume;
+            sound.play();
+        }
     }
 
     /**
@@ -267,7 +269,7 @@ class Character extends MovableObject {
     finSlap() {
         this.currentImage = 0;
         this.lastSlap = new Date().getTime();
-        setTimeout(() => this.AUDIO_FIN_SLAP.play(), this.animationIntervalLength * 2);
+        setTimeout(() => this.playSound(this.AUDIO_FIN_SLAP), this.animationIntervalLength * 2);
     }
 
     /**
@@ -332,9 +334,9 @@ class Character extends MovableObject {
      */
     playSnoringSoundIfNecessary() {
         if (new Date().getTime() - lastInput >= (15000 + (this.animationIntervalLength * 10))) {
-            this.AUDIO_SNORING.play();
+            this.playSound(this.AUDIO_SNORING);
         } else {
-            this.AUDIO_SNORING.pause();
+            this.pauseSound(this.AUDIO_SNORING);
         }
     }
 
@@ -402,11 +404,11 @@ class Character extends MovableObject {
     playHurtAnimation() {
         if (this.wasLastHitElectricShock) {
             this.playAnimation(this.IMAGES_HURT_ELECTRIC_SHOCK);
-            this.AUDIO_ELECTRIC_SHOCK.play();
+            this.playSound(this.AUDIO_ELECTRIC_SHOCK);
         } else {
             this.playAnimation(this.IMAGES_HURT_POISONED);
         }
-        this.AUDIO_HURT.play();
+        this.playSound(this.AUDIO_HURT);
     }
 
     /**
@@ -426,7 +428,7 @@ class Character extends MovableObject {
     playSwimOrIdleAnimation() {
         if (!gameHasEnded) {
             this.playAnimation(this.IMAGES_SWIM);
-            this.AUDIO_SWIM.play();
+            this.playSound(this.AUDIO_SWIM);
         } else {
             this.playAnimation(this.IMAGES_IDLE);
         }
@@ -437,14 +439,14 @@ class Character extends MovableObject {
      */
     playFallingAsleepAnimation() {
         this.playAnimation(this.IMAGES_LONG_IDLE);
-        this.AUDIO_YAWN.play();
+        this.playSound(this.AUDIO_YAWN);
     }
 
     /**
      * Play the character animations depending on the current states of the player and the game.
      */
     playCharacterAnimations() {
-        this.AUDIO_SWIM.pause();
+        this.pauseSound(this.AUDIO_SWIM);
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD_POISONED);
         }

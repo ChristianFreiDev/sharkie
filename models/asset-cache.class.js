@@ -153,11 +153,11 @@ class AssetCache {
             let img = new Image();
             img.src = imagePath;
             this.imageCache[imagePath] = img;
-            img.addEventListener('load', () => {
+            img.onload = () => {
                 this.updateProgress();
                 resolve();
             }
-        )})));
+        })));
     }
 
     /**
@@ -184,7 +184,11 @@ class AssetCache {
      */
     async loadAssets() {
         try {
-            await Promise.all([this.loadImages(), this.loadAudio()]);
+            if (isAudioEnabled) {
+                await Promise.all([this.loadImages(), this.loadAudio()]);
+            } else {
+                await this.loadImages();
+            }
         } catch {
             console.error('Assets could not be loaded.');
         } finally {

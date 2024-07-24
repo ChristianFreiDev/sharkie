@@ -19,6 +19,9 @@ async function init() {
     await assetCache.loadAssets();
     disableContextmenu();
     changeInstructionSize();
+    if (!isAudioEnabled) {
+        changeDisplayProperty('mute-button', 'none');
+    }
     setupGame();
 }
 
@@ -102,7 +105,7 @@ function resumeGame() {
 function gameOver() {
     gameHasEnded = true;
     setTimeout(() => {
-        world.AUDIO_GAME_OVER.play();
+        if (isAudioEnabled) { world.AUDIO_GAME_OVER.play() }
     }, animationIntervalLength * 3)
     setTimeout(() => {
         pauseGame();
@@ -110,14 +113,6 @@ function gameOver() {
         hideTouchscreenButtons();
         hideOrShowFooterLinksContainer();
     }, animationIntervalLength * 8);
-}
-
-/**
- * This function plays the corresponding sounds when the player wins.
- */
-function playWinSounds() {
-    world.AUDIO_YAY.play();
-    world.AUDIO_POP.play();
 }
 
 /**

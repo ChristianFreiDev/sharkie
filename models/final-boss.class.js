@@ -191,7 +191,17 @@ class FinalBoss extends MovableObject {
      */
     playDeathAnimation() {
         this.playAnimation(this.IMAGES_DEAD);
-        this.AUDIO_HURT.play();
+        this.playSound(this.AUDIO_HURT);
+    }
+
+    /**
+     * Play boss fight audio.
+     */
+    playBossFightSound() {
+        if (isAudioEnabled) {
+            this.AUDIO_BOSS_FIGHT.play();
+            this.AUDIO_BOSS_FIGHT.loop = true;
+        }
     }
 
     /**
@@ -201,9 +211,8 @@ class FinalBoss extends MovableObject {
     onFirstContact(counters) {
         counters.i = 0;
         this.hadFirstContact = true;
-        this.AUDIO_SPLASH.play();
-        this.AUDIO_BOSS_FIGHT.play();
-        this.AUDIO_BOSS_FIGHT.loop = true;
+        this.playSound(this.AUDIO_SPLASH);
+        this.playBossFightSound();
     }
 
     /**
@@ -211,7 +220,7 @@ class FinalBoss extends MovableObject {
      */
     playHurtAnimation() {
         this.playAnimation(this.IMAGES_HURT);
-        this.AUDIO_HURT.play();
+        this.playSound(this.AUDIO_HURT);
     }
 
     /**
@@ -219,7 +228,7 @@ class FinalBoss extends MovableObject {
      */
     playBiteAnimation() {
         this.playAnimation(this.IMAGES_BITE);
-        this.AUDIO_BITE.play();
+        this.playSound(this.AUDIO_BITE);
     }
 
     /**

@@ -67,4 +67,24 @@ class MovableObject extends DrawableObject {
     moveRight() {
         this.x += this.speed;
     }
+
+    /**
+     * Play a sound.
+     * @param {HTMLAudioElement} sound - The sound.
+     */
+    playSound(sound) {
+        if (isAudioEnabled) {
+            sound.play();
+        }
+    }
+    
+    /**
+     * Pause a sound.
+     * @param {HTMLAudioElement} sound - The sound.
+     */
+    pauseSound(sound) {
+        if (isAudioEnabled) {
+            sound.pause();
+        }
+    }
 }
