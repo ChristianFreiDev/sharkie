@@ -206,7 +206,7 @@ class FinalBoss extends MovableObject {
 
     /**
      * Play corresponding sounds when the final boss enters the screen and set variables accordingly.
-     * @param {Object} counters 
+     * @param {Object} counters - Index object.
      */
     onFirstContact(counters) {
         counters.i = 0;
