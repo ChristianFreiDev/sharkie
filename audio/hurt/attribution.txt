@@ -1,5 +1,5 @@
 <a href="https://freesound.org/people/micahlg/sounds/413185/">male_hurt8.ogg</a> by <a href="https://freesound.org/people/micahlg/">micahlg</a> | License: <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons 0</a>
-/ filename changed to final-boss-hurt.ogg
+/ converted to mp3 and filename changed to final-boss-hurt.mp3
 
 <a href="https://freesound.org/people/dersuperanton/sounds/437651/">Damage Hit Voice Vocal</a> by <a href="https://freesound.org/people/dersuperanton/">dersuperanton</a> | License: <a href="https://creativecommons.org/licenses/by/4.0/">Attribution 4.0</a>
 / filename changed to character-hurt.wav

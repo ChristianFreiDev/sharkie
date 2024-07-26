@@ -1,4 +1,4 @@
-let isAudioEnabled = !isSafari;
+let isAudioEnabled = true;
 
 /**
  * This function mutes the audio when the mute button is clicked.

@@ -189,10 +189,25 @@ function disableContextmenu() {
     }
 }
 
+let platform = navigator.userAgentData?.platform || navigator.platform;
 /**
  * This variable detects if the browser is Safari.
  */
-let isSafari = navigator.userAgent &&
-               navigator.userAgent.indexOf('safari') > -1 &&
-               navigator.userAgent.indexOf('chrome') == -1 &&
-               navigator.userAgent.indexOf('chromium') == -1;
+let isSafari = platform &&
+               platform.indexOf('iPhone') > -1 ||
+               platform.indexOf('iPad') > -1 ||
+               platform.indexOf('iPod') > -1 ||
+               platform.indexOf('Mac') > -1;
+
+
+function printToDebugDiv(toBePrinted) {
+    let debugDiv = document.getElementById('debug-div');
+    debugDiv.innerHTML += toBePrinted + '<br>';
+}
+
+function printSafariStatus() {
+    printToDebugDiv(`isSafari: ${isSafari}`);
+    printToDebugDiv(`isAudioEnabled: ${isAudioEnabled}`);
+    printToDebugDiv(`userAgent: ${navigator.userAgent}`);
+    printToDebugDiv(`platform: ${platform}`);
+}

@@ -54,7 +54,7 @@ class AssetCache {
     ];
     audioCache = {
         'swim': { 
-            path: 'audio/swim/swim.ogg',
+            path: 'audio/swim/swim.mp3',
             volume: 0.3
         },
         'character-hurt': { 
@@ -70,7 +70,7 @@ class AssetCache {
             volume: 1
         },
         'blow': {
-            path: 'audio/blow/blow.ogg',
+            path: 'audio/blow/blow.mp3',
             volume: 0.55
         },
         'slap': {
@@ -90,7 +90,7 @@ class AssetCache {
             volume: 1
         },
         'final-boss-hurt': {
-            path: 'audio/hurt/final-boss-hurt.ogg',
+            path: 'audio/hurt/final-boss-hurt.mp3',
             volume: 1
         },
         'boss-fight': {
@@ -136,7 +136,10 @@ class AssetCache {
     /**
      * Update progress variable and progress bar HTML element. 
      */
-    updateProgress() {
+    updateProgress(message) {
+        if (message) {
+            printToDebugDiv('Sucessfully loaded: ' + message);
+        }
         progress++;
         this.loadPercentage = Math.round(progress / this.assetLength * 100) || 0;
         let progressBar = document.getElementById('progress-bar');
@@ -158,6 +161,7 @@ class AssetCache {
                 resolve();
             }
         })));
+        printToDebugDiv('Sucessfully loaded all images');
     }
 
     /**
@@ -167,14 +171,18 @@ class AssetCache {
         let keys = Object.keys(this.audioCache);
         await Promise.all(keys.map(key => new Promise(resolve => {
             let audioObject = this.audioCache[key];
-            let audio = new Audio(audioObject.path);
-            audio.volume = audioObject.volume;
-            audioObject.file = audio;
+            audioObject.file = new Audio();
+            audioObject.file.volume = audioObject.volume;
             audioObject.file.addEventListener('canplaythrough', () => {
-                this.updateProgress();
-                resolve();
-            }
-        )})));
+                resolve(this.updateProgress(audioObject.path));
+            });
+            audioObject.file.addEventListener('error', (err) => {
+                printToDebugDiv('Error loading audio object: ' + audioObject.path + '<br>' + err.type + '<br>' + err.message);
+            });
+            audioObject.file.preload = 'auto';
+            audioObject.file.src = audioObject.path;
+            audioObject.file.load();
+        })));
     }
 
     /**
@@ -184,17 +192,20 @@ class AssetCache {
      */
     async loadAssets() {
         try {
-            if (isAudioEnabled) {
+            // if (isAudioEnabled) {
                 await Promise.all([this.loadImages(), this.loadAudio()]);
-            } else {
-                await this.loadImages();
-            }
-        } catch {
+            // } else {
+            //     await this.loadImages();
+            // }
+        } catch(err) {
+            printToDebugDiv('Assets could not be loaded: ' + err);
             console.error('Assets could not be loaded.');
         } finally {
+            printToDebugDiv('Assets loaded. Disabling loading screen in 1 second...');
             setTimeout(() => {
                 changeDisplayProperty('loading-screen', 'none');
                 darkenBackground();
+                printToDebugDiv('Loading screen disabled');
             }, 1000);
         }
     }

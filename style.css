@@ -371,3 +371,14 @@ h1 {
 #game-footer-links-container a {
     color: white;
 }
+
+#debug-div {
+    font-family: sans-serif;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    background-color: white;
+    color: black;
+    overflow-y: scroll;
+}
