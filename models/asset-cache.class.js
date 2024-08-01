@@ -136,10 +136,7 @@ class AssetCache {
     /**
      * Update progress variable and progress bar HTML element. 
      */
-    updateProgress(message) {
-        if (message) {
-            printToDebugDiv('Sucessfully loaded: ' + message);
-        }
+    updateProgress() {
         progress++;
         this.loadPercentage = Math.round(progress / this.assetLength * 100) || 0;
         let progressBar = document.getElementById('progress-bar');
@@ -154,14 +151,12 @@ class AssetCache {
     async loadImages() {
         await Promise.all(this.imagePaths.map(imagePath => new Promise(resolve => {
             let img = new Image();
-            img.src = imagePath;
             this.imageCache[imagePath] = img;
-            img.onload = () => {
-                this.updateProgress();
-                resolve();
-            }
+            img.addEventListener('load', () => {
+                resolve(this.updateProgress());
+            });
+            img.src = imagePath;
         })));
-        printToDebugDiv('Sucessfully loaded all images');
     }
 
     /**
@@ -174,10 +169,7 @@ class AssetCache {
             audioObject.file = new Audio();
             audioObject.file.volume = audioObject.volume;
             audioObject.file.addEventListener('canplaythrough', () => {
-                resolve(this.updateProgress(audioObject.path));
-            });
-            audioObject.file.addEventListener('error', (err) => {
-                printToDebugDiv('Error loading audio object: ' + audioObject.path + '<br>' + err.type + '<br>' + err.message);
+                resolve(this.updateProgress());
             });
             audioObject.file.preload = 'auto';
             audioObject.file.src = audioObject.path;
@@ -192,20 +184,17 @@ class AssetCache {
      */
     async loadAssets() {
         try {
-            // if (isAudioEnabled) {
+            if (isAudioEnabled) {
                 await Promise.all([this.loadImages(), this.loadAudio()]);
-            // } else {
-            //     await this.loadImages();
-            // }
-        } catch(err) {
-            printToDebugDiv('Assets could not be loaded: ' + err);
+            } else {
+                await this.loadImages();
+            }
+        } catch {
             console.error('Assets could not be loaded.');
         } finally {
-            printToDebugDiv('Assets loaded. Disabling loading screen in 1 second...');
             setTimeout(() => {
                 changeDisplayProperty('loading-screen', 'none');
                 darkenBackground();
-                printToDebugDiv('Loading screen disabled');
             }, 1000);
         }
     }

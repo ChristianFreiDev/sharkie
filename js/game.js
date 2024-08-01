@@ -16,14 +16,6 @@ let animationIntervalLength = 150;
  * This function initializes the game by loading the assets and setting up the game.
  */
 async function init() {
-    printSafariStatus();
-    // Don't load if isSafari is true, false for testing
-    if (false) {
-        await loadStuff();
-    }
-}
-
-async function loadStuff() {
     await assetCache.loadAssets();
     disableContextmenu();
     changeInstructionSize();
@@ -31,7 +23,6 @@ async function loadStuff() {
         changeDisplayProperty('mute-button', 'none');
     }
     setupGame();
-    changeDisplayProperty('debug-div', 'none');
 }
 
 /**

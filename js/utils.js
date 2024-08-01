@@ -146,7 +146,7 @@ function openFullScreen(elementId) {
  */
 function darkenBackground() {
     let body = document.querySelector('body');
-    body.style.backdropFilter = 'brightness(0.83)';
+    body.style.backdropFilter = 'brightness(0.4)';
 }
 
 /**
@@ -187,27 +187,4 @@ function disableContextmenu() {
             event.stopPropagation();
         }
     }
-}
-
-let platform = navigator.userAgentData?.platform || navigator.platform;
-/**
- * This variable detects if the browser is Safari.
- */
-let isSafari = platform &&
-               platform.indexOf('iPhone') > -1 ||
-               platform.indexOf('iPad') > -1 ||
-               platform.indexOf('iPod') > -1 ||
-               platform.indexOf('Mac') > -1;
-
-
-function printToDebugDiv(toBePrinted) {
-    let debugDiv = document.getElementById('debug-div');
-    debugDiv.innerHTML += toBePrinted + '<br>';
-}
-
-function printSafariStatus() {
-    printToDebugDiv(`isSafari: ${isSafari}`);
-    printToDebugDiv(`isAudioEnabled: ${isAudioEnabled}`);
-    printToDebugDiv(`userAgent: ${navigator.userAgent}`);
-    printToDebugDiv(`platform: ${platform}`);
 }

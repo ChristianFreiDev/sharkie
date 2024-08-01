@@ -74,7 +74,7 @@ class DrawableObject {
     /**
      * Draw the hitbox - for debugging only.
      */
-    drawHitbox() {
+    drawHitbox(ctx) {
         ctx.beginPath();
         ctx.lineWidth = "10";
         ctx.strokeStyle = "red";
@@ -94,7 +94,7 @@ class DrawableObject {
                 if (this instanceof Character) {
                     this.drawSlapHitbox(ctx);
                 }
-                this.drawHitbox();
+                this.drawHitbox(ctx);
                 this.swapOffsetsForDrawingHitbox();
             }
         }

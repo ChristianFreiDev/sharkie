@@ -21,6 +21,7 @@ class FinalBoss extends MovableObject {
     IMAGES_DEAD = createImagePaths('img/2.enemies/3.final-boss/4.dead/', 1, 6);
     IMAGES_SPAWNING = createImagePaths('img/2.enemies/3.final-boss/1.spawning/', 1, 10);
     IMAGES_BITE = createImagePaths('img/2.enemies/3.final-boss/3.attack/', 1, 6);
+    numberOfSpawningFrames = 10;
 
     /**
      * Create a final boss.
@@ -136,8 +137,8 @@ class FinalBoss extends MovableObject {
     /**
      * Steer final boss in a particular direction, either towards player or towards spawn point.
      */
-    steer(j) {
-        if (j % 4 == 0 && this.difficulty == 'easy') {
+    steer(seconds) {
+        if (seconds % 4 == 0 && this.difficulty == 'easy') {
             this.updateMovementTargets({x: 2100, y: 120});
         } else {
             this.updateMovementTargets(world.character);
@@ -169,8 +170,8 @@ class FinalBoss extends MovableObject {
      */
     setSteeringInterval(counters) {
         setStoppableInterval(() => {
-            this.steer(counters.j);
-            counters.j++
+            this.steer(counters.seconds);
+            counters.seconds++
         }, 1000)
     }
 
@@ -181,7 +182,7 @@ class FinalBoss extends MovableObject {
     setMovementInterval(counters) {
         setStoppableInterval(() => {
             if (!this.isDead()) {
-                this.moveFinalBoss(counters.i);
+                this.moveFinalBoss(counters.frames);
             }
         }, 1000 / 60)
     }
@@ -209,7 +210,7 @@ class FinalBoss extends MovableObject {
      * @param {Object} counters - Index object.
      */
     onFirstContact(counters) {
-        counters.i = 0;
+        counters.frames = 0;
         this.hadFirstContact = true;
         this.playSound(this.AUDIO_SPLASH);
         this.playBossFightSound();
@@ -250,7 +251,7 @@ class FinalBoss extends MovableObject {
      */
     setAnimationInterval(counters) {
         setStoppableInterval(() => {
-            if (counters.i < 10) {
+            if (counters.frames < this.numberOfSpawningFrames) {
                 this.playAnimation(this.IMAGES_SPAWNING);
             }
             else if (this.hadFirstContact) {
@@ -261,8 +262,9 @@ class FinalBoss extends MovableObject {
                     this.playRegularAnimations();
                 }
             }
-            counters.i++;
-            if (world && world.character.x > 1700 && !this.hadFirstContact) {
+            counters.frames++;
+            let minimumCharacterXPosition = 1700;
+            if (world && world.character.x > minimumCharacterXPosition && !this.hadFirstContact) {
                 this.onFirstContact(counters);
             }
         }, this.animationIntervalLength)
@@ -272,7 +274,7 @@ class FinalBoss extends MovableObject {
      * Animate final boss.
      */
     animate() {
-        let counters = {i: 10, j: 0};
+        let counters = {frames: this.numberOfSpawningFrames, seconds: 0};
         this.setSteeringInterval(counters);
         this.setMovementInterval(counters);
         this.setAnimationInterval(counters);
